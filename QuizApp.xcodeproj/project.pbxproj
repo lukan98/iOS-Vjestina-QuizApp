@@ -16,6 +16,9 @@
 		FC615F8326212771004B1ACB /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC615F7D26212771004B1ACB /* Quiz.swift */; };
 		FC615F8426212771004B1ACB /* DataServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC615F7E26212771004B1ACB /* DataServiceProtocol.swift */; };
 		FC615F8B262130AC004B1ACB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC615F8A262130AC004B1ACB /* LoginView.swift */; };
+		FC615F9B26220ED7004B1ACB /* AppLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC615F9A26220ED7004B1ACB /* AppLabel.swift */; };
+		FC615FA2262217FC004B1ACB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC615FA1262217FC004B1ACB /* Utils.swift */; };
+		FC615FA526221F9C004B1ACB /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC615FA426221F9C004B1ACB /* TextField.swift */; };
 		FCB23E43261B385E00405F5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB23E42261B385E00405F5D /* AppDelegate.swift */; };
 		FCB23E45261B385E00405F5D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB23E44261B385E00405F5D /* SceneDelegate.swift */; };
 		FCB23E4C261B386000405F5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCB23E4B261B386000405F5D /* Assets.xcassets */; };
@@ -34,6 +37,9 @@
 		FC615F7D26212771004B1ACB /* Quiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 		FC615F7E26212771004B1ACB /* DataServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataServiceProtocol.swift; sourceTree = "<group>"; };
 		FC615F8A262130AC004B1ACB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		FC615F9A26220ED7004B1ACB /* AppLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLabel.swift; sourceTree = "<group>"; };
+		FC615FA1262217FC004B1ACB /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		FC615FA426221F9C004B1ACB /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		FCB23E3F261B385E00405F5D /* QuizApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCB23E42261B385E00405F5D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCB23E44261B385E00405F5D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,16 +77,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		FC615F7726212771004B1ACB /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				FC615F7826212771004B1ACB /* DataService.swift */,
-				FC615F7926212771004B1ACB /* Models */,
-				FC615F7E26212771004B1ACB /* DataServiceProtocol.swift */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
 		FC615F7926212771004B1ACB /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +86,43 @@
 				FC615F7D26212771004B1ACB /* Quiz.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		FC615F8D262209E9004B1ACB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FC615FA726222655004B1ACB /* View Components */,
+				FC615F8A262130AC004B1ACB /* LoginView.swift */,
+				FC615FA1262217FC004B1ACB /* Utils.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FC615F8E26220A0A004B1ACB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FC615F74262126E8004B1ACB /* LoginViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		FC615F8F26220A16004B1ACB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FC615F7826212771004B1ACB /* DataService.swift */,
+				FC615F7926212771004B1ACB /* Models */,
+				FC615F7E26212771004B1ACB /* DataServiceProtocol.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FC615FA726222655004B1ACB /* View Components */ = {
+			isa = PBXGroup;
+			children = (
+				FC615FA426221F9C004B1ACB /* TextField.swift */,
+				FC615F9A26220ED7004B1ACB /* AppLabel.swift */,
+			);
+			path = "View Components";
 			sourceTree = "<group>";
 		};
 		FCB23E36261B385E00405F5D = {
@@ -113,14 +146,14 @@
 		FCB23E41261B385E00405F5D /* QuizApp */ = {
 			isa = PBXGroup;
 			children = (
+				FC615F8F26220A16004B1ACB /* Model */,
+				FC615F8E26220A0A004B1ACB /* Controller */,
+				FC615F8D262209E9004B1ACB /* View */,
 				FCB23E50261B386000405F5D /* Info.plist */,
 				FCB23E42261B385E00405F5D /* AppDelegate.swift */,
-				FC615F74262126E8004B1ACB /* LoginViewController.swift */,
 				FCB23E44261B385E00405F5D /* SceneDelegate.swift */,
 				FCB23E4B261B386000405F5D /* Assets.xcassets */,
-				FC615F7726212771004B1ACB /* Data */,
 				FCB23E4D261B386000405F5D /* LaunchScreen.storyboard */,
-				FC615F8A262130AC004B1ACB /* LoginView.swift */,
 			);
 			path = QuizApp;
 			sourceTree = "<group>";
@@ -225,11 +258,14 @@
 				FCB23E43261B385E00405F5D /* AppDelegate.swift in Sources */,
 				FC615F8426212771004B1ACB /* DataServiceProtocol.swift in Sources */,
 				FC615F8126212771004B1ACB /* Question.swift in Sources */,
+				FC615FA526221F9C004B1ACB /* TextField.swift in Sources */,
 				FC615F8226212771004B1ACB /* LoginStatus.swift in Sources */,
 				FCB23E45261B385E00405F5D /* SceneDelegate.swift in Sources */,
 				FC615F8326212771004B1ACB /* Quiz.swift in Sources */,
 				FC615F8B262130AC004B1ACB /* LoginView.swift in Sources */,
+				FC615F9B26220ED7004B1ACB /* AppLabel.swift in Sources */,
 				FC615F7F26212771004B1ACB /* DataService.swift in Sources */,
+				FC615FA2262217FC004B1ACB /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
