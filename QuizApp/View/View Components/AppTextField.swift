@@ -8,23 +8,15 @@
 import UIKit
 
 class TextField: UITextField {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.AppTheme.whiteWithTransparency
         self.textColor = UIColor.AppTheme.white
+        self.font = UIFont.AppTheme.light
         self.translatesAutoresizingMaskIntoConstraints = false
         self.textAlignment = .left
         self.layer.cornerRadius = Utils.defaultCornerRadius
-        self.clipsToBounds = true
     }
     
     convenience init(frame: CGRect, placeholderText: String, isSecure: Bool) {
