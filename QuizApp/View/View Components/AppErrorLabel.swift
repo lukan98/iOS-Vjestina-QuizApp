@@ -1,19 +1,21 @@
 //
-//  AppLabel.swift
+//  AppErrorLabel.swift
 //  QuizApp
 //
-//  Created by Luka Namačinski on 10.04.2021..
+//  Created by Luka Namačinski on 11.04.2021..
 //
 
 import UIKit
 
-class AppLabel: UILabel {
+class AppErrorLabel: UILabel {
     
-    override init(frame: CGRect) {
+    private override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.font = UIFont.AppTheme.title
-        self.backgroundColor = UIColor(white: 1, alpha: 0)
+        self.font = UIFont.AppTheme.alert
+        self.backgroundColor = UIColor.AppTheme.red
+        self.layer.cornerRadius = Utils.defaultCornerRadius
+        self.layer.masksToBounds = true
         self.textColor = UIColor.AppTheme.white
         self.textAlignment = .center
     }
