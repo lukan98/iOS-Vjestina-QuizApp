@@ -9,11 +9,11 @@ import UIKit
 
 class AppErrorLabel: UILabel {
     
-    private override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = UIColor.AppTheme.red
-        self.layer.cornerRadius = Utils.defaultCornerRadius
+        self.layer.cornerRadius = Utils.cornerRadiuses.sharpCornerRadius
         self.layer.masksToBounds = true
         self.textColor = UIColor.AppTheme.white
         self.textAlignment = .center

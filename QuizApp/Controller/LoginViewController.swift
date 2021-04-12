@@ -10,17 +10,17 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-    private let appTitle: AppLabel = AppLabel(frame: CGRect(), text: Utils.appTitle, font: UIFont.AppTheme.title)
+    private let appTitle: AppLabel = AppLabel(frame: CGRect(), text: Utils.defaultStrings.appTitle, font: UIFont.AppTheme.title)
     private let emailField: TextField =  {
-        let field = TextField(frame: CGRect(), font: UIFont.AppTheme.bodyLight, placeholderText: Utils.emailPlaceholder, isSecure: false)
+        let field = TextField(frame: CGRect(), font: UIFont.AppTheme.bodyLight, placeholderText: Utils.defaultStrings.emailPlaceholder, isSecure: false)
         field.autocorrectionType = UITextAutocorrectionType.no
         field.autocapitalizationType = UITextAutocapitalizationType.none
         return field
     }()
-    private let passwordField: TextField = TextField(frame: CGRect(), font: UIFont.AppTheme.bodyLight, placeholderText: Utils.passwordPlaceholder, isSecure: true)
-    private let signInButton: AppButton = AppButton(frame: CGRect(), font: UIFont.AppTheme.bodyBold, title: Utils.signInString)
+    private let passwordField: TextField = TextField(frame: CGRect(), font: UIFont.AppTheme.bodyLight, placeholderText: Utils.defaultStrings.passwordPlaceholder, isSecure: true)
+    private let signInButton: AppButton = AppButton(frame: CGRect(), font: UIFont.AppTheme.bodyBold, title: Utils.defaultStrings.signInString)
     private let errorMessage: AppErrorLabel = {
-        let errorLabel = AppErrorLabel(frame: CGRect(), font: UIFont.AppTheme.heading3, text: Utils.signInFail)
+        let errorLabel = AppErrorLabel(frame: CGRect(), font: UIFont.AppTheme.heading3, text: Utils.defaultStrings.signInFail)
         errorLabel.isHidden = true
         return errorLabel
     } ()

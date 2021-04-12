@@ -9,13 +9,13 @@ import UIKit
 
 class TextField: UITextField {
     
-    private override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.AppTheme.whiteWithTransparency
         self.textColor = UIColor.AppTheme.white
         self.translatesAutoresizingMaskIntoConstraints = false
         self.textAlignment = .left
-        self.layer.cornerRadius = Utils.defaultCornerRadius
+        self.layer.cornerRadius = Utils.cornerRadiuses.softCornerRadius
     }
     
     convenience init(frame: CGRect, font: UIFont, placeholderText: String, isSecure: Bool) {
@@ -55,6 +55,6 @@ extension TextField {
     @objc
     func hideBorder() {
         self.layer.borderWidth = 0
-        self.layer.borderColor = UIColor.init(white: 1, alpha: 0).cgColor
+        self.layer.borderColor = UIColor.clear.cgColor
     }
 }

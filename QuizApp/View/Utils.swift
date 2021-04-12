@@ -49,14 +49,21 @@ extension UIViewController {
 }
 
 struct Utils {
-    static let emailPlaceholder = "Email"
-    static let passwordPlaceholder = "Password"
-    static let signInString = "Sign in"
-    static let appTitle = "PopQuiz"
-    static let signInFail = "Sign in error"
-    static let getQuizString = "Get Quiz"
-    static let noQuizzesSymbol = "xmark.circle"
-    static let noQuizzesDescription = "Data can't be reached.\nPlease try again."
-    static let defaultCornerRadius = 20.0 as CGFloat
+    struct defaultStrings {
+        static let emailPlaceholder = "Email"
+        static let passwordPlaceholder = "Password"
+        static let signInString = "Sign in"
+        static let appTitle = "PopQuiz"
+        static let signInFail = "Sign in error"
+        static let getQuizString = "Get Quiz"
+        static let noQuizzesDescription = "Data can't be reached.\nPlease try again."
+    }
+    struct cornerRadiuses {
+        static let softCornerRadius = 20.0 as CGFloat
+        static let sharpCornerRadius = 10.0 as CGFloat
+    }
+    struct symbols {
+        static let noQuizzesSymbol = "xmark.circle"
+    }
     static let defaultInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
 }

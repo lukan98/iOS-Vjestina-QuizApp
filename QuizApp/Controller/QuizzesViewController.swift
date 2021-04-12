@@ -7,15 +7,15 @@
 
 import UIKit
 
-class QuizzesViewController: UIViewController {
+class QuizzesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
 //    PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
-    private let appTitle: AppLabel = AppLabel(frame: CGRect(), text: Utils.appTitle, font: UIFont.AppTheme.title)
-    private let getQuizzesButton: AppButton = AppButton(frame: CGRect(), font: UIFont.AppTheme.bodyBold, title: Utils.getQuizString)
+    private let appTitle: AppLabel = AppLabel(frame: CGRect(), text: Utils.defaultStrings.appTitle, font: UIFont.AppTheme.title)
+    private let getQuizzesButton: AppButton = AppButton(frame: CGRect(), font: UIFont.AppTheme.bodyBold, title: Utils.defaultStrings.getQuizString)
     
 //    PROPERTIES RELATED TO THE INITIAL ERROR MESSAGE WHICH IS SHOWN WHEN QUIZZES HAVEN'T BEEN/CAN'T BE LOADED
     private let errorSymbol: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: Utils.noQuizzesSymbol))
+        let imageView = UIImageView(image: UIImage(systemName: Utils.symbols.noQuizzesSymbol))
         imageView.sizeToFit()
         imageView.tintColor = UIColor.AppTheme.white
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -23,7 +23,7 @@ class QuizzesViewController: UIViewController {
         return imageView
     }()
     private let errorLabel: AppLabel = AppLabel(frame: CGRect(), text: "Error", font: UIFont.AppTheme.heading2)
-    private let errorDescription: AppLabel = AppLabel(frame: CGRect(), text: Utils.noQuizzesDescription, font: UIFont.AppTheme.bodyLight)
+    private let errorDescription: AppLabel = AppLabel(frame: CGRect(), text: Utils.defaultStrings.noQuizzesDescription, font: UIFont.AppTheme.bodyLight)
     private let errorContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -31,10 +31,11 @@ class QuizzesViewController: UIViewController {
     }()
     
 //    TABLEVIEW RELATED PROPERTIES
-    let cellIdentifier = "cellId"
+    private let cellIdentifier = "cellId"
     private let tableView: UITableView = {
         let tableView = UITableView(frame: CGRect())
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .init(white: 1, alpha: 0)
         tableView.isHidden = true
         return tableView
     }()
@@ -42,49 +43,70 @@ class QuizzesViewController: UIViewController {
 //    MODEL PROPERTIES
     private let dataService: DataServiceProtocol = DataService()
     private var quizzes: [Quiz] = []
+    private var quizzesByCategory = [QuizCategory : [Quiz]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let viewSize = max(UIScreen.main.bounds.height, UIScreen.main.bounds.width)
         view = UIView(frame: CGRect(x: 0, y: 0, width: viewSize, height: viewSize))
-        
-        tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
-        
+    
         colorBackground()
         addSubviews()
+        setUpTableView()
         setUpLayout()
         setUpActions()
     }
 }
 
-extension QuizzesViewController: UITableViewDataSource, UITableViewDelegate {
+extension QuizzesViewController {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return dataService.getNoOfQuizCategories()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return quizzes.count
+        let quizCategory : QuizCategory = QuizCategory.allCases[section]
+        return quizzesByCategory[quizCategory]!.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let label = UILabel()
-        label.text = "Label"
-        return label
+        let container = UILabel()
+        let label = UILabel(frame: CGRect())
+        let quizCategory : QuizCategory = QuizCategory.allCases[section]
+        container.addSubview(label)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.text = quizCategory.rawValue
+        label.font = UIFont.AppTheme.heading3
+        label.textAlignment = .left
+        label.textColor = UIColor.AppTheme.white
+        
+        NSLayoutConstraint.activate([label.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 30),
+                                     label.heightAnchor.constraint(equalTo: container.heightAnchor),
+                                     label.rightAnchor.constraint(equalTo: container.rightAnchor)])
+        
+        return container
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-        
-        let quizName = quizzes[indexPath.row].title
-        cell.textLabel?.text = quizName
-        
-        cell.textLabel?.text = "\(quizName) Section: \(indexPath.section) Row: \(indexPath.row)"
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! AppTableViewCell
+        let quizCategory : QuizCategory = QuizCategory.allCases[indexPath.section]
+        let quiz = quizzesByCategory[quizCategory]![indexPath.row]
+        cell.backgroundColor = UIColor.clear
+        cell.setTitleLabel(title: quiz.title)
+        cell.setDescriptionLabel(description: quiz.description)
         return cell
     }
     
+    func setUpTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(AppTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+    }
 }
 
 private extension QuizzesViewController {
@@ -133,10 +155,10 @@ private extension QuizzesViewController {
     }
     
     private func setUpTableViewLayout() {
-        NSLayoutConstraint.activate([tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        NSLayoutConstraint.activate([tableView.topAnchor.constraint(equalTo: getQuizzesButton.bottomAnchor, constant: 20),
                                      tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                                     tableView.topAnchor.constraint(equalTo: getQuizzesButton.bottomAnchor, constant: 20),
-                                     tableView.widthAnchor.constraint(equalTo: view.widthAnchor)])
+                                     tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+                                     tableView.leftAnchor.constraint(equalTo: view.leftAnchor)])
     }
 }
 
@@ -151,10 +173,19 @@ private extension QuizzesViewController {
         quizzes = dataService.fetchQuizes()
         if (quizzes.count != 0) {
             print("Quizzes fetched!")
-            errorContainer.isHidden = true
-            tableView.isHidden = false
-            view.addSubview(tableView)
-            setUpTableViewLayout()
+            categoriseQuizzes()
+            showQuizzes()
         }
+    }
+    
+    private func categoriseQuizzes() {
+        quizzesByCategory = Dictionary(grouping: quizzes, by: {$0.category})
+    }
+    
+    private func showQuizzes() {
+        errorContainer.isHidden = true
+        tableView.isHidden = false
+        view.addSubview(tableView)
+        setUpTableViewLayout()
     }
 }

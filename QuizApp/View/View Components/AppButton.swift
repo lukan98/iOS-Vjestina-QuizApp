@@ -9,10 +9,10 @@ import UIKit
 
 class AppButton: UIButton {
 
-    private override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.AppTheme.white
-        self.layer.cornerRadius = Utils.defaultCornerRadius
+        self.layer.cornerRadius = Utils.cornerRadiuses.softCornerRadius
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     

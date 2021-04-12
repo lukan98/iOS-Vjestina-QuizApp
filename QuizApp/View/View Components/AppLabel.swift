@@ -9,10 +9,10 @@ import UIKit
 
 class AppLabel: UILabel {
     
-    private override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = UIColor(white: 1, alpha: 0)
+        self.backgroundColor = UIColor.clear
         self.textColor = UIColor.AppTheme.white
         self.textAlignment = .center
         self.numberOfLines = 0

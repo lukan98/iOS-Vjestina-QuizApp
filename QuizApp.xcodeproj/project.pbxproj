@@ -25,6 +25,7 @@
 		FCB23E45261B385E00405F5D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB23E44261B385E00405F5D /* SceneDelegate.swift */; };
 		FCB23E4C261B386000405F5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCB23E4B261B386000405F5D /* Assets.xcassets */; };
 		FCB23E4F261B386000405F5D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCB23E4D261B386000405F5D /* LaunchScreen.storyboard */; };
+		FCC9C24B2624BA6C00510DDB /* AppTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC9C24A2624BA6C00510DDB /* AppTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		FCB23E4B261B386000405F5D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FCB23E4E261B386000405F5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FCB23E50261B386000405F5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FCC9C24A2624BA6C00510DDB /* AppTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 				FC615F9A26220ED7004B1ACB /* AppLabel.swift */,
 				FC615FAA262236B6004B1ACB /* AppButton.swift */,
 				FC615FB326238BB4004B1ACB /* AppErrorLabel.swift */,
+				FCC9C24A2624BA6C00510DDB /* AppTableViewCell.swift */,
 			);
 			path = "View Components";
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				FCB23E43261B385E00405F5D /* AppDelegate.swift in Sources */,
 				FC615F8426212771004B1ACB /* DataServiceProtocol.swift in Sources */,
 				FC615F8126212771004B1ACB /* Question.swift in Sources */,
+				FCC9C24B2624BA6C00510DDB /* AppTableViewCell.swift in Sources */,
 				FC615FB426238BB4004B1ACB /* AppErrorLabel.swift in Sources */,
 				FC615FAB262236B6004B1ACB /* AppButton.swift in Sources */,
 				FC615FA526221F9C004B1ACB /* AppTextField.swift in Sources */,
