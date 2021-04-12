@@ -9,18 +9,18 @@ import UIKit
 
 class TextField: UITextField {
     
-    override init(frame: CGRect) {
+    private override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.AppTheme.whiteWithTransparency
         self.textColor = UIColor.AppTheme.white
-        self.font = UIFont.AppTheme.light
         self.translatesAutoresizingMaskIntoConstraints = false
         self.textAlignment = .left
         self.layer.cornerRadius = Utils.defaultCornerRadius
     }
     
-    convenience init(frame: CGRect, placeholderText: String, isSecure: Bool) {
+    convenience init(frame: CGRect, font: UIFont, placeholderText: String, isSecure: Bool) {
         self.init(frame: frame)
+        self.font = font
         self.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.foregroundColor: UIColor.AppTheme.white])
         self.isSecureTextEntry = isSecure
     }

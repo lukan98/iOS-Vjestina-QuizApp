@@ -9,20 +9,17 @@ import UIKit
 
 class AppButton: UIButton {
 
-    override init(frame: CGRect) {
+    private override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.AppTheme.white
         self.layer.cornerRadius = Utils.defaultCornerRadius
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    convenience init(frame: CGRect, title: String) {
+    convenience init(frame: CGRect, font: UIFont, title: String) {
         self.init(frame: frame)
-        let attributedTitle = NSAttributedString(string: title, attributes: [NSAttributedString.Key.font : UIFont.AppTheme.bold, NSAttributedString.Key.foregroundColor : UIColor.AppTheme.purpleLight])
+        let attributedTitle = NSAttributedString(string: title, attributes: [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.AppTheme.purpleText])
         self.setAttributedTitle(attributedTitle, for: .normal)
-        self.setTitle(Utils.signInString, for: .normal)
-        self.setTitleColor(UIColor.AppTheme.purpleLight, for: .normal)
-        
     }
     
     required init?(coder: NSCoder) {

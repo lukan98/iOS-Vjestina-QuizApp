@@ -12,7 +12,6 @@ class AppErrorLabel: UILabel {
     private override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.font = UIFont.AppTheme.alert
         self.backgroundColor = UIColor.AppTheme.red
         self.layer.cornerRadius = Utils.defaultCornerRadius
         self.layer.masksToBounds = true
@@ -20,9 +19,10 @@ class AppErrorLabel: UILabel {
         self.textAlignment = .center
     }
     
-    convenience init(frame: CGRect, text: String) {
+    convenience init(frame: CGRect, font: UIFont, text: String) {
         self.init(frame: frame)
         self.text = text
+        self.font = font
     }
     
     required init?(coder: NSCoder) {

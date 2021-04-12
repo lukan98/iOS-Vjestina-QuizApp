@@ -10,17 +10,17 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-    private let appLabel: AppTitleLabel = AppTitleLabel(frame: CGRect(), text: Utils.appTitle)
+    private let appTitle: AppLabel = AppLabel(frame: CGRect(), text: Utils.appTitle, font: UIFont.AppTheme.title)
     private let emailField: TextField =  {
-        let field = TextField(frame: CGRect(), placeholderText: Utils.emailPlaceholder, isSecure: false)
+        let field = TextField(frame: CGRect(), font: UIFont.AppTheme.bodyLight, placeholderText: Utils.emailPlaceholder, isSecure: false)
         field.autocorrectionType = UITextAutocorrectionType.no
         field.autocapitalizationType = UITextAutocapitalizationType.none
         return field
     }()
-    private let passwordField: TextField = TextField(frame: CGRect(), placeholderText: Utils.passwordPlaceholder, isSecure: true)
-    private let signInButton: AppButton = AppButton(frame: CGRect(), title: Utils.signInString)
+    private let passwordField: TextField = TextField(frame: CGRect(), font: UIFont.AppTheme.bodyLight, placeholderText: Utils.passwordPlaceholder, isSecure: true)
+    private let signInButton: AppButton = AppButton(frame: CGRect(), font: UIFont.AppTheme.bodyBold, title: Utils.signInString)
     private let errorMessage: AppErrorLabel = {
-        let errorLabel = AppErrorLabel(frame: CGRect(), text: Utils.signInFail)
+        let errorLabel = AppErrorLabel(frame: CGRect(), font: UIFont.AppTheme.heading3, text: Utils.signInFail)
         errorLabel.isHidden = true
         return errorLabel
     } ()
@@ -41,12 +41,8 @@ class LoginViewController: UIViewController {
 
 private extension LoginViewController {
     
-    private func colorBackground() {
-        self.view.setGradientColor(colorOne: UIColor.AppTheme.purpleLight, colorTwo: UIColor.AppTheme.purpleDark)
-    }
-    
     private func addSubviews() {
-        view.addSubview(appLabel)
+        view.addSubview(appTitle)
         view.addSubview(emailField)
         view.addSubview(passwordField)
         view.addSubview(signInButton)
@@ -54,10 +50,10 @@ private extension LoginViewController {
     }
     
     private func setUpLayout() {
-        NSLayoutConstraint.activate([appLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
-                                     appLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                                     appLabel.heightAnchor.constraint(equalToConstant: 50),
-                                     appLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 140)])
+        NSLayoutConstraint.activate([appTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
+                                     appTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                                     appTitle.heightAnchor.constraint(equalToConstant: 50),
+                                     appTitle.widthAnchor.constraint(greaterThanOrEqualToConstant: 140)])
         
         NSLayoutConstraint.activate([emailField.bottomAnchor.constraint(equalTo: passwordField.topAnchor, constant: -20),
                                      emailField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
