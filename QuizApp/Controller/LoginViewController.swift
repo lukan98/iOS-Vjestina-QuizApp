@@ -50,9 +50,9 @@ private extension LoginViewController {
     }
     
     private func setUpLayout() {
-        NSLayoutConstraint.activate([appTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
+        NSLayoutConstraint.activate([appTitle.topAnchor.constraint(equalTo: view.topAnchor),
                                      appTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                                     appTitle.heightAnchor.constraint(equalToConstant: 50),
+                                     appTitle.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2),
                                      appTitle.widthAnchor.constraint(greaterThanOrEqualToConstant: 140)])
         
         NSLayoutConstraint.activate([emailField.bottomAnchor.constraint(equalTo: passwordField.topAnchor, constant: -20),

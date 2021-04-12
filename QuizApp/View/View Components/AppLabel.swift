@@ -24,6 +24,11 @@ class AppLabel: UILabel {
         self.font = font
     }
     
+    convenience init(frame: CGRect, text: String, font: UIFont, textAlignment: NSTextAlignment) {
+        self.init(frame: frame, text: text, font: font)
+        self.textAlignment = .center
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

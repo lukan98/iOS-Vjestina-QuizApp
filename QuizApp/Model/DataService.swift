@@ -188,3 +188,26 @@ class DataService: DataServiceProtocol {
         ]
     }
 }
+
+extension DataService {
+    
+    func getNoOfQuizCategories() -> (Int) {
+        return QuizCategory.allCases.count
+    }
+    
+    func getNoOfQuizzesForCategory(category: QuizCategory) -> (Int) {
+        var counter = 0
+        let quizzes: [Quiz] = fetchQuizes()
+        
+        for quiz in quizzes {
+            switch quiz.category {
+            case category:
+                counter += 1
+            default:
+                break
+            }
+        }
+        
+        return counter
+    }
+}
