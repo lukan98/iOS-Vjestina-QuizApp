@@ -43,3 +43,18 @@ class TextField: UITextField {
     
     // TODO [Add border change on touch]
 }
+
+extension TextField {
+    
+    @objc
+    func setBorder() {
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.AppTheme.white.cgColor
+    }
+    
+    @objc
+    func hideBorder() {
+        self.layer.borderWidth = 0
+        self.layer.borderColor = UIColor.init(white: 1, alpha: 0).cgColor
+    }
+}

@@ -84,6 +84,10 @@ private extension LoginViewController {
         signInButton.addTarget(self, action: #selector(signInAction), for: .touchUpInside)
         emailField.addTarget(self, action: #selector(hideError), for: .allTouchEvents)
         passwordField.addTarget(self, action: #selector(hideError), for: .allTouchEvents)
+        emailField.addTarget(emailField, action: #selector(emailField.setBorder), for: .editingDidBegin)
+        emailField.addTarget(emailField, action: #selector(emailField.hideBorder), for: .editingDidEnd)
+        passwordField.addTarget(passwordField, action: #selector(passwordField.setBorder), for: .editingDidBegin)
+        passwordField.addTarget(passwordField, action: #selector(passwordField.hideBorder), for: .editingDidEnd)
     }
     
     @objc
