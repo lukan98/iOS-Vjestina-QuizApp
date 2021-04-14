@@ -14,8 +14,6 @@ class AppTableViewCell: UITableViewCell {
         view.backgroundColor = UIColor.AppTheme.whiteWithTransparency
         view.layer.cornerRadius = Utils.cornerRadiuses.sharpCornerRadius
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.AppTheme.white.cgColor
         return view
     }()
     

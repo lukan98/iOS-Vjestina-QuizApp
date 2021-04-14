@@ -9,11 +9,11 @@ import UIKit
 
 class QuizzesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-//    PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
+//      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
     private let appTitle: AppLabel = AppLabel(frame: CGRect(), text: Utils.defaultStrings.appTitle, font: UIFont.AppTheme.title)
     private let getQuizzesButton: AppButton = AppButton(frame: CGRect(), font: UIFont.AppTheme.bodyBold, title: Utils.defaultStrings.getQuizString)
     
-//    PROPERTIES RELATED TO THE INITIAL ERROR MESSAGE WHICH IS SHOWN WHEN QUIZZES HAVEN'T BEEN/CAN'T BE LOADED
+//      PROPERTIES RELATED TO THE INITIAL ERROR MESSAGE WHICH IS SHOWN WHEN QUIZZES HAVEN'T BEEN/CAN'T BE LOADED
     private let errorSymbol: UIImageView = {
         let imageView = UIImageView(image: UIImage(systemName: Utils.symbols.noQuizzesSymbol))
         imageView.sizeToFit()
@@ -29,18 +29,43 @@ class QuizzesViewController: UIViewController, UITableViewDelegate, UITableViewD
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+//      PROPERTIES RELATED TO THE FUN FACT DISPLAYED ABOVE THE TABLEVIEW
+    private let funFactContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
+        return view
+    }()
+    private let funFactTitle: AppLabel = {
+        let view = AppLabel(frame: CGRect(), text: "Fun Fact", font: UIFont.AppTheme.bodyBold, textAlignment: .left)
+        return view
+    }()
+    private let funFactDescription: AppLabel = {
+        let view = AppLabel(frame: CGRect())
+        view.textAlignment = .left
+        view.font = UIFont.AppTheme.bodyLight
+        view.text = "Did you know something something"
+        return view
+    }()
+    private let funFactIcon: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: Utils.symbols.funFactSymbol))
+        imageView.sizeToFit()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.tintColor = UIColor.AppTheme.gold
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
     
-//    TABLEVIEW RELATED PROPERTIES
+//      TABLEVIEW RELATED PROPERTIES
     private let cellIdentifier = "cellId"
     private let tableView: UITableView = {
         let tableView = UITableView(frame: CGRect())
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .init(white: 1, alpha: 0)
-        tableView.isHidden = true
         return tableView
     }()
     
-//    MODEL PROPERTIES
+//      MODEL PROPERTIES
     private let dataService: DataServiceProtocol = DataService()
     private var quizzes: [Quiz] = []
     private var quizzesByCategory = [QuizCategory : [Quiz]]()
@@ -58,6 +83,7 @@ class QuizzesViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 }
 
+//      IMPLEMENTATION OF TABLEVIEWDELEGATE AND TABLEVIEWDATASOURCE
 extension QuizzesViewController {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -70,7 +96,7 @@ extension QuizzesViewController {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+        return 140
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -109,32 +135,57 @@ extension QuizzesViewController {
     }
 }
 
+//      SETTING UP THE LAYOUT OF THE PAGE
 private extension QuizzesViewController {
     
     private func addSubviews() {
+        funFactContainer.addSubview(funFactTitle)
+        funFactContainer.addSubview(funFactDescription)
+        funFactContainer.addSubview(funFactIcon)
+        
         errorContainer.addSubview(errorLabel)
         errorContainer.addSubview(errorDescription)
         errorContainer.addSubview(errorSymbol)
+        
         view.addSubview(appTitle)
         view.addSubview(getQuizzesButton)
         view.addSubview(errorContainer)
+        view.addSubview(funFactContainer)
     }
     
     private func setUpLayout() {
         setUpHeaderLayout()
         setUpErrorContainerLayout()
+        setUpFunFactLayout()
     }
     
     private func setUpHeaderLayout() {
         NSLayoutConstraint.activate([appTitle.topAnchor.constraint(equalTo: view.topAnchor),
                                      appTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                                     appTitle.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2),
+                                     appTitle.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15),
                                      appTitle.widthAnchor.constraint(greaterThanOrEqualToConstant: 140)])
         
         NSLayoutConstraint.activate([getQuizzesButton.topAnchor.constraint(equalTo: appTitle.bottomAnchor),
                                      getQuizzesButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                                      getQuizzesButton.heightAnchor.constraint(equalToConstant: 45),
                                      getQuizzesButton.widthAnchor.constraint(equalToConstant: 300)])
+    }
+    
+    private func setUpFunFactLayout() {
+        NSLayoutConstraint.activate([funFactTitle.topAnchor.constraint(equalTo: getQuizzesButton.bottomAnchor, constant: 5),
+                                     funFactTitle.rightAnchor.constraint(equalTo: getQuizzesButton.rightAnchor),
+                                     funFactTitle.widthAnchor.constraint(equalTo: getQuizzesButton.widthAnchor, multiplier: 0.8),
+                                     funFactTitle.heightAnchor.constraint(equalToConstant: 25)])
+        
+        NSLayoutConstraint.activate([funFactDescription.topAnchor.constraint(equalTo: funFactTitle.bottomAnchor),
+                                     funFactDescription.rightAnchor.constraint(equalTo: funFactTitle.rightAnchor),
+                                     funFactDescription.widthAnchor.constraint(equalTo: funFactTitle.widthAnchor),
+                                     funFactDescription.heightAnchor.constraint(equalToConstant: 40)])
+        
+        NSLayoutConstraint.activate([funFactIcon.topAnchor.constraint(equalTo: funFactTitle.topAnchor),
+                                     funFactIcon.rightAnchor.constraint(equalTo: funFactTitle.leftAnchor, constant: -5),
+                                     funFactIcon.widthAnchor.constraint(equalTo: getQuizzesButton.widthAnchor, multiplier: 0.15),
+                                     funFactIcon.bottomAnchor.constraint(equalTo: funFactDescription.bottomAnchor)])
     }
     
     private func setUpErrorContainerLayout() {
@@ -155,13 +206,22 @@ private extension QuizzesViewController {
     }
     
     private func setUpTableViewLayout() {
-        NSLayoutConstraint.activate([tableView.topAnchor.constraint(equalTo: getQuizzesButton.bottomAnchor, constant: 20),
+        NSLayoutConstraint.activate([tableView.topAnchor.constraint(equalTo: funFactDescription.bottomAnchor, constant: 5),
                                      tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
                                      tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
                                      tableView.leftAnchor.constraint(equalTo: view.leftAnchor)])
+        
+    }
+    
+    private func showQuizzes() {
+        errorContainer.isHidden = true
+        funFactContainer.isHidden = false
+        view.addSubview(tableView)
+        setUpTableViewLayout()
     }
 }
 
+//      QUIZ FETCHING UTILITIES
 private extension QuizzesViewController {
     
     private func setUpActions() {
@@ -174,18 +234,24 @@ private extension QuizzesViewController {
         if (quizzes.count != 0) {
             print("Quizzes fetched!")
             categoriseQuizzes()
+            setFunFactDescription()
             showQuizzes()
         }
+    }
+    
+    private func calculateFunFactOccurence(funFactWord: String) -> (Int) {
+        let funFactWord = dataService.getRandomFunFactWord()
+        let counter = quizzes.flatMap({$0.questions}).map({$0.question}).filter({$0.contains(funFactWord)}).count
+        return counter
     }
     
     private func categoriseQuizzes() {
         quizzesByCategory = Dictionary(grouping: quizzes, by: {$0.category})
     }
     
-    private func showQuizzes() {
-        errorContainer.isHidden = true
-        tableView.isHidden = false
-        view.addSubview(tableView)
-        setUpTableViewLayout()
+    private func setFunFactDescription() {
+        let word = dataService.getRandomFunFactWord()
+        let occurences = calculateFunFactOccurence(funFactWord: word)
+        funFactDescription.text = "Did you know there are "+String(occurences)+" quizzes with the word "+String(word)+" in them?"
     }
 }

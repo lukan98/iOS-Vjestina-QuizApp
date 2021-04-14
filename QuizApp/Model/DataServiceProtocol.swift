@@ -5,5 +5,7 @@ protocol DataServiceProtocol {
     func fetchQuizes() -> [Quiz]
     
     func getNoOfQuizCategories() -> (Int)
+    
+    func getRandomFunFactWord() -> (String)
 
 }
