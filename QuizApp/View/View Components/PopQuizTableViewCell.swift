@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AppTableViewCell: UITableViewCell {
+class PopQuizTableViewCell: UITableViewCell {
     
     private let containerView: UIView = {
         let view = UIView()
@@ -17,15 +17,15 @@ class AppTableViewCell: UITableViewCell {
         return view
     }()
     
-    private let titleLabel: AppLabel = {
-        let title = AppLabel(frame: CGRect())
+    private let titleLabel: PopQuizLabel = {
+        let title = PopQuizLabel(frame: CGRect())
         title.font = UIFont.AppTheme.bodyBold
         title.textAlignment = .left
         return title
     }()
     
-    private let descriptionLabel: AppLabel = {
-        let description = AppLabel(frame: CGRect())
+    private let descriptionLabel: PopQuizLabel = {
+        let description = PopQuizLabel(frame: CGRect())
         description.font = UIFont.AppTheme.bodyRegular
         description.textAlignment = .left
         description.sizeToFit()

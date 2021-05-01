@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AppButton: UIButton {
+class PopQuizButton: UIButton {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
