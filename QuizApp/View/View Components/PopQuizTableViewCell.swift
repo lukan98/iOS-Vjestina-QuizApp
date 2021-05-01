@@ -11,7 +11,7 @@ class PopQuizTableViewCell: UITableViewCell {
     
     private let containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.AppTheme.whiteWithTransparency
+        view.backgroundColor = UIColor.PopQuizTheme.whiteWithTransparency
         view.layer.cornerRadius = Utils.cornerRadiuses.sharpCornerRadius
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -19,14 +19,14 @@ class PopQuizTableViewCell: UITableViewCell {
     
     private let titleLabel: PopQuizLabel = {
         let title = PopQuizLabel(frame: CGRect())
-        title.font = UIFont.AppTheme.bodyBold
+        title.font = UIFont.PopQuizTheme.bodyBold
         title.textAlignment = .left
         return title
     }()
     
     private let descriptionLabel: PopQuizLabel = {
         let description = PopQuizLabel(frame: CGRect())
-        description.font = UIFont.AppTheme.bodyRegular
+        description.font = UIFont.PopQuizTheme.bodyRegular
         description.textAlignment = .left
         description.sizeToFit()
         return description
@@ -35,7 +35,7 @@ class PopQuizTableViewCell: UITableViewCell {
     private let picture: UIImageView = {
         let imageView = UIImageView(image: UIImage(systemName: "questionmark.circle.fill"))
         imageView.sizeToFit()
-        imageView.tintColor = UIColor.AppTheme.white
+        imageView.tintColor = UIColor.PopQuizTheme.white
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         return imageView

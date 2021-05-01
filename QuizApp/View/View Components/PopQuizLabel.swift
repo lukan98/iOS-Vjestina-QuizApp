@@ -13,19 +13,19 @@ class PopQuizLabel: UILabel {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = UIColor.clear
-        self.textColor = UIColor.AppTheme.white
+        self.textColor = UIColor.PopQuizTheme.white
         self.textAlignment = .center
         self.numberOfLines = 0
     }
     
-    convenience init(frame: CGRect, text: String, font: UIFont) {
-        self.init(frame: frame)
+    convenience init(text: String, font: UIFont) {
+        self.init(frame: CGRect())
         self.text = text
         self.font = font
     }
     
-    convenience init(frame: CGRect, text: String, font: UIFont, textAlignment: NSTextAlignment) {
-        self.init(frame: frame, text: text, font: font)
+    convenience init(text: String, font: UIFont, textAlignment: NSTextAlignment) {
+        self.init(text: text, font: font)
         self.textAlignment = textAlignment
     }
     

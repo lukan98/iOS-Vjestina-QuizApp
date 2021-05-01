@@ -10,20 +10,11 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-    private let appTitle: AppLabel = AppLabel(frame: CGRect(), text: Utils.defaultStrings.appTitle, font: UIFont.AppTheme.title)
-    private let emailField: TextField =  {
-        let field = TextField(frame: CGRect(), font: UIFont.AppTheme.bodyLight, placeholderText: Utils.defaultStrings.emailPlaceholder, isSecure: false)
-        field.autocorrectionType = UITextAutocorrectionType.no
-        field.autocapitalizationType = UITextAutocapitalizationType.none
-        return field
-    }()
-    private let passwordField: TextField = TextField(frame: CGRect(), font: UIFont.AppTheme.bodyLight, placeholderText: Utils.defaultStrings.passwordPlaceholder, isSecure: true)
-    private let signInButton: AppButton = AppButton(frame: CGRect(), font: UIFont.AppTheme.bodyBold, title: Utils.defaultStrings.signInString)
-    private let errorMessage: AppErrorLabel = {
-        let errorLabel = AppErrorLabel(frame: CGRect(), font: UIFont.AppTheme.heading3, text: Utils.defaultStrings.signInFail)
-        errorLabel.isHidden = true
-        return errorLabel
-    } ()
+    private var appTitle: PopQuizLabel!
+    private var emailField: PopQuizTextField!
+    private var passwordField: PopQuizTextField!
+    private var signInButton: PopQuizButton!
+    private var errorMessage: PopQuizErrorLabel!
     
     private let dataService: DataServiceProtocol = DataService()
     
@@ -31,6 +22,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         let viewSize = max(UIScreen.main.bounds.height, UIScreen.main.bounds.width)
         view = UIView(frame: CGRect(x: 0, y: 0, width: viewSize, height: viewSize))
+        initializeUIComponents()
         colorBackground()
         setUpActions()
         addSubviews()
@@ -41,7 +33,26 @@ class LoginViewController: UIViewController {
 
 private extension LoginViewController {
     
-    private func addSubviews() {
+    func initializeUIComponents() {
+        appTitle = PopQuizLabel(text: Utils.defaultStrings.appTitle, font: UIFont.PopQuizTheme.title)
+        emailField =  {
+            let field = PopQuizTextField(font: UIFont.PopQuizTheme.bodyLight, placeholderText: Utils.defaultStrings.emailPlaceholder, isSecure: false)
+            field.autocorrectionType = UITextAutocorrectionType.no
+            field.autocapitalizationType = UITextAutocapitalizationType.none
+            return field
+        }()
+        passwordField = PopQuizTextField(font: UIFont.PopQuizTheme.bodyLight, placeholderText: Utils.defaultStrings.passwordPlaceholder, isSecure: true)
+        signInButton = PopQuizButton(font: UIFont.PopQuizTheme.bodyBold, title: Utils.defaultStrings.signInString)
+        errorMessage = PopQuizErrorLabel(font: UIFont.PopQuizTheme.heading3, text: Utils.defaultStrings.signInFail)
+        errorMessage.isHidden = true
+
+    }
+    
+}
+
+private extension LoginViewController {
+    
+    func addSubviews() {
         view.addSubview(appTitle)
         view.addSubview(emailField)
         view.addSubview(passwordField)
@@ -49,7 +60,7 @@ private extension LoginViewController {
         view.addSubview(errorMessage)
     }
     
-    private func setUpLayout() {
+    func setUpLayout() {
         NSLayoutConstraint.activate([appTitle.topAnchor.constraint(equalTo: view.topAnchor),
                                      appTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                                      appTitle.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15),
@@ -80,7 +91,7 @@ private extension LoginViewController {
 
 private extension LoginViewController {
     
-    private func setUpActions() {
+    func setUpActions() {
         signInButton.addTarget(self, action: #selector(signInAction), for: .touchUpInside)
         emailField.addTarget(self, action: #selector(hideError), for: .allTouchEvents)
         passwordField.addTarget(self, action: #selector(hideError), for: .allTouchEvents)
@@ -91,7 +102,7 @@ private extension LoginViewController {
     }
     
     @objc
-    private func signInAction() {
+    func signInAction() {
         let result: LoginStatus = dataService.login(email: self.emailField.text!, password: self.passwordField.text!)
         switch result {
         case LoginStatus.success:
@@ -103,12 +114,12 @@ private extension LoginViewController {
     }
     
     @objc
-    private func showError() {
+    func showError() {
         errorMessage.isHidden = false
     }
     
     @objc
-    private func hideError() {
+    func hideError() {
         errorMessage.isHidden = true
     }
     

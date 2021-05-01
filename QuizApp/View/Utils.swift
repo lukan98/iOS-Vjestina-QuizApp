@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 extension UIColor {
-    struct AppTheme {
+    struct PopQuizTheme {
         static let purpleLight = UIColor(red: 0.45, green: 0.31, blue: 0.64, alpha: 1.00)
         static let purpleDark = UIColor(red: 0.15, green: 0.18, blue: 0.46, alpha: 1.00)
         static let purpleText = UIColor(red: 0.39, green: 0.16, blue: 0.87, alpha: 1.00)
@@ -21,7 +21,7 @@ extension UIColor {
 }
 
 extension UIFont {
-    struct AppTheme {
+    struct PopQuizTheme {
         static let title = UIFont.systemFont(ofSize: 32, weight: UIFont.Weight.black)
         static let subtitle = UIFont.systemFont(ofSize: 28, weight: UIFont.Weight.heavy)
         static let heading1 = UIFont.systemFont(ofSize: 26, weight: UIFont.Weight.heavy)
@@ -44,7 +44,7 @@ extension UIView {
 
 extension UIViewController {
     func colorBackground() {
-        self.view.setGradientColor(colorOne: UIColor.AppTheme.purpleLight, colorTwo: UIColor.AppTheme.purpleDark)
+        self.view.setGradientColor(colorOne: UIColor.PopQuizTheme.purpleLight, colorTwo: UIColor.PopQuizTheme.purpleDark)
     }
 }
 

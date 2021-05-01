@@ -11,14 +11,14 @@ class PopQuizButton: UIButton {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.AppTheme.white
+        self.backgroundColor = UIColor.PopQuizTheme.white
         self.layer.cornerRadius = Utils.cornerRadiuses.softCornerRadius
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    convenience init(frame: CGRect, font: UIFont, title: String) {
-        self.init(frame: frame)
-        let attributedTitle = NSAttributedString(string: title, attributes: [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.AppTheme.purpleText])
+    convenience init(font: UIFont, title: String) {
+        self.init(frame: CGRect())
+        let attributedTitle = NSAttributedString(string: title, attributes: [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : UIColor.PopQuizTheme.purpleText])
         self.setAttributedTitle(attributedTitle, for: .normal)
     }
     

@@ -212,7 +212,7 @@ extension DataService {
     }
     
     func getRandomFunFactWord() -> (String) {
-//        COULD BE UPDATED TO RETURN A RANDOM FUN FACT WORD SO THAT THE APP CAN DISPLAY A NEW FUN FACT WORD OCCURENCE EVERY TIME
+//        Could be updated to return a random word everytime
         return "NBA"
     }
 }

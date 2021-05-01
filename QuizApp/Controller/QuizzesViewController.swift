@@ -10,60 +10,24 @@ import UIKit
 class QuizzesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
 //      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
-    private let appTitle: AppLabel = AppLabel(frame: CGRect(), text: Utils.defaultStrings.appTitle, font: UIFont.AppTheme.title)
-    private let getQuizzesButton: AppButton = AppButton(frame: CGRect(), font: UIFont.AppTheme.bodyBold, title: Utils.defaultStrings.getQuizString)
+    private var appTitle: PopQuizLabel!
+    private var getQuizzesButton: PopQuizButton!
     
 //      PROPERTIES RELATED TO THE INITIAL ERROR MESSAGE WHICH IS SHOWN WHEN QUIZZES HAVEN'T BEEN/CAN'T BE LOADED
-    private let errorSymbol: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: Utils.symbols.noQuizzesSymbol))
-        imageView.sizeToFit()
-        imageView.tintColor = UIColor.AppTheme.white
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    private let errorLabel: AppLabel = AppLabel(frame: CGRect(), text: "Error", font: UIFont.AppTheme.heading2)
-    private let errorDescription: AppLabel = AppLabel(frame: CGRect(), text: Utils.defaultStrings.noQuizzesDescription, font: UIFont.AppTheme.bodyLight)
-    private let errorContainer: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private var errorSymbol: UIImageView!
+    private var errorLabel: PopQuizLabel!
+    private var errorDescription: PopQuizLabel!
+    private var errorContainer: UIView!
+    
 //      PROPERTIES RELATED TO THE FUN FACT DISPLAYED ABOVE THE TABLEVIEW
-    private let funFactContainer: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.isHidden = true
-        return view
-    }()
-    private let funFactTitle: AppLabel = {
-        let view = AppLabel(frame: CGRect(), text: "Fun Fact", font: UIFont.AppTheme.bodyBold, textAlignment: .left)
-        return view
-    }()
-    private let funFactDescription: AppLabel = {
-        let view = AppLabel(frame: CGRect())
-        view.textAlignment = .left
-        view.font = UIFont.AppTheme.bodyLight
-        view.text = "Did you know something something"
-        return view
-    }()
-    private let funFactIcon: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: Utils.symbols.funFactSymbol))
-        imageView.sizeToFit()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.tintColor = UIColor.AppTheme.gold
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
+    private var funFactContainer: UIView!
+    private var funFactTitle: PopQuizLabel!
+    private var funFactDescription: PopQuizLabel!
+    private var funFactIcon: UIImageView!
     
 //      TABLEVIEW RELATED PROPERTIES
-    private let cellIdentifier = "cellId"
-    private let tableView: UITableView = {
-        let tableView = UITableView(frame: CGRect())
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .init(white: 1, alpha: 0)
-        return tableView
-    }()
+    private var cellIdentifier: String!
+    private var tableView: UITableView!
     
 //      MODEL PROPERTIES
     private let dataService: DataServiceProtocol = DataService()
@@ -74,7 +38,7 @@ class QuizzesViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         let viewSize = max(UIScreen.main.bounds.height, UIScreen.main.bounds.width)
         view = UIView(frame: CGRect(x: 0, y: 0, width: viewSize, height: viewSize))
-    
+        initalizeUIComponents()
         colorBackground()
         addSubviews()
         setUpTableView()
@@ -107,9 +71,9 @@ extension QuizzesViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.text = quizCategory.rawValue
-        label.font = UIFont.AppTheme.heading3
+        label.font = UIFont.PopQuizTheme.heading3
         label.textAlignment = .left
-        label.textColor = UIColor.AppTheme.white
+        label.textColor = UIColor.PopQuizTheme.white
         
         NSLayoutConstraint.activate([label.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 30),
                                      label.heightAnchor.constraint(equalTo: container.heightAnchor),
@@ -119,7 +83,7 @@ extension QuizzesViewController {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! AppTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! PopQuizTableViewCell
         let quizCategory : QuizCategory = QuizCategory.allCases[indexPath.section]
         let quiz = quizzesByCategory[quizCategory]![indexPath.row]
         cell.backgroundColor = UIColor.clear
@@ -131,7 +95,61 @@ extension QuizzesViewController {
     func setUpTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(AppTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.register(PopQuizTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+    }
+}
+
+//      INITIALISING THE UI COMPONENTS
+private extension QuizzesViewController {
+    
+    private func initalizeUIComponents() {
+        //      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
+        appTitle = PopQuizLabel(text: Utils.defaultStrings.appTitle, font: UIFont.PopQuizTheme.title)
+        getQuizzesButton = PopQuizButton(font: UIFont.PopQuizTheme.bodyBold, title: Utils.defaultStrings.getQuizString)
+        
+        //      PROPERTIES RELATED TO THE INITIAL ERROR MESSAGE WHICH IS SHOWN WHEN QUIZZES HAVEN'T BEEN/CAN'T BE LOADED
+        errorSymbol = {
+            let imageView = UIImageView(image: UIImage(systemName: Utils.symbols.noQuizzesSymbol))
+            imageView.sizeToFit()
+            imageView.tintColor = UIColor.PopQuizTheme.white
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.contentMode = .scaleAspectFit
+            return imageView
+        }()
+        errorLabel = PopQuizLabel(text: "Error", font: UIFont.PopQuizTheme.heading2)
+        errorDescription = PopQuizLabel(text: Utils.defaultStrings.noQuizzesDescription, font: UIFont.PopQuizTheme.bodyLight)
+        errorContainer = {
+            let view = UIView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            return view
+        }()
+        
+        //      PROPERTIES RELATED TO THE FUN FACT DISPLAYED ABOVE THE TABLEVIEW
+        funFactContainer = {
+            let view = UIView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.isHidden = true
+            return view
+        }()
+        funFactTitle = PopQuizLabel(text: "Fun Fact", font: UIFont.PopQuizTheme.bodyBold, textAlignment: .left)
+        funFactDescription = PopQuizLabel(text: "", font: UIFont.PopQuizTheme.bodyLight, textAlignment: .left)
+        funFactIcon = {
+            let imageView = UIImageView(image: UIImage(systemName: Utils.symbols.funFactSymbol))
+            imageView.sizeToFit()
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.tintColor = UIColor.PopQuizTheme.gold
+            imageView.contentMode = .scaleAspectFit
+            return imageView
+        }()
+        
+        //      TABLEVIEW RELATED PROPERTIES
+        cellIdentifier = "cellId"
+        tableView = {
+            let tableView = UITableView(frame: CGRect())
+            tableView.translatesAutoresizingMaskIntoConstraints = false
+            tableView.backgroundColor = .init(white: 1, alpha: 0)
+            return tableView
+        }()
     }
 }
 

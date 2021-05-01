@@ -7,21 +7,21 @@
 
 import UIKit
 
-class TextField: UITextField {
+class PopQuizTextField: UITextField {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.AppTheme.whiteWithTransparency
-        self.textColor = UIColor.AppTheme.white
+        self.backgroundColor = UIColor.PopQuizTheme.whiteWithTransparency
+        self.textColor = UIColor.PopQuizTheme.white
         self.translatesAutoresizingMaskIntoConstraints = false
         self.textAlignment = .left
         self.layer.cornerRadius = Utils.cornerRadiuses.softCornerRadius
     }
     
-    convenience init(frame: CGRect, font: UIFont, placeholderText: String, isSecure: Bool) {
-        self.init(frame: frame)
+    convenience init(font: UIFont, placeholderText: String, isSecure: Bool) {
+        self.init(frame: CGRect())
         self.font = font
-        self.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.foregroundColor: UIColor.AppTheme.white])
+        self.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.foregroundColor: UIColor.PopQuizTheme.white])
         self.isSecureTextEntry = isSecure
     }
     
@@ -44,12 +44,12 @@ class TextField: UITextField {
     // TODO [Add border change on touch]
 }
 
-extension TextField {
+extension PopQuizTextField {
     
     @objc
     func setBorder() {
         self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.AppTheme.white.cgColor
+        self.layer.borderColor = UIColor.PopQuizTheme.white.cgColor
     }
     
     @objc
