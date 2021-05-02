@@ -102,7 +102,7 @@ extension QuizzesViewController {
 //      INITIALISING THE UI COMPONENTS
 private extension QuizzesViewController {
     
-    private func initalizeUIComponents() {
+    func initalizeUIComponents() {
         //      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
         appTitle = PopQuizLabel(text: Utils.defaultStrings.appTitle, font: UIFont.PopQuizTheme.title)
         getQuizzesButton = PopQuizButton(font: UIFont.PopQuizTheme.bodyBold, title: Utils.defaultStrings.getQuizString)
@@ -156,7 +156,7 @@ private extension QuizzesViewController {
 //      SETTING UP THE LAYOUT OF THE PAGE
 private extension QuizzesViewController {
     
-    private func addSubviews() {
+    func addSubviews() {
         funFactContainer.addSubview(funFactTitle)
         funFactContainer.addSubview(funFactDescription)
         funFactContainer.addSubview(funFactIcon)
@@ -171,13 +171,13 @@ private extension QuizzesViewController {
         view.addSubview(funFactContainer)
     }
     
-    private func setUpLayout() {
+    func setUpLayout() {
         setUpHeaderLayout()
         setUpErrorContainerLayout()
         setUpFunFactLayout()
     }
     
-    private func setUpHeaderLayout() {
+    func setUpHeaderLayout() {
         NSLayoutConstraint.activate([appTitle.topAnchor.constraint(equalTo: view.topAnchor),
                                      appTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                                      appTitle.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15),
@@ -189,7 +189,7 @@ private extension QuizzesViewController {
                                      getQuizzesButton.widthAnchor.constraint(equalToConstant: 300)])
     }
     
-    private func setUpFunFactLayout() {
+    func setUpFunFactLayout() {
         NSLayoutConstraint.activate([funFactTitle.topAnchor.constraint(equalTo: getQuizzesButton.bottomAnchor, constant: 5),
                                      funFactTitle.rightAnchor.constraint(equalTo: getQuizzesButton.rightAnchor),
                                      funFactTitle.widthAnchor.constraint(equalTo: getQuizzesButton.widthAnchor, multiplier: 0.8),
@@ -206,7 +206,7 @@ private extension QuizzesViewController {
                                      funFactIcon.bottomAnchor.constraint(equalTo: funFactDescription.bottomAnchor)])
     }
     
-    private func setUpErrorContainerLayout() {
+    func setUpErrorContainerLayout() {
         NSLayoutConstraint.activate([errorContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                                      errorContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
                                      errorContainer.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.8)])
@@ -223,7 +223,7 @@ private extension QuizzesViewController {
                                      errorDescription.topAnchor.constraint(equalTo: errorLabel.bottomAnchor)])
     }
     
-    private func setUpTableViewLayout() {
+    func setUpTableViewLayout() {
         NSLayoutConstraint.activate([tableView.topAnchor.constraint(equalTo: funFactDescription.bottomAnchor, constant: 5),
                                      tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
                                      tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
@@ -231,7 +231,7 @@ private extension QuizzesViewController {
         
     }
     
-    private func showQuizzes() {
+    func showQuizzes() {
         errorContainer.isHidden = true
         funFactContainer.isHidden = false
         view.addSubview(tableView)
@@ -242,12 +242,12 @@ private extension QuizzesViewController {
 //      QUIZ FETCHING UTILITIES
 private extension QuizzesViewController {
     
-    private func setUpActions() {
+    func setUpActions() {
         getQuizzesButton.addTarget(self, action: #selector(fetchQuizzes), for: .touchUpInside)
     }
     
     @objc
-    private func fetchQuizzes() {
+    func fetchQuizzes() {
         quizzes = dataService.fetchQuizes()
         if (quizzes.count != 0) {
             print("Quizzes fetched!")
@@ -257,19 +257,19 @@ private extension QuizzesViewController {
         }
     }
     
-    private func calculateFunFactOccurence(funFactWord: String) -> (Int) {
+    func calculateFunFactOccurence(funFactWord: String) -> (Int) {
         let funFactWord = dataService.getRandomFunFactWord()
         let counter = quizzes.flatMap({$0.questions}).map({$0.question}).filter({$0.contains(funFactWord)}).count
         return counter
     }
     
-    private func categoriseQuizzes() {
+    func categoriseQuizzes() {
         quizzesByCategory = Dictionary(grouping: quizzes, by: {$0.category})
     }
     
-    private func setFunFactDescription() {
+    func setFunFactDescription() {
         let word = dataService.getRandomFunFactWord()
         let occurences = calculateFunFactOccurence(funFactWord: word)
-        funFactDescription.text = "Did you know there are "+String(occurences)+" quizzes with the word "+String(word)+" in them?"
+        funFactDescription.text = "Did you know there are \(occurences) quizzes with the word \(word) in them?"
     }
 }
