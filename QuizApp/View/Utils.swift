@@ -65,6 +65,7 @@ struct Utils {
     struct symbols {
         static let noQuizzesSymbol = "xmark.circle"
         static let funFactSymbol = "lightbulb.fill"
+        static let levelSymbol = "rhombus.fill"
     }
     static let defaultInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class QuizzesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class QuizzesViewController: UIViewController {
     
 //      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
     private var appTitle: PopQuizLabel!
@@ -48,7 +48,7 @@ class QuizzesViewController: UIViewController, UITableViewDelegate, UITableViewD
 }
 
 //      IMPLEMENTATION OF TABLEVIEWDELEGATE AND TABLEVIEWDATASOURCE
-extension QuizzesViewController {
+extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return dataService.getNoOfQuizCategories()
@@ -89,6 +89,7 @@ extension QuizzesViewController {
         cell.backgroundColor = UIColor.clear
         cell.setTitleLabel(title: quiz.title)
         cell.setDescriptionLabel(description: quiz.description)
+        cell.setLevel(level: quiz.level)
         return cell
     }
     
@@ -145,7 +146,7 @@ private extension QuizzesViewController {
         //      TABLEVIEW RELATED PROPERTIES
         cellIdentifier = "cellId"
         tableView = {
-            let tableView = UITableView(frame: CGRect())
+            let tableView = UITableView(frame: CGRect(), style: .grouped)
             tableView.translatesAutoresizingMaskIntoConstraints = false
             tableView.backgroundColor = .init(white: 1, alpha: 0)
             return tableView
