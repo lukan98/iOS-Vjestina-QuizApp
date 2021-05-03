@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, Coordinating {
+    var coordinator: Coordinator?
     
     private var appTitle: PopQuizLabel!
     private var emailField: PopQuizTextField!
@@ -107,6 +108,7 @@ private extension LoginViewController {
         switch result {
         case LoginStatus.success:
             print("Sign in successful!")
+            coordinator?.eventOccured(with: .LoginSuccess)
         case LoginStatus.error:
             print("Sign in failure")
             showError()
@@ -122,5 +124,4 @@ private extension LoginViewController {
     func hideError() {
         errorMessage.isHidden = true
     }
-    
 }

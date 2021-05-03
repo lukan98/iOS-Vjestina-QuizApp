@@ -7,7 +7,8 @@
 
 import UIKit
 
-class QuizzesViewController: UIViewController {
+class QuizzesViewController: UIViewController, Coordinating {
+    var coordinator: Coordinator?
     
 //      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
     private var appTitle: PopQuizLabel!
@@ -229,7 +230,6 @@ private extension QuizzesViewController {
                                      tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
                                      tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
                                      tableView.leftAnchor.constraint(equalTo: view.leftAnchor)])
-        
     }
     
     func showQuizzes() {

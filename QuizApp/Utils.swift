@@ -69,3 +69,7 @@ struct Utils {
     }
     static let defaultInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
 }
+
+enum Event {
+    case LoginSuccess
+}
