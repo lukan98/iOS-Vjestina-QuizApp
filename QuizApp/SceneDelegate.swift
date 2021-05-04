@@ -8,7 +8,7 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    var coordinator: MainCoordinator?
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -17,17 +17,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        let navigationController = UINavigationController()
-        
-        let coordinator = MainCoordinator()
-        coordinator.navigationController = navigationController
+        let navController = UINavigationController(navigationBarClass: PopQuizNavBar.self, toolbarClass: nil)
+        coordinator = MainCoordinator(navigationController: navController)
+        coordinator?.start()
         
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = navigationController
+        window.rootViewController = navController
         window.makeKeyAndVisible()
         self.window = window
-        
-        coordinator.start()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

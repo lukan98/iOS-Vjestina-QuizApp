@@ -22,6 +22,13 @@ class PopQuizButton: UIButton {
         self.setAttributedTitle(attributedTitle, for: .normal)
     }
     
+    convenience init(font: UIFont, title: String, textColor: UIColor, backgroundColor: UIColor) {
+        self.init(frame: CGRect())
+        self.backgroundColor = backgroundColor
+        let attributedTitle = NSAttributedString(string: title, attributes: [NSAttributedString.Key.font : font, NSAttributedString.Key.foregroundColor : textColor])
+        self.setAttributedTitle(attributedTitle, for: .normal)
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

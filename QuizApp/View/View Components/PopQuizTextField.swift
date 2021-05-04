@@ -21,7 +21,8 @@ class PopQuizTextField: UITextField {
     convenience init(font: UIFont, placeholderText: String, isSecure: Bool) {
         self.init(frame: CGRect())
         self.font = font
-        self.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.foregroundColor: UIColor.PopQuizTheme.white])
+        self.attributedPlaceholder = NSAttributedString(string: placeholderText,
+                                                        attributes: [NSAttributedString.Key.foregroundColor: UIColor.PopQuizTheme.white])
         self.isSecureTextEntry = isSecure
     }
     

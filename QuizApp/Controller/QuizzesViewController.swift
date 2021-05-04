@@ -7,8 +7,8 @@
 
 import UIKit
 
-class QuizzesViewController: UIViewController, Coordinating {
-    var coordinator: Coordinator?
+class QuizzesViewController: UIViewController {
+    weak var coordinator: QuizzesCoordinator?
     
 //      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
     private var appTitle: PopQuizLabel!
@@ -79,7 +79,6 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
         NSLayoutConstraint.activate([label.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 30),
                                      label.heightAnchor.constraint(equalTo: container.heightAnchor),
                                      label.rightAnchor.constraint(equalTo: container.rightAnchor)])
-        
         return container
     }
     
@@ -92,6 +91,12 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
         cell.setDescriptionLabel(description: quiz.description)
         cell.setLevel(level: quiz.level)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let quizCategory : QuizCategory = QuizCategory.allCases[indexPath.section]
+        let quiz = quizzesByCategory[quizCategory]![indexPath.row]
+        coordinator?.handleQuizSelection(quiz: quiz)
     }
     
     func setUpTableView() {

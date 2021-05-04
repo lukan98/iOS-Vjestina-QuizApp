@@ -17,6 +17,7 @@ extension UIColor {
         static let white = UIColor.white
         static let whiteWithTransparency = UIColor.white.withAlphaComponent(0.30)
         static let red = UIColor(red: 0.99, green: 0.40, blue: 0.40, alpha: 1.00)
+        static let green = UIColor(red: 0.44, green: 0.81, blue: 0.59, alpha: 1.00)
     }
 }
 
