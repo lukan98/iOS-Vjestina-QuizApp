@@ -35,17 +35,21 @@ extension UIFont {
 }
 
 extension UIView {
-    func setGradientColor(colorOne: UIColor, colorTwo: UIColor) {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = bounds
-        gradientLayer.colors = [colorOne.cgColor, colorTwo.cgColor]
-        layer.insertSublayer(gradientLayer, at: 0)
+    func applyGradient(colors: [UIColor], size: CGSize) -> Void {
+        clipsToBounds = true
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.frame.size = size
+        gradient.colors = colors.map { $0.cgColor }
+        gradient.startPoint = CGPoint(x: 0.5, y: 0)
+        gradient.endPoint = CGPoint(x: 0.5, y: 1)
+        layer.insertSublayer(gradient, at: 0)
     }
 }
 
 extension UIViewController {
-    func colorBackground() {
-        self.view.setGradientColor(colorOne: UIColor.PopQuizTheme.purpleLight, colorTwo: UIColor.PopQuizTheme.purpleDark)
+    func colorBackground(colors: [UIColor] = [UIColor.PopQuizTheme.purpleLight, UIColor.PopQuizTheme.purpleDark]) -> Void {
+        let viewSize = max(UIScreen.main.bounds.height, UIScreen.main.bounds.width)
+        self.view.applyGradient(colors: colors, size: CGSize(width: viewSize, height: viewSize))
     }
 }
 

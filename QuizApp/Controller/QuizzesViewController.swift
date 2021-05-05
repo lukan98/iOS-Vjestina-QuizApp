@@ -11,7 +11,6 @@ class QuizzesViewController: UIViewController {
     weak var coordinator: QuizzesCoordinator?
     
 //      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
-    private var appTitle: PopQuizLabel!
     private var getQuizzesButton: PopQuizButton!
     
 //      PROPERTIES RELATED TO THE INITIAL ERROR MESSAGE WHICH IS SHOWN WHEN QUIZZES HAVEN'T BEEN/CAN'T BE LOADED
@@ -36,11 +35,9 @@ class QuizzesViewController: UIViewController {
     private var quizzesByCategory = [QuizCategory : [Quiz]]()
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        let viewSize = max(UIScreen.main.bounds.height, UIScreen.main.bounds.width)
-        view = UIView(frame: CGRect(x: 0, y: 0, width: viewSize, height: viewSize))
-        initalizeUIComponents()
+        title = Utils.defaultStrings.appTitle
         colorBackground()
+        initalizeUIComponents()
         addSubviews()
         setUpTableView()
         setUpLayout()
@@ -111,7 +108,6 @@ private extension QuizzesViewController {
     
     func initalizeUIComponents() {
         //      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
-        appTitle = PopQuizLabel(text: Utils.defaultStrings.appTitle, font: UIFont.PopQuizTheme.title)
         getQuizzesButton = PopQuizButton(font: UIFont.PopQuizTheme.bodyBold, title: Utils.defaultStrings.getQuizString)
         
         //      PROPERTIES RELATED TO THE INITIAL ERROR MESSAGE WHICH IS SHOWN WHEN QUIZZES HAVEN'T BEEN/CAN'T BE LOADED
@@ -172,7 +168,6 @@ private extension QuizzesViewController {
         errorContainer.addSubview(errorDescription)
         errorContainer.addSubview(errorSymbol)
         
-        view.addSubview(appTitle)
         view.addSubview(getQuizzesButton)
         view.addSubview(errorContainer)
         view.addSubview(funFactContainer)
@@ -185,12 +180,7 @@ private extension QuizzesViewController {
     }
     
     func setUpHeaderLayout() {
-        NSLayoutConstraint.activate([appTitle.topAnchor.constraint(equalTo: view.topAnchor),
-                                     appTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                                     appTitle.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15),
-                                     appTitle.widthAnchor.constraint(greaterThanOrEqualToConstant: 140)])
-        
-        NSLayoutConstraint.activate([getQuizzesButton.topAnchor.constraint(equalTo: appTitle.bottomAnchor),
+        NSLayoutConstraint.activate([getQuizzesButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
                                      getQuizzesButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                                      getQuizzesButton.heightAnchor.constraint(equalToConstant: 45),
                                      getQuizzesButton.widthAnchor.constraint(equalToConstant: 300)])

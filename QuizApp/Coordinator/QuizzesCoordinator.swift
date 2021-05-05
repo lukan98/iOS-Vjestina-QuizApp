@@ -23,10 +23,13 @@ class QuizzesCoordinator: Coordinator {
     }
     
     func handleQuizSelection(quiz selectedQuiz: Quiz) {
-        let quizVC = QuizViewController()
+        let quizVC = QuizViewController(quiz: selectedQuiz)
         quizVC.coordinator = self
-        quizVC.quiz = selectedQuiz
-        navigationController.isNavigationBarHidden = false
         navigationController.pushViewController(quizVC, animated: true)
+    }
+    
+    func handleQuizFinished() {
+        let quizResultVC = QuizResultViewController()
+        navigationController.pushViewController(quizResultVC, animated: true)
     }
 }

@@ -21,10 +21,8 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let viewSize = max(UIScreen.main.bounds.height, UIScreen.main.bounds.width)
-        view = UIView(frame: CGRect(x: 0, y: 0, width: viewSize, height: viewSize))
-        initializeUIComponents()
         colorBackground()
+        initializeUIComponents()
         setUpActions()
         addSubviews()
         setUpLayout()

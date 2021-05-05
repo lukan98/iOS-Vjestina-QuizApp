@@ -28,9 +28,11 @@
 		FCC9C24B2624BA6C00510DDB /* PopQuizTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC9C24A2624BA6C00510DDB /* PopQuizTableViewCell.swift */; };
 		FCE7B470263F46F000BF50A3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE7B46F263F46F000BF50A3 /* Coordinator.swift */; };
 		FCE7B473263F804C00BF50A3 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE7B472263F804C00BF50A3 /* MainCoordinator.swift */; };
-		FCE7B47526402EC900BF50A3 /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE7B47426402EC900BF50A3 /* QuizViewController.swift */; };
+		FCE7B47526402EC900BF50A3 /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE7B47426402EC900BF50A3 /* QuestionViewController.swift */; };
 		FCE7B47726404CDC00BF50A3 /* QuizzesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE7B47626404CDC00BF50A3 /* QuizzesCoordinator.swift */; };
 		FCE7B479264189CB00BF50A3 /* PopQuizNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE7B478264189CB00BF50A3 /* PopQuizNavBar.swift */; };
+		FCE7B47B2642D3D100BF50A3 /* QuizResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE7B47A2642D3D100BF50A3 /* QuizResultViewController.swift */; };
+		FCE7B47D2642EEB600BF50A3 /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE7B47C2642EEB600BF50A3 /* QuizViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,9 +61,11 @@
 		FCC9C24A2624BA6C00510DDB /* PopQuizTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopQuizTableViewCell.swift; sourceTree = "<group>"; };
 		FCE7B46F263F46F000BF50A3 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		FCE7B472263F804C00BF50A3 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
-		FCE7B47426402EC900BF50A3 /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
+		FCE7B47426402EC900BF50A3 /* QuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewController.swift; sourceTree = "<group>"; };
 		FCE7B47626404CDC00BF50A3 /* QuizzesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizzesCoordinator.swift; sourceTree = "<group>"; };
 		FCE7B478264189CB00BF50A3 /* PopQuizNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopQuizNavBar.swift; sourceTree = "<group>"; };
+		FCE7B47A2642D3D100BF50A3 /* QuizResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResultViewController.swift; sourceTree = "<group>"; };
+		FCE7B47C2642EEB600BF50A3 /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +121,9 @@
 			children = (
 				FC615F74262126E8004B1ACB /* LoginViewController.swift */,
 				FC615FB82623B224004B1ACB /* QuizzesViewController.swift */,
-				FCE7B47426402EC900BF50A3 /* QuizViewController.swift */,
+				FCE7B47426402EC900BF50A3 /* QuestionViewController.swift */,
+				FCE7B47A2642D3D100BF50A3 /* QuizResultViewController.swift */,
+				FCE7B47C2642EEB600BF50A3 /* QuizViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -294,7 +300,7 @@
 				FCC9C24B2624BA6C00510DDB /* PopQuizTableViewCell.swift in Sources */,
 				FCE7B473263F804C00BF50A3 /* MainCoordinator.swift in Sources */,
 				FC615FB426238BB4004B1ACB /* PopQuizErrorLabel.swift in Sources */,
-				FCE7B47526402EC900BF50A3 /* QuizViewController.swift in Sources */,
+				FCE7B47526402EC900BF50A3 /* QuestionViewController.swift in Sources */,
 				FC615FAB262236B6004B1ACB /* PopQuizButton.swift in Sources */,
 				FC615FA526221F9C004B1ACB /* PopQuizTextField.swift in Sources */,
 				FC615F8226212771004B1ACB /* LoginStatus.swift in Sources */,
@@ -303,7 +309,9 @@
 				FCB23E45261B385E00405F5D /* SceneDelegate.swift in Sources */,
 				FC615F8326212771004B1ACB /* Quiz.swift in Sources */,
 				FC615F9B26220ED7004B1ACB /* PopQuizLabel.swift in Sources */,
+				FCE7B47B2642D3D100BF50A3 /* QuizResultViewController.swift in Sources */,
 				FC615F7F26212771004B1ACB /* DataService.swift in Sources */,
+				FCE7B47D2642EEB600BF50A3 /* QuizViewController.swift in Sources */,
 				FCE7B479264189CB00BF50A3 /* PopQuizNavBar.swift in Sources */,
 				FC615FA2262217FC004B1ACB /* Utils.swift in Sources */,
 			);
