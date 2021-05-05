@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PopQuizErrorLabel: UILabel {
+class ErrorLabel: UILabel {
     
     override init(frame: CGRect) {
         super.init(frame: frame)

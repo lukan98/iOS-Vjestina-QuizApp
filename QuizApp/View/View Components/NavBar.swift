@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PopQuizNavBar: UINavigationBar {
+class NavBar: UINavigationBar {
     
     override init(frame: CGRect) {
         super.init(frame: frame)

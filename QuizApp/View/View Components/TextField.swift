@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PopQuizTextField: UITextField {
+class TextField: UITextField {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,7 +45,7 @@ class PopQuizTextField: UITextField {
     // TODO [Add border change on touch]
 }
 
-extension PopQuizTextField {
+extension TextField {
     
     @objc
     func setBorder() {

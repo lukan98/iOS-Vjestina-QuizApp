@@ -11,18 +11,18 @@ class QuizzesViewController: UIViewController {
     weak var coordinator: QuizzesCoordinator?
     
 //      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
-    private var getQuizzesButton: PopQuizButton!
+    private var getQuizzesButton: Button!
     
 //      PROPERTIES RELATED TO THE INITIAL ERROR MESSAGE WHICH IS SHOWN WHEN QUIZZES HAVEN'T BEEN/CAN'T BE LOADED
     private var errorSymbol: UIImageView!
-    private var errorLabel: PopQuizLabel!
-    private var errorDescription: PopQuizLabel!
+    private var errorLabel: Label!
+    private var errorDescription: Label!
     private var errorContainer: UIView!
     
 //      PROPERTIES RELATED TO THE FUN FACT DISPLAYED ABOVE THE TABLEVIEW
     private var funFactContainer: UIView!
-    private var funFactTitle: PopQuizLabel!
-    private var funFactDescription: PopQuizLabel!
+    private var funFactTitle: Label!
+    private var funFactDescription: Label!
     private var funFactIcon: UIImageView!
     
 //      TABLEVIEW RELATED PROPERTIES
@@ -80,7 +80,7 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! PopQuizTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! TableViewCell
         let quizCategory : QuizCategory = QuizCategory.allCases[indexPath.section]
         let quiz = quizzesByCategory[quizCategory]![indexPath.row]
         cell.backgroundColor = UIColor.clear
@@ -99,7 +99,7 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     func setUpTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(PopQuizTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.register(TableViewCell.self, forCellReuseIdentifier: cellIdentifier)
     }
 }
 
@@ -108,7 +108,7 @@ private extension QuizzesViewController {
     
     func initalizeUIComponents() {
         //      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
-        getQuizzesButton = PopQuizButton(font: UIFont.PopQuizTheme.bodyBold, title: Utils.defaultStrings.getQuizString)
+        getQuizzesButton = Button(font: UIFont.PopQuizTheme.bodyBold, title: Utils.defaultStrings.getQuizString)
         
         //      PROPERTIES RELATED TO THE INITIAL ERROR MESSAGE WHICH IS SHOWN WHEN QUIZZES HAVEN'T BEEN/CAN'T BE LOADED
         errorSymbol = {
@@ -119,8 +119,8 @@ private extension QuizzesViewController {
             imageView.contentMode = .scaleAspectFit
             return imageView
         }()
-        errorLabel = PopQuizLabel(text: "Error", font: UIFont.PopQuizTheme.heading2)
-        errorDescription = PopQuizLabel(text: Utils.defaultStrings.noQuizzesDescription, font: UIFont.PopQuizTheme.bodyLight)
+        errorLabel = Label(text: "Error", font: UIFont.PopQuizTheme.heading2)
+        errorDescription = Label(text: Utils.defaultStrings.noQuizzesDescription, font: UIFont.PopQuizTheme.bodyLight)
         errorContainer = {
             let view = UIView()
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -134,8 +134,8 @@ private extension QuizzesViewController {
             view.isHidden = true
             return view
         }()
-        funFactTitle = PopQuizLabel(text: "Fun Fact", font: UIFont.PopQuizTheme.bodyBold, textAlignment: .left)
-        funFactDescription = PopQuizLabel(text: "", font: UIFont.PopQuizTheme.bodyLight, textAlignment: .left)
+        funFactTitle = Label(text: "Fun Fact", font: UIFont.PopQuizTheme.bodyBold, textAlignment: .left)
+        funFactDescription = Label(text: "", font: UIFont.PopQuizTheme.bodyLight, textAlignment: .left)
         funFactIcon = {
             let imageView = UIImageView(image: UIImage(systemName: Utils.symbols.funFactSymbol))
             imageView.sizeToFit()

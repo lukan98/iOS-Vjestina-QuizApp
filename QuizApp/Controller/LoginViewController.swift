@@ -11,11 +11,11 @@ import UIKit
 class LoginViewController: UIViewController {
     weak var coordinator: MainCoordinator?
     
-    private var appTitle: PopQuizLabel!
-    private var emailField: PopQuizTextField!
-    private var passwordField: PopQuizTextField!
-    private var signInButton: PopQuizButton!
-    private var errorMessage: PopQuizErrorLabel!
+    private var appTitle: Label!
+    private var emailField: TextField!
+    private var passwordField: TextField!
+    private var signInButton: Button!
+    private var errorMessage: ErrorLabel!
     
     private let dataService: DataServiceProtocol = DataService()
     
@@ -33,16 +33,16 @@ class LoginViewController: UIViewController {
 private extension LoginViewController {
     
     func initializeUIComponents() {
-        appTitle = PopQuizLabel(text: Utils.defaultStrings.appTitle, font: UIFont.PopQuizTheme.title)
+        appTitle = Label(text: Utils.defaultStrings.appTitle, font: UIFont.PopQuizTheme.title)
         emailField =  {
-            let field = PopQuizTextField(font: UIFont.PopQuizTheme.bodyLight, placeholderText: Utils.defaultStrings.emailPlaceholder, isSecure: false)
+            let field = TextField(font: UIFont.PopQuizTheme.bodyLight, placeholderText: Utils.defaultStrings.emailPlaceholder, isSecure: false)
             field.autocorrectionType = UITextAutocorrectionType.no
             field.autocapitalizationType = UITextAutocapitalizationType.none
             return field
         }()
-        passwordField = PopQuizTextField(font: UIFont.PopQuizTheme.bodyLight, placeholderText: Utils.defaultStrings.passwordPlaceholder, isSecure: true)
-        signInButton = PopQuizButton(font: UIFont.PopQuizTheme.bodyBold, title: Utils.defaultStrings.signInString)
-        errorMessage = PopQuizErrorLabel(font: UIFont.PopQuizTheme.heading3, text: Utils.defaultStrings.signInFail)
+        passwordField = TextField(font: UIFont.PopQuizTheme.bodyLight, placeholderText: Utils.defaultStrings.passwordPlaceholder, isSecure: true)
+        signInButton = Button(font: UIFont.PopQuizTheme.bodyBold, title: Utils.defaultStrings.signInString)
+        errorMessage = ErrorLabel(font: UIFont.PopQuizTheme.heading3, text: Utils.defaultStrings.signInFail)
         errorMessage.isHidden = true
 
     }

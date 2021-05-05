@@ -9,8 +9,8 @@ import UIKit
 
 class QuizResultViewController: UIViewController {
     
-    private var resultLabel: PopQuizLabel!
-    private var finishButton: PopQuizButton!
+    private var resultLabel: Label!
+    private var finishButton: Button!
 
     override func viewDidLoad() {
         super.viewDidLoad()

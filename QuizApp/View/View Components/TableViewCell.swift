@@ -7,11 +7,11 @@
 
 import UIKit
 
-class PopQuizTableViewCell: UITableViewCell {
+class TableViewCell: UITableViewCell {
     
     private var containerView: UIView!
-    private var titleLabel: PopQuizLabel!
-    private var descriptionLabel: PopQuizLabel!
+    private var titleLabel: Label!
+    private var descriptionLabel: Label!
     private var picture: UIImageView!
     private var levelStackView: UIStackView!
     
@@ -46,8 +46,8 @@ class PopQuizTableViewCell: UITableViewCell {
             view.translatesAutoresizingMaskIntoConstraints = false
             return view
         }()
-        titleLabel = PopQuizLabel(text: "", font: UIFont.PopQuizTheme.bodyBold, textAlignment: .left)
-        descriptionLabel = PopQuizLabel(text: "", font: UIFont.PopQuizTheme.bodyRegular, textAlignment: .left)
+        titleLabel = Label(text: "", font: UIFont.PopQuizTheme.bodyBold, textAlignment: .left)
+        descriptionLabel = Label(text: "", font: UIFont.PopQuizTheme.bodyRegular, textAlignment: .left)
         descriptionLabel.sizeToFit()
         picture = {
             let imageView = UIImageView(image: UIImage(systemName: "questionmark.circle.fill"))

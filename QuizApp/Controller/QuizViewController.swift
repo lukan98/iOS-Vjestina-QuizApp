@@ -14,10 +14,12 @@ class QuizViewController: UIPageViewController {
     private var controllers: [UIViewController] = []
     private var questionIndex = 0
     
-    private var quizIndexLabel: PopQuizLabel!
+    private var quizIndexLabel: Label!
+    private var progressView: ProgressStackView!
     
-    init(quiz: Quiz) {
+    init(quiz q: Quiz) {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
+        self.quiz = q
         for question in quiz.questions {
             let questionVC = QuestionViewController(question: question)
             questionVC.pageVC = self
@@ -31,9 +33,10 @@ class QuizViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         colorBackground()
-        
+        initializeUIComponents()
+        addSubviews()
+        setUpLayout()
         
         guard let firstQuestionVC = controllers.first else { return }
         let pageAppearance = UIPageControl.appearance()
@@ -46,28 +49,55 @@ class QuizViewController: UIPageViewController {
 private extension QuizViewController {
     
     func initializeUIComponents() {
-        quizIndexLabel = PopQuizLabel(text: "Placeholder", font: UIFont.PopQuizTheme.bodyBold, textAlignment: .left)
+        quizIndexLabel = Label(text: "", font: UIFont.PopQuizTheme.bodyBold, textAlignment: .left)
+        progressView = ProgressStackView(noOfSegments: quiz.questions.count)
+        updateUIComponents()
+    }
+    
+    func updateUIComponents() {
+        quizIndexLabel.text = "\(questionIndex+1)/\(quiz.questions.count)"
+        progressView.colorSubview(at: questionIndex, color: UIColor.PopQuizTheme.white)
     }
     
     func addSubviews() {
-        
+        view.addSubview(quizIndexLabel)
+        view.addSubview(progressView)
     }
     
     func setUpLayout() {
+        NSLayoutConstraint.activate([quizIndexLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
+                                     quizIndexLabel.heightAnchor.constraint(equalToConstant: 15),
+                                     quizIndexLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.85),
+                                     quizIndexLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)])
         
+        NSLayoutConstraint.activate([progressView.topAnchor.constraint(equalTo: quizIndexLabel.bottomAnchor, constant: 5),
+                                     progressView.heightAnchor.constraint(equalToConstant: 5),
+                                     progressView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.85),
+                                     progressView.centerXAnchor.constraint(equalTo: view.centerXAnchor)])
+        
+        for subview in progressView.arrangedSubviews {
+            NSLayoutConstraint.activate([subview.widthAnchor.constraint(equalTo: progressView.widthAnchor,
+                                                                        multiplier: CGFloat(1/Double(1+quiz.questions.count)))])
+        }
     }
     
 }
 
 extension QuizViewController {
     
-    func showNextQuestion() {
+    func showNextQuestion(correctlyAnswered: Bool) {
+        if correctlyAnswered {
+            progressView.colorSubview(at: questionIndex, color: UIColor.PopQuizTheme.green, animationDuration: 0.3)
+        } else {
+            progressView.colorSubview(at: questionIndex, color: UIColor.PopQuizTheme.red, animationDuration: 0.3)
+        }
         questionIndex += 1
         if questionIndex < controllers.count {
+            updateUIComponents()
             setViewControllers([controllers[questionIndex]], direction: .forward, animated: true, completion: nil)
         }
         else {
-            coordinator?.handleQuizFinished()
+            self.coordinator?.handleQuizFinished()
         }
     }
     
