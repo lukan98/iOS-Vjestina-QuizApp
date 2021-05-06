@@ -8,11 +8,12 @@
 import UIKit
 
 class QuizViewController: UIPageViewController {
-    weak var coordinator: QuizzesCoordinator?
+    weak var coordinator: MainCoordinator?
     
     private var quiz: Quiz!
     private var controllers: [UIViewController] = []
     private var questionIndex = 0
+    private var correctAnswers = 0
     
     private var quizIndexLabel: Label!
     private var progressView: ProgressStackView!
@@ -33,6 +34,7 @@ class QuizViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = Utils.defaultStrings.appTitle
         colorBackground()
         initializeUIComponents()
         addSubviews()
@@ -44,6 +46,11 @@ class QuizViewController: UIPageViewController {
         
         setViewControllers([firstQuestionVC], direction: .forward, animated: true, completion: nil)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setToolbarHidden(true, animated: false)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
 }
 
 private extension QuizViewController {
@@ -51,6 +58,12 @@ private extension QuizViewController {
     func initializeUIComponents() {
         quizIndexLabel = Label(text: "", font: UIFont.PopQuizTheme.bodyBold, textAlignment: .left)
         progressView = ProgressStackView(noOfSegments: quiz.questions.count)
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Utils.symbols.backButton),
+                                                           style: .plain,
+                                                           target: self,
+                                                           action: #selector(goBack))
+        
         updateUIComponents()
     }
     
@@ -88,6 +101,7 @@ extension QuizViewController {
     func showNextQuestion(correctlyAnswered: Bool) {
         if correctlyAnswered {
             progressView.colorSubview(at: questionIndex, color: UIColor.PopQuizTheme.green, animationDuration: 0.3)
+            correctAnswers += 1
         } else {
             progressView.colorSubview(at: questionIndex, color: UIColor.PopQuizTheme.red, animationDuration: 0.3)
         }
@@ -97,8 +111,13 @@ extension QuizViewController {
             setViewControllers([controllers[questionIndex]], direction: .forward, animated: true, completion: nil)
         }
         else {
-            self.coordinator?.handleQuizFinished()
+            self.coordinator?.handleQuizFinished(correctAnswers: correctAnswers, outOf: quiz.questions.count)
         }
+    }
+    
+    @objc
+    func goBack() {
+        navigationController?.popViewController(animated: true)
     }
     
 }

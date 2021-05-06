@@ -53,6 +53,14 @@ extension UIViewController {
     }
 }
 
+extension UINavigationController {
+    func popToViewController(ofClass: AnyClass, animated: Bool = true) {
+        if let vc = viewControllers.last(where: { $0.isKind(of: ofClass) }) {
+            popToViewController(vc, animated: animated)
+        }
+    }
+}
+
 struct Utils {
     struct defaultStrings {
         static let emailPlaceholder = "Email"
@@ -71,6 +79,7 @@ struct Utils {
         static let noQuizzesSymbol = "xmark.circle"
         static let funFactSymbol = "lightbulb.fill"
         static let levelSymbol = "rhombus.fill"
+        static let backButton = "chevron.backward"
     }
     static let defaultInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
 }

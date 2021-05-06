@@ -24,7 +24,6 @@ class QuestionViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        title = Utils.defaultStrings.appTitle
         view.backgroundColor = .clear
         initializeUIComponents()
         addSubviews()

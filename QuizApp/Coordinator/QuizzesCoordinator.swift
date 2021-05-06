@@ -7,29 +7,12 @@
 
 import UIKit
 
-class QuizzesCoordinator: Coordinator {
-    weak var parentCoordinator: MainCoordinator?
-    var childCoordinators: [Coordinator] = [Coordinator]()
-    var navigationController: UINavigationController
+
+protocol QuizzesCoordinator {
     
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
-    }
+    func handleQuizSelection(quiz selectedQuiz: Quiz)
     
-    func start() {
-        let quizzesVC = QuizzesViewController()
-        quizzesVC.coordinator = self
-        navigationController.pushViewController(quizzesVC, animated: true)
-    }
+    func handleQuizFinished(correctAnswers: Int, outOf: Int)
     
-    func handleQuizSelection(quiz selectedQuiz: Quiz) {
-        let quizVC = QuizViewController(quiz: selectedQuiz)
-        quizVC.coordinator = self
-        navigationController.pushViewController(quizVC, animated: true)
-    }
-    
-    func handleQuizFinished() {
-        let quizResultVC = QuizResultViewController()
-        navigationController.pushViewController(quizResultVC, animated: true)
-    }
+    func handleQuizReviewFinished()
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 class QuizzesViewController: UIViewController {
-    weak var coordinator: QuizzesCoordinator?
+    weak var coordinator: MainCoordinator?
     
 //      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
     private var getQuizzesButton: Button!
@@ -42,6 +42,11 @@ class QuizzesViewController: UIViewController {
         setUpTableView()
         setUpLayout()
         setUpActions()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setToolbarHidden(false, animated: false)
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
 }
 
@@ -103,7 +108,7 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-//      INITIALISING THE UI COMPONENTS
+//      SETTING UP THE UI
 private extension QuizzesViewController {
     
     func initalizeUIComponents() {
@@ -153,6 +158,10 @@ private extension QuizzesViewController {
             tableView.backgroundColor = .init(white: 1, alpha: 0)
             return tableView
         }()
+        
+        //      NAVIGATION BAR PROPERTIES
+        navigationItem.hidesBackButton = true
+
     }
 }
 
