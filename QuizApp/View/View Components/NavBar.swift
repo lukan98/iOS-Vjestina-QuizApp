@@ -11,7 +11,6 @@ class NavBar: UINavigationBar {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        barStyle = .black
         setTransparency()
         customizeColors()
     }
@@ -31,6 +30,7 @@ class NavBar: UINavigationBar {
     }
     
     private func customizeColors() {
+        barStyle = .black
         tintColor = UIColor.PopQuizTheme.white
         titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.PopQuizTheme.white,
                                NSAttributedString.Key.font: UIFont.PopQuizTheme.heading2]

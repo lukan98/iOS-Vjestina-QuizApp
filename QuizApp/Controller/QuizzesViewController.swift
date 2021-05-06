@@ -11,6 +11,7 @@ class QuizzesViewController: UIViewController {
     weak var coordinator: MainCoordinator?
     
 //      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
+    private var appTitle: Label!
     private var getQuizzesButton: Button!
     
 //      PROPERTIES RELATED TO THE INITIAL ERROR MESSAGE WHICH IS SHOWN WHEN QUIZZES HAVEN'T BEEN/CAN'T BE LOADED
@@ -35,18 +36,14 @@ class QuizzesViewController: UIViewController {
     private var quizzesByCategory = [QuizCategory : [Quiz]]()
     
     override func viewDidLoad() {
-        title = Utils.defaultStrings.appTitle
         colorBackground()
         initalizeUIComponents()
         addSubviews()
         setUpTableView()
         setUpLayout()
         setUpActions()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setToolbarHidden(false, animated: false)
-        navigationController?.setNavigationBarHidden(false, animated: false)
+        //TODO: Fix quiz fetching
+        fetchQuizzes()
     }
 }
 
@@ -113,6 +110,7 @@ private extension QuizzesViewController {
     
     func initalizeUIComponents() {
         //      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
+        appTitle = Label(text: Utils.defaultStrings.appTitle, font: UIFont.PopQuizTheme.heading3, textAlignment: .center)
         getQuizzesButton = Button(font: UIFont.PopQuizTheme.bodyBold, title: Utils.defaultStrings.getQuizString)
         
         //      PROPERTIES RELATED TO THE INITIAL ERROR MESSAGE WHICH IS SHOWN WHEN QUIZZES HAVEN'T BEEN/CAN'T BE LOADED
@@ -158,10 +156,6 @@ private extension QuizzesViewController {
             tableView.backgroundColor = .init(white: 1, alpha: 0)
             return tableView
         }()
-        
-        //      NAVIGATION BAR PROPERTIES
-        navigationItem.hidesBackButton = true
-
     }
 }
 
@@ -177,6 +171,7 @@ private extension QuizzesViewController {
         errorContainer.addSubview(errorDescription)
         errorContainer.addSubview(errorSymbol)
         
+        view.addSubview(appTitle)
         view.addSubview(getQuizzesButton)
         view.addSubview(errorContainer)
         view.addSubview(funFactContainer)
@@ -189,7 +184,12 @@ private extension QuizzesViewController {
     }
     
     func setUpHeaderLayout() {
-        NSLayoutConstraint.activate([getQuizzesButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+        NSLayoutConstraint.activate([appTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                                     appTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                                     appTitle.heightAnchor.constraint(equalToConstant: 45),
+                                     appTitle.widthAnchor.constraint(equalToConstant: 300)])
+        
+        NSLayoutConstraint.activate([getQuizzesButton.topAnchor.constraint(equalTo: appTitle.bottomAnchor),
                                      getQuizzesButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                                      getQuizzesButton.heightAnchor.constraint(equalToConstant: 45),
                                      getQuizzesButton.widthAnchor.constraint(equalToConstant: 300)])

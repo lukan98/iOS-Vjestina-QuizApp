@@ -35,7 +35,7 @@
 		FCE7B47D2642EEB600BF50A3 /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE7B47C2642EEB600BF50A3 /* QuizViewController.swift */; };
 		FCE7B47F2643518600BF50A3 /* ProgressStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE7B47E2643518600BF50A3 /* ProgressStackView.swift */; };
 		FCE7B48126435BCB00BF50A3 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE7B48026435BCB00BF50A3 /* LoginCoordinator.swift */; };
-		FCE7B48526437FEC00BF50A3 /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE7B48426437FEC00BF50A3 /* Toolbar.swift */; };
+		FCE7B48726443BFC00BF50A3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE7B48626443BFC00BF50A3 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,7 +71,7 @@
 		FCE7B47C2642EEB600BF50A3 /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
 		FCE7B47E2643518600BF50A3 /* ProgressStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressStackView.swift; sourceTree = "<group>"; };
 		FCE7B48026435BCB00BF50A3 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
-		FCE7B48426437FEC00BF50A3 /* Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
+		FCE7B48626443BFC00BF50A3 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +130,7 @@
 				FCE7B47426402EC900BF50A3 /* QuestionViewController.swift */,
 				FCE7B47A2642D3D100BF50A3 /* QuizResultViewController.swift */,
 				FCE7B47C2642EEB600BF50A3 /* QuizViewController.swift */,
+				FCE7B48626443BFC00BF50A3 /* SettingsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -154,7 +155,6 @@
 				FCC9C24A2624BA6C00510DDB /* TableViewCell.swift */,
 				FCE7B478264189CB00BF50A3 /* NavBar.swift */,
 				FCE7B47E2643518600BF50A3 /* ProgressStackView.swift */,
-				FCE7B48426437FEC00BF50A3 /* Toolbar.swift */,
 			);
 			path = "View Components";
 			sourceTree = "<group>";
@@ -301,7 +301,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC615F8026212771004B1ACB /* QuizCategory.swift in Sources */,
-				FCE7B48526437FEC00BF50A3 /* Toolbar.swift in Sources */,
 				FC615F75262126E9004B1ACB /* LoginViewController.swift in Sources */,
 				FCE7B47726404CDC00BF50A3 /* QuizzesCoordinator.swift in Sources */,
 				FCB23E43261B385E00405F5D /* AppDelegate.swift in Sources */,
@@ -324,6 +323,7 @@
 				FCE7B47B2642D3D100BF50A3 /* QuizResultViewController.swift in Sources */,
 				FC615F7F26212771004B1ACB /* DataService.swift in Sources */,
 				FCE7B47D2642EEB600BF50A3 /* QuizViewController.swift in Sources */,
+				FCE7B48726443BFC00BF50A3 /* SettingsViewController.swift in Sources */,
 				FCE7B479264189CB00BF50A3 /* NavBar.swift in Sources */,
 				FC615FA2262217FC004B1ACB /* Utils.swift in Sources */,
 			);

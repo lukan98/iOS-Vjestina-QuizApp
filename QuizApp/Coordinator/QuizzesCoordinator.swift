@@ -15,4 +15,6 @@ protocol QuizzesCoordinator {
     func handleQuizFinished(correctAnswers: Int, outOf: Int)
     
     func handleQuizReviewFinished()
+    
+    func handleLogOut(window: UIWindow)
 }

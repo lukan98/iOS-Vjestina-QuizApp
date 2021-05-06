@@ -8,5 +8,5 @@
 import UIKit
 
 protocol LoginCoordinator {
-    func handleLogin()
+    func handleLogin(window: UIWindow)
 }

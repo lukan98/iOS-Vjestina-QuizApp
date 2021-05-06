@@ -61,6 +61,13 @@ extension UINavigationController {
     }
 }
 
+extension UITabBarController {
+    func styleTabBar() {
+        tabBar.barTintColor = UIColor.PopQuizTheme.white
+        tabBar.tintColor = UIColor.PopQuizTheme.purpleText
+    }
+}
+
 struct Utils {
     struct defaultStrings {
         static let emailPlaceholder = "Email"
@@ -82,8 +89,4 @@ struct Utils {
         static let backButton = "chevron.backward"
     }
     static let defaultInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-}
-
-enum Event {
-    case LoginSuccess
 }

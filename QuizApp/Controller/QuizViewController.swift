@@ -48,8 +48,11 @@ class QuizViewController: UIPageViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setToolbarHidden(true, animated: false)
-        navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
 }
 

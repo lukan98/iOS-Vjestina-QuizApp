@@ -36,7 +36,6 @@ class QuizResultViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setToolbarHidden(true, animated: false)
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
 }

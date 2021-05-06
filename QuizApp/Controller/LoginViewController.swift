@@ -30,7 +30,6 @@ class LoginViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: false)
-        navigationController?.setToolbarHidden(true, animated: false)
     }
 }
 
@@ -110,7 +109,7 @@ private extension LoginViewController {
         switch result {
         case LoginStatus.success:
             print("Sign in successful!")
-            coordinator?.handleLogin()
+            coordinator?.handleLogin(window: view.window!)
         case LoginStatus.error:
             print("Sign in failure")
             showError()
