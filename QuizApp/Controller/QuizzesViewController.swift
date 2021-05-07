@@ -24,7 +24,6 @@ class QuizzesViewController: UIViewController {
     private var funFactContainer: UIView!
     private var funFactTitle: Label!
     private var funFactDescription: Label!
-    private var funFactIcon: UIImageView!
     
 //      TABLEVIEW RELATED PROPERTIES
     private var cellIdentifier: String!
@@ -71,9 +70,9 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.text = quizCategory.rawValue
-        label.font = UIFont.PopQuizTheme.heading3
+        label.font = UIFont.PopQuizDefaultFonts.heading3
         label.textAlignment = .left
-        label.textColor = UIColor.PopQuizTheme.white
+        label.textColor = UIColor.white
         
         NSLayoutConstraint.activate([label.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 30),
                                      label.heightAnchor.constraint(equalTo: container.heightAnchor),
@@ -110,20 +109,20 @@ private extension QuizzesViewController {
     
     func initalizeUIComponents() {
         //      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
-        appTitle = Label(text: Utils.defaultStrings.appTitle, font: UIFont.PopQuizTheme.heading3, textAlignment: .center)
-        getQuizzesButton = Button(font: UIFont.PopQuizTheme.bodyBold, title: Utils.defaultStrings.getQuizString)
+        appTitle = Label(text: .DefaultStrings.appTitle, font: UIFont.PopQuizDefaultFonts.heading3, textAlignment: .center)
+        getQuizzesButton = Button(font: UIFont.PopQuizDefaultFonts.bodyBold, title: .DefaultStrings.getQuizString)
         
         //      PROPERTIES RELATED TO THE INITIAL ERROR MESSAGE WHICH IS SHOWN WHEN QUIZZES HAVEN'T BEEN/CAN'T BE LOADED
         errorSymbol = {
-            let imageView = UIImageView(image: UIImage(systemName: Utils.symbols.noQuizzesSymbol))
+            let imageView = UIImageView(image: UIImage(named: .SymbolStrings.quizzesError))
             imageView.sizeToFit()
-            imageView.tintColor = UIColor.PopQuizTheme.white
+            imageView.tintColor = UIColor.white
             imageView.translatesAutoresizingMaskIntoConstraints = false
             imageView.contentMode = .scaleAspectFit
             return imageView
         }()
-        errorLabel = Label(text: "Error", font: UIFont.PopQuizTheme.heading2)
-        errorDescription = Label(text: Utils.defaultStrings.noQuizzesDescription, font: UIFont.PopQuizTheme.bodyLight)
+        errorLabel = Label(text: "Error", font: UIFont.PopQuizDefaultFonts.heading2)
+        errorDescription = Label(text: .DefaultStrings.noQuizzesDescription, font: UIFont.PopQuizDefaultFonts.bodyLight)
         errorContainer = {
             let view = UIView()
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -137,16 +136,8 @@ private extension QuizzesViewController {
             view.isHidden = true
             return view
         }()
-        funFactTitle = Label(text: "Fun Fact", font: UIFont.PopQuizTheme.bodyBold, textAlignment: .left)
-        funFactDescription = Label(text: "", font: UIFont.PopQuizTheme.bodyLight, textAlignment: .left)
-        funFactIcon = {
-            let imageView = UIImageView(image: UIImage(systemName: Utils.symbols.funFactSymbol))
-            imageView.sizeToFit()
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.tintColor = UIColor.PopQuizTheme.gold
-            imageView.contentMode = .scaleAspectFit
-            return imageView
-        }()
+        funFactTitle = Label(text: .DefaultStrings.funFact, font: UIFont.PopQuizDefaultFonts.bodyBold, textAlignment: .left)
+        funFactDescription = Label(text: "", font: UIFont.PopQuizDefaultFonts.bodyLight, textAlignment: .left)
         
         //      TABLEVIEW RELATED PROPERTIES
         cellIdentifier = "cellId"
@@ -165,7 +156,6 @@ private extension QuizzesViewController {
     func addSubviews() {
         funFactContainer.addSubview(funFactTitle)
         funFactContainer.addSubview(funFactDescription)
-        funFactContainer.addSubview(funFactIcon)
         
         errorContainer.addSubview(errorLabel)
         errorContainer.addSubview(errorDescription)
@@ -198,18 +188,13 @@ private extension QuizzesViewController {
     func setUpFunFactLayout() {
         NSLayoutConstraint.activate([funFactTitle.topAnchor.constraint(equalTo: getQuizzesButton.bottomAnchor, constant: 5),
                                      funFactTitle.rightAnchor.constraint(equalTo: getQuizzesButton.rightAnchor),
-                                     funFactTitle.widthAnchor.constraint(equalTo: getQuizzesButton.widthAnchor, multiplier: 0.8),
+                                     funFactTitle.widthAnchor.constraint(equalTo: getQuizzesButton.widthAnchor),
                                      funFactTitle.heightAnchor.constraint(equalToConstant: 25)])
         
         NSLayoutConstraint.activate([funFactDescription.topAnchor.constraint(equalTo: funFactTitle.bottomAnchor),
                                      funFactDescription.rightAnchor.constraint(equalTo: funFactTitle.rightAnchor),
                                      funFactDescription.widthAnchor.constraint(equalTo: funFactTitle.widthAnchor),
                                      funFactDescription.heightAnchor.constraint(equalToConstant: 40)])
-        
-        NSLayoutConstraint.activate([funFactIcon.topAnchor.constraint(equalTo: funFactTitle.topAnchor),
-                                     funFactIcon.rightAnchor.constraint(equalTo: funFactTitle.leftAnchor, constant: -5),
-                                     funFactIcon.widthAnchor.constraint(equalTo: getQuizzesButton.widthAnchor, multiplier: 0.15),
-                                     funFactIcon.bottomAnchor.constraint(equalTo: funFactDescription.bottomAnchor)])
     }
     
     func setUpErrorContainerLayout() {

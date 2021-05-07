@@ -36,16 +36,20 @@ class LoginViewController: UIViewController {
 private extension LoginViewController {
     
     func initializeUIComponents() {
-        appTitle = Label(text: Utils.defaultStrings.appTitle, font: UIFont.PopQuizTheme.title)
+        appTitle = Label(text: .DefaultStrings.emailPlaceholder, font: UIFont.PopQuizDefaultFonts.title)
         emailField =  {
-            let field = TextField(font: UIFont.PopQuizTheme.bodyLight, placeholderText: Utils.defaultStrings.emailPlaceholder, isSecure: false)
+            let field = TextField(font: UIFont.PopQuizDefaultFonts.bodyLight,
+                                  placeholderText: .DefaultStrings.emailPlaceholder,
+                                  isSecure: false)
             field.autocorrectionType = UITextAutocorrectionType.no
             field.autocapitalizationType = UITextAutocapitalizationType.none
             return field
         }()
-        passwordField = TextField(font: UIFont.PopQuizTheme.bodyLight, placeholderText: Utils.defaultStrings.passwordPlaceholder, isSecure: true)
-        signInButton = Button(font: UIFont.PopQuizTheme.bodyBold, title: Utils.defaultStrings.signInString)
-        errorMessage = ErrorLabel(font: UIFont.PopQuizTheme.heading3, text: Utils.defaultStrings.signInFail)
+        passwordField = TextField(font: UIFont.PopQuizDefaultFonts.bodyLight,
+                                  placeholderText: .DefaultStrings.passwordPlaceholder,
+                                  isSecure: true)
+        signInButton = Button(font: UIFont.PopQuizDefaultFonts.bodyBold, title: .DefaultStrings.signInString)
+        errorMessage = ErrorLabel(font: UIFont.PopQuizDefaultFonts.heading3, text: .DefaultStrings.signInFail)
         errorMessage.isHidden = true
 
     }
@@ -108,10 +112,8 @@ private extension LoginViewController {
         let result: LoginStatus = dataService.login(email: self.emailField.text!, password: self.passwordField.text!)
         switch result {
         case LoginStatus.success:
-            print("Sign in successful!")
             coordinator?.handleLogin(window: view.window!)
         case LoginStatus.error:
-            print("Sign in failure")
             showError()
         }
     }

@@ -34,7 +34,7 @@ class QuizViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = Utils.defaultStrings.appTitle
+        title = .DefaultStrings.appTitle
         colorBackground()
         initializeUIComponents()
         addSubviews()
@@ -59,10 +59,10 @@ class QuizViewController: UIPageViewController {
 private extension QuizViewController {
     
     func initializeUIComponents() {
-        quizIndexLabel = Label(text: "", font: UIFont.PopQuizTheme.bodyBold, textAlignment: .left)
+        quizIndexLabel = Label(text: "", font: UIFont.PopQuizDefaultFonts.bodyBold, textAlignment: .left)
         progressView = ProgressStackView(noOfSegments: quiz.questions.count)
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Utils.symbols.backButton),
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: .SymbolStrings.back),
                                                            style: .plain,
                                                            target: self,
                                                            action: #selector(goBack))
@@ -72,7 +72,7 @@ private extension QuizViewController {
     
     func updateUIComponents() {
         quizIndexLabel.text = "\(questionIndex+1)/\(quiz.questions.count)"
-        progressView.colorSubview(at: questionIndex, color: UIColor.PopQuizTheme.white)
+        progressView.colorSubview(at: questionIndex, color: UIColor.white)
     }
     
     func addSubviews() {
@@ -103,10 +103,10 @@ extension QuizViewController {
     
     func showNextQuestion(correctlyAnswered: Bool) {
         if correctlyAnswered {
-            progressView.colorSubview(at: questionIndex, color: UIColor.PopQuizTheme.green, animationDuration: 0.3)
+            progressView.colorSubview(at: questionIndex, color: UIColor.PopQuizPalette.green, animationDuration: 0.3)
             correctAnswers += 1
         } else {
-            progressView.colorSubview(at: questionIndex, color: UIColor.PopQuizTheme.red, animationDuration: 0.3)
+            progressView.colorSubview(at: questionIndex, color: UIColor.PopQuizPalette.red, animationDuration: 0.3)
         }
         questionIndex += 1
         if questionIndex < controllers.count {

@@ -12,10 +12,10 @@ class ErrorLabel: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = UIColor.PopQuizTheme.red
-        self.layer.cornerRadius = Utils.cornerRadiuses.sharpCornerRadius
+        self.backgroundColor = UIColor.PopQuizPalette.red
+        self.layer.cornerRadius = Utils.DefaultCornerRadiuses.sharpCornerRadius
         self.layer.masksToBounds = true
-        self.textColor = UIColor.PopQuizTheme.white
+        self.textColor = UIColor.white
         self.textAlignment = .center
     }
     

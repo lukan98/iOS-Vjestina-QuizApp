@@ -26,12 +26,12 @@ class SettingsViewController: UIViewController {
     }
     
     private func initializeUIComponents() {
-        usernameTag = Label(text: "USERNAME", font: UIFont.PopQuizTheme.bodyLight, textAlignment: .left)
-        usernameLabel = Label(text: username, font: UIFont.PopQuizTheme.heading2, textAlignment: .left)
-        logOutButton = Button(font: UIFont.PopQuizTheme.bodyBold,
+        usernameTag = Label(text: "USERNAME", font: UIFont.PopQuizDefaultFonts.bodyLight, textAlignment: .left)
+        usernameLabel = Label(text: username, font: UIFont.PopQuizDefaultFonts.heading2, textAlignment: .left)
+        logOutButton = Button(font: UIFont.PopQuizDefaultFonts.bodyBold,
                               title: "Log Out",
-                              textColor: UIColor.PopQuizTheme.red,
-                              backgroundColor: UIColor.PopQuizTheme.white)
+                              textColor: UIColor.PopQuizPalette.red,
+                              backgroundColor: UIColor.white)
     }
     
     private func addSubviews() {

@@ -13,7 +13,7 @@ class Label: UILabel {
         super.init(frame: frame)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = UIColor.clear
-        self.textColor = UIColor.PopQuizTheme.white
+        self.textColor = UIColor.white
         self.textAlignment = .center
         self.numberOfLines = 0
     }

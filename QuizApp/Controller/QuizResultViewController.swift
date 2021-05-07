@@ -49,8 +49,8 @@ private extension QuizResultViewController {
     
     func initializeUIComponents() {
         resultLabel = Label(text: "\(String(describing: result!))/\(String(describing: total!))",
-                            font: UIFont.PopQuizTheme.title, textAlignment: .center)
-        finishButton = Button(font: UIFont.PopQuizTheme.bodyBold, title: "Finish Quiz")
+                            font: UIFont.PopQuizDefaultFonts.title, textAlignment: .center)
+        finishButton = Button(font: UIFont.PopQuizDefaultFonts.bodyBold, title: "Finish Quiz")
         
         navigationItem.hidesBackButton = true
     }

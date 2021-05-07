@@ -31,8 +31,8 @@ class NavBar: UINavigationBar {
     
     private func customizeColors() {
         barStyle = .black
-        tintColor = UIColor.PopQuizTheme.white
-        titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.PopQuizTheme.white,
-                               NSAttributedString.Key.font: UIFont.PopQuizTheme.heading2]
+        tintColor = UIColor.white
+        titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
+                               NSAttributedString.Key.font: UIFont.PopQuizDefaultFonts.heading2]
     }
 }

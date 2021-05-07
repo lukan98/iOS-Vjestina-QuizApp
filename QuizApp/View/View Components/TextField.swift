@@ -11,18 +11,19 @@ class TextField: UITextField {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.PopQuizTheme.whiteWithTransparency
-        self.textColor = UIColor.PopQuizTheme.white
+        self.backgroundColor = UIColor.PopQuizPalette.whiteLessOpaque
+        self.textColor = UIColor.white
         self.translatesAutoresizingMaskIntoConstraints = false
         self.textAlignment = .left
-        self.layer.cornerRadius = Utils.cornerRadiuses.softCornerRadius
+        self.layer.cornerRadius = Utils.DefaultCornerRadiuses.softCornerRadius
+        self.layer.borderColor = UIColor.white.cgColor
     }
     
     convenience init(font: UIFont, placeholderText: String, isSecure: Bool) {
         self.init(frame: CGRect())
         self.font = font
         self.attributedPlaceholder = NSAttributedString(string: placeholderText,
-                                                        attributes: [NSAttributedString.Key.foregroundColor: UIColor.PopQuizTheme.white])
+                                                        attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         self.isSecureTextEntry = isSecure
     }
     
@@ -41,8 +42,6 @@ class TextField: UITextField {
     override open func editingRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: Utils.defaultInset)
     }
-    
-    // TODO [Add border change on touch]
 }
 
 extension TextField {
@@ -50,12 +49,10 @@ extension TextField {
     @objc
     func setBorder() {
         self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.PopQuizTheme.white.cgColor
     }
     
     @objc
     func hideBorder() {
         self.layer.borderWidth = 0
-        self.layer.borderColor = UIColor.clear.cgColor
     }
 }

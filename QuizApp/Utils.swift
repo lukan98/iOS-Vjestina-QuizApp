@@ -9,20 +9,20 @@ import Foundation
 import UIKit
 
 extension UIColor {
-    struct PopQuizTheme {
-        static let purpleLight = UIColor(red: 0.45, green: 0.31, blue: 0.64, alpha: 1.00)
-        static let purpleDark = UIColor(red: 0.15, green: 0.18, blue: 0.46, alpha: 1.00)
-        static let purpleText = UIColor(red: 0.39, green: 0.16, blue: 0.87, alpha: 1.00)
-        static let gold = UIColor(red: 0.95, green: 0.79, blue: 0.30, alpha: 1.00)
-        static let white = UIColor.white
-        static let whiteWithTransparency = UIColor.white.withAlphaComponent(0.30)
-        static let red = UIColor(red: 0.99, green: 0.40, blue: 0.40, alpha: 1.00)
-        static let green = UIColor(red: 0.44, green: 0.81, blue: 0.59, alpha: 1.00)
+    struct PopQuizPalette {
+        static let purple = UIColor.init(named: "Purple")!
+        static let purpleText = UIColor.init(named: "PurpleText")!
+        static let green = UIColor.init(named: "Green")!
+        static let navy = UIColor.init(named: "Navy")!
+        static let red = UIColor.init(named: "Red")!
+        static let yellow = UIColor.init(named: "Yellow")!
+        static let whiteLessOpaque = UIColor.init(white: 1, alpha: 0.3)
+        static let whiteMoreOpaque = UIColor.init(white: 1, alpha: 0.6)
     }
 }
 
 extension UIFont {
-    struct PopQuizTheme {
+    struct PopQuizDefaultFonts {
         static let title = UIFont.systemFont(ofSize: 32, weight: UIFont.Weight.black)
         static let subtitle = UIFont.systemFont(ofSize: 28, weight: UIFont.Weight.heavy)
         static let heading1 = UIFont.systemFont(ofSize: 26, weight: UIFont.Weight.heavy)
@@ -47,7 +47,7 @@ extension UIView {
 }
 
 extension UIViewController {
-    func colorBackground(colors: [UIColor] = [UIColor.PopQuizTheme.purpleLight, UIColor.PopQuizTheme.purpleDark]) -> Void {
+    func colorBackground(colors: [UIColor] = [UIColor.PopQuizPalette.purple, UIColor.PopQuizPalette.navy]) -> Void {
         let viewSize = max(UIScreen.main.bounds.height, UIScreen.main.bounds.width)
         self.view.applyGradient(colors: colors, size: CGSize(width: viewSize, height: viewSize))
     }
@@ -63,13 +63,31 @@ extension UINavigationController {
 
 extension UITabBarController {
     func styleTabBar() {
-        tabBar.barTintColor = UIColor.PopQuizTheme.white
-        tabBar.tintColor = UIColor.PopQuizTheme.purpleText
+        tabBar.barTintColor = UIColor.white
+        tabBar.tintColor = UIColor.PopQuizPalette.purpleText
     }
 }
 
 struct Utils {
-    struct defaultStrings {
+    struct DefaultCornerRadiuses {
+        static let softCornerRadius = 20.0 as CGFloat
+        static let sharpCornerRadius = 10.0 as CGFloat
+    }
+    static let defaultInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+}
+
+extension String {
+    struct SymbolStrings {
+        static let back = "Back"
+        static let exit = "Exit"
+        static let quizIcon = "QuizIcon"
+        static let quizzesError = "QuizzesError"
+        static let levelRhombus = "Rhombus"
+        static let search = "Search"
+        static let settings = "Settings"
+    }
+    struct DefaultStrings {
+        static let funFact = "💡 Fun Fact"
         static let emailPlaceholder = "Email"
         static let passwordPlaceholder = "Password"
         static let signInString = "Sign in"
@@ -78,15 +96,4 @@ struct Utils {
         static let getQuizString = "Get Quiz"
         static let noQuizzesDescription = "Data can't be reached.\nPlease try again."
     }
-    struct cornerRadiuses {
-        static let softCornerRadius = 20.0 as CGFloat
-        static let sharpCornerRadius = 10.0 as CGFloat
-    }
-    struct symbols {
-        static let noQuizzesSymbol = "xmark.circle"
-        static let funFactSymbol = "lightbulb.fill"
-        static let levelSymbol = "rhombus.fill"
-        static let backButton = "chevron.backward"
-    }
-    static let defaultInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
 }

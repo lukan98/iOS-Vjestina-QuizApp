@@ -34,7 +34,7 @@ class QuestionViewController: UIViewController {
 private extension QuestionViewController {
     
     func initializeUIComponents() {
-        questionLabel = Label(text: question.question, font: UIFont.PopQuizTheme.bodyBold, textAlignment: .left)
+        questionLabel = Label(text: question.question, font: UIFont.PopQuizDefaultFonts.bodyBold, textAlignment: .left)
         answerButtonStack = {
             let view = UIStackView()
             view.backgroundColor = .clear
@@ -42,10 +42,10 @@ private extension QuestionViewController {
             view.axis = .vertical
             view.distribution = .equalSpacing
             for i in 0..<question.answers.count {
-                let answerButton = Button(font: UIFont.PopQuizTheme.bodyBold,
+                let answerButton = Button(font: UIFont.PopQuizDefaultFonts.bodyBold,
                                                  title: question.answers[i],
-                                                 textColor: UIColor.PopQuizTheme.white,
-                                                 backgroundColor: UIColor.PopQuizTheme.whiteWithTransparency)
+                                                 textColor: UIColor.white,
+                                                 backgroundColor: UIColor.PopQuizPalette.whiteLessOpaque)
                 answerButton.addTarget(self, action: #selector(submitAnswer), for: .touchUpInside)
                 answerButton.tag = i
                 view.addArrangedSubview(answerButton)
@@ -84,11 +84,11 @@ private extension QuestionViewController {
     func submitAnswer(sender: UIButton!) {
         answerButtonStack.isUserInteractionEnabled = false
         if (sender.tag == question.correctAnswer) {
-            sender.backgroundColor = UIColor.PopQuizTheme.green
+            sender.backgroundColor = UIColor.PopQuizPalette.green
         }
         else {
-            sender.backgroundColor = UIColor.PopQuizTheme.red
-            answerButtonStack.arrangedSubviews[question.correctAnswer].backgroundColor = UIColor.PopQuizTheme.green
+            sender.backgroundColor = UIColor.PopQuizPalette.red
+            answerButtonStack.arrangedSubviews[question.correctAnswer].backgroundColor = UIColor.PopQuizPalette.green
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.pageVC?.showNextQuestion(correctlyAnswered: sender.tag == self.question.correctAnswer)

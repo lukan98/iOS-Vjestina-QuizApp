@@ -26,15 +26,17 @@ class ProgressStackView: UIStackView {
             let rect = UIView(frame: CGRect())
             rect.translatesAutoresizingMaskIntoConstraints = false
             rect.layer.cornerRadius = 2
-            rect.backgroundColor = UIColor.PopQuizTheme.whiteWithTransparency
+            rect.backgroundColor = UIColor.PopQuizPalette.whiteMoreOpaque
             addArrangedSubview(rect)
         }
     }
     
     func colorSubview(at index: Int, color: UIColor, animationDuration duration: Double = 0) {
-        UIView.animate(withDuration: duration, animations: {
-            self.arrangedSubviews[index].backgroundColor = color
-        }, completion: nil)
+        UIView.animate(withDuration: duration,
+                       animations: {
+                        self.arrangedSubviews[index].backgroundColor = color
+                       },
+                       completion: nil)
     }
     
 }

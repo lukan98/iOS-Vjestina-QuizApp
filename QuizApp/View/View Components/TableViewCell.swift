@@ -17,13 +17,10 @@ class TableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -41,18 +38,18 @@ class TableViewCell: UITableViewCell {
     private func initializeUIComponents() {
         containerView = {
             let view = UIView()
-            view.backgroundColor = UIColor.PopQuizTheme.whiteWithTransparency
-            view.layer.cornerRadius = Utils.cornerRadiuses.sharpCornerRadius
+            view.backgroundColor = UIColor.PopQuizPalette.whiteLessOpaque
+            view.layer.cornerRadius = Utils.DefaultCornerRadiuses.sharpCornerRadius
             view.translatesAutoresizingMaskIntoConstraints = false
             return view
         }()
-        titleLabel = Label(text: "", font: UIFont.PopQuizTheme.bodyBold, textAlignment: .left)
-        descriptionLabel = Label(text: "", font: UIFont.PopQuizTheme.bodyRegular, textAlignment: .left)
+        titleLabel = Label(text: "", font: UIFont.PopQuizDefaultFonts.bodyBold, textAlignment: .left)
+        descriptionLabel = Label(text: "", font: UIFont.PopQuizDefaultFonts.bodyRegular, textAlignment: .left)
         descriptionLabel.sizeToFit()
         picture = {
             let imageView = UIImageView(image: UIImage(systemName: "questionmark.circle.fill"))
             imageView.sizeToFit()
-            imageView.tintColor = UIColor.PopQuizTheme.white
+            imageView.tintColor = UIColor.white
             imageView.translatesAutoresizingMaskIntoConstraints = false
             imageView.contentMode = .scaleAspectFit
             return imageView
@@ -64,7 +61,7 @@ class TableViewCell: UITableViewCell {
             view.axis = .horizontal
             view.distribution = .equalSpacing
             for _ in 0..<3 {
-                let levelView = UIImageView(image: UIImage(systemName: Utils.symbols.levelSymbol))
+                let levelView = UIImageView(image: UIImage.init(named: .SymbolStrings.levelRhombus))
                 levelView.contentMode = .scaleAspectFit
                 view.addArrangedSubview(levelView)
             }
@@ -117,10 +114,10 @@ class TableViewCell: UITableViewCell {
     func setLevel(level: Int) {
         for i in 1..<levelStackView.arrangedSubviews.count+1 {
             if (i<=level) {
-                levelStackView.arrangedSubviews[i-1].tintColor = UIColor.PopQuizTheme.gold
+                levelStackView.arrangedSubviews[i-1].tintColor = UIColor.PopQuizPalette.yellow
             }
             else {
-                levelStackView.arrangedSubviews[i-1].tintColor = UIColor.darkGray
+                levelStackView.arrangedSubviews[i-1].tintColor = UIColor.PopQuizPalette.whiteLessOpaque
             }
         }
     }

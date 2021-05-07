@@ -45,10 +45,10 @@ extension MainCoordinator: LoginCoordinator {
     }
     
     private func styleTabIcons(quizzesVC qvc: QuizzesViewController, settingsVC svc: SettingsViewController) {
-        qvc.tabBarItem = UITabBarItem(title:"Quiz", image: UIImage(named: "QuizIconSelected"),
-                                      selectedImage: UIImage(named: "QuizIconSelected"))
-        svc.tabBarItem = UITabBarItem(title:"Settings", image: UIImage(named: "SettingsCog"),
-                                      selectedImage: UIImage(named: "SettingsCog"))
+        qvc.tabBarItem = UITabBarItem(title:"Quiz", image: UIImage(named: .SymbolStrings.quizIcon),
+                                      selectedImage: UIImage(named: .SymbolStrings.quizIcon))
+        svc.tabBarItem = UITabBarItem(title:"Settings", image: UIImage(named: .SymbolStrings.settings),
+                                      selectedImage: UIImage(named: .SymbolStrings.settings))
     }
 }
 
