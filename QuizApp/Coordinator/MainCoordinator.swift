@@ -54,6 +54,12 @@ extension MainCoordinator: LoginCoordinator {
 
 extension MainCoordinator: QuizzesCoordinator {
     
+    func handleLeaderboard() {
+        let leaderboardVC = LeaderboardViewController()
+        leaderboardVC.coordinator = self
+        navigationController.present(leaderboardVC, animated: true, completion: nil)
+    }
+    
     func handleLogOut(window: UIWindow) {
         let newNavigationController = UINavigationController(navigationBarClass: NavBar.self, toolbarClass: nil)
         self.navigationController = newNavigationController

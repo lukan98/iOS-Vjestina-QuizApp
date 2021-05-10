@@ -36,7 +36,7 @@ class LoginViewController: UIViewController {
 private extension LoginViewController {
     
     func initializeUIComponents() {
-        appTitle = Label(text: .DefaultStrings.emailPlaceholder, font: UIFont.PopQuizDefaultFonts.title)
+        appTitle = Label(text: .DefaultStrings.appTitle, font: UIFont.PopQuizDefaultFonts.title)
         emailField =  {
             let field = TextField(font: UIFont.PopQuizDefaultFonts.bodyLight,
                                   placeholderText: .DefaultStrings.emailPlaceholder,

@@ -17,4 +17,6 @@ protocol QuizzesCoordinator {
     func handleQuizReviewFinished()
     
     func handleLogOut(window: UIWindow)
+    
+    func handleLeaderboard()
 }

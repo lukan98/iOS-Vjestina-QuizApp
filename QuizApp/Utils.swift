@@ -8,6 +8,11 @@
 import Foundation
 import UIKit
 
+struct LeaderboardResult {
+    var username: String
+    var score: String?
+}
+
 extension UIColor {
     struct PopQuizPalette {
         static let purple = UIColor.init(named: "Purple")!

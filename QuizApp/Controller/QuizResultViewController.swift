@@ -15,6 +15,7 @@ class QuizResultViewController: UIViewController {
     
     private var resultLabel: Label!
     private var finishButton: Button!
+    private var leaderboardButton: Button!
     
     init(correctAnswers: Int, outOf total: Int) {
         super.init(nibName: nil, bundle: nil)
@@ -45,18 +46,21 @@ private extension QuizResultViewController {
     func addSubviews() {
         view.addSubview(resultLabel)
         view.addSubview(finishButton)
+        view.addSubview(leaderboardButton)
     }
     
     func initializeUIComponents() {
         resultLabel = Label(text: "\(String(describing: result!))/\(String(describing: total!))",
                             font: UIFont.PopQuizDefaultFonts.title, textAlignment: .center)
         finishButton = Button(font: UIFont.PopQuizDefaultFonts.bodyBold, title: "Finish Quiz")
+        leaderboardButton = Button(font: UIFont.PopQuizDefaultFonts.bodyBold, title: "See Leaderboard")
         
         navigationItem.hidesBackButton = true
     }
     
     func setUpActions() {
         finishButton.addTarget(self, action: #selector(finishReview), for: .touchUpInside)
+        leaderboardButton.addTarget(self, action: #selector(goToLeaderboard), for: .touchUpInside)
     }
     
     func setUpLayout() {
@@ -69,6 +73,11 @@ private extension QuizResultViewController {
                                      finishButton.heightAnchor.constraint(equalToConstant: 45),
                                      finishButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
                                      finishButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)])
+        
+        NSLayoutConstraint.activate([leaderboardButton.widthAnchor.constraint(equalTo: finishButton.widthAnchor),
+                                     leaderboardButton.heightAnchor.constraint(equalTo: finishButton.heightAnchor),
+                                     leaderboardButton.bottomAnchor.constraint(equalTo: finishButton.topAnchor, constant: -20),
+                                     leaderboardButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)])
     }
     
 }
@@ -78,5 +87,10 @@ private extension QuizResultViewController {
     @objc
     func finishReview() {
         coordinator?.handleQuizReviewFinished()
+    }
+    
+    @objc
+    func goToLeaderboard() {
+        coordinator?.handleLeaderboard()
     }
 }

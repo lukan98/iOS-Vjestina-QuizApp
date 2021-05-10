@@ -26,6 +26,7 @@
 		FCB23E4C261B386000405F5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCB23E4B261B386000405F5D /* Assets.xcassets */; };
 		FCB23E4F261B386000405F5D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCB23E4D261B386000405F5D /* LaunchScreen.storyboard */; };
 		FCC9C24B2624BA6C00510DDB /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC9C24A2624BA6C00510DDB /* TableViewCell.swift */; };
+		FCE2A03D2649DC0900B88387 /* LeaderboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2A03C2649DC0900B88387 /* LeaderboardViewController.swift */; };
 		FCE7B470263F46F000BF50A3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE7B46F263F46F000BF50A3 /* Coordinator.swift */; };
 		FCE7B473263F804C00BF50A3 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE7B472263F804C00BF50A3 /* MainCoordinator.swift */; };
 		FCE7B47526402EC900BF50A3 /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE7B47426402EC900BF50A3 /* QuestionViewController.swift */; };
@@ -62,6 +63,7 @@
 		FCB23E4E261B386000405F5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FCB23E50261B386000405F5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FCC9C24A2624BA6C00510DDB /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		FCE2A03C2649DC0900B88387 /* LeaderboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewController.swift; sourceTree = "<group>"; };
 		FCE7B46F263F46F000BF50A3 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		FCE7B472263F804C00BF50A3 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		FCE7B47426402EC900BF50A3 /* QuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				FCE7B47A2642D3D100BF50A3 /* QuizResultViewController.swift */,
 				FCE7B47C2642EEB600BF50A3 /* QuizViewController.swift */,
 				FCE7B48626443BFC00BF50A3 /* SettingsViewController.swift */,
+				FCE2A03C2649DC0900B88387 /* LeaderboardViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 				FC615F75262126E9004B1ACB /* LoginViewController.swift in Sources */,
 				FCE7B47726404CDC00BF50A3 /* QuizzesCoordinator.swift in Sources */,
 				FCB23E43261B385E00405F5D /* AppDelegate.swift in Sources */,
+				FCE2A03D2649DC0900B88387 /* LeaderboardViewController.swift in Sources */,
 				FC615F8426212771004B1ACB /* DataServiceProtocol.swift in Sources */,
 				FC615F8126212771004B1ACB /* Question.swift in Sources */,
 				FCC9C24B2624BA6C00510DDB /* TableViewCell.swift in Sources */,
