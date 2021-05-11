@@ -8,7 +8,7 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
-    weak var coordinator: MainCoordinator?
+    weak var coordinator: QuizzesCoordinator?
     
     private var usernameTag: Label!
     private var usernameLabel: Label!
@@ -67,7 +67,7 @@ private extension SettingsViewController {
     
     @objc
     func logOut() {
-        coordinator?.handleLogOut(window: self.view.window!)
+        coordinator?.handleLogOut()
     }
     
 }

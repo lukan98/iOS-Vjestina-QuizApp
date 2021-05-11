@@ -23,11 +23,7 @@ class MainCoordinator: Coordinator {
 }
 
 extension MainCoordinator: LoginCoordinator {
-    func handleLogin(window: UIWindow) {
-        let newNavigationController = UINavigationController(navigationBarClass: NavBar.self, toolbarClass: nil)
-        self.navigationController = newNavigationController
-        window.rootViewController = self.navigationController
-        
+    func handleLogin() {
         let tabBarController = UITabBarController()
         tabBarController.styleTabBar()
         
@@ -40,7 +36,7 @@ extension MainCoordinator: LoginCoordinator {
         styleTabIcons(quizzesVC: quizzesVC, settingsVC: settingsVC)
         
         tabBarController.viewControllers = [quizzesVC, settingsVC]
-        navigationController.pushViewController(tabBarController, animated: true)
+        navigationController.setViewControllers([tabBarController], animated: true)
         tabBarController.navigationController?.isNavigationBarHidden = true
     }
     
@@ -60,13 +56,10 @@ extension MainCoordinator: QuizzesCoordinator {
         navigationController.present(leaderboardVC, animated: true, completion: nil)
     }
     
-    func handleLogOut(window: UIWindow) {
-        let newNavigationController = UINavigationController(navigationBarClass: NavBar.self, toolbarClass: nil)
-        self.navigationController = newNavigationController
-        window.rootViewController = self.navigationController
+    func handleLogOut() {
         let loginVC = LoginViewController()
         loginVC.coordinator = self
-        navigationController.pushViewController(loginVC, animated: true)
+        navigationController.setViewControllers([loginVC], animated: true)
     }
     
     func handleQuizFinished(correctAnswers: Int, outOf: Int) {

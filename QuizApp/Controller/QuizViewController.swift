@@ -8,7 +8,7 @@
 import UIKit
 
 class QuizViewController: UIPageViewController {
-    weak var coordinator: MainCoordinator?
+    weak var coordinator: QuizzesCoordinator?
     
     private var quiz: Quiz!
     private var controllers: [UIViewController] = []

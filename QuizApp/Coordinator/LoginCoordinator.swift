@@ -7,6 +7,6 @@
 
 import UIKit
 
-protocol LoginCoordinator {
-    func handleLogin(window: UIWindow)
+protocol LoginCoordinator : Coordinator {
+    func handleLogin()
 }

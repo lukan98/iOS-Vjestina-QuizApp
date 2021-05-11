@@ -8,7 +8,7 @@
 import UIKit
 
 class QuizResultViewController: UIViewController {
-    weak var coordinator: MainCoordinator?
+    weak var coordinator: QuizzesCoordinator?
     
     private var result: Int!
     private var total: Int!

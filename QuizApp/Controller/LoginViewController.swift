@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class LoginViewController: UIViewController {
-    weak var coordinator: MainCoordinator?
+    weak var coordinator: LoginCoordinator?
     
     private var appTitle: Label!
     private var emailField: TextField!
@@ -112,7 +112,7 @@ private extension LoginViewController {
         let result: LoginStatus = dataService.login(email: self.emailField.text!, password: self.passwordField.text!)
         switch result {
         case LoginStatus.success:
-            coordinator?.handleLogin(window: view.window!)
+            coordinator?.handleLogin()
         case LoginStatus.error:
             showError()
         }

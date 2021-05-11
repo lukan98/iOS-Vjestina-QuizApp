@@ -8,8 +8,7 @@
 import UIKit
 
 class LeaderboardViewController: UIViewController {
-    
-    weak var coordinator: MainCoordinator?
+    weak var coordinator: QuizzesCoordinator?
     
     private var titleLabel: Label!
     private var exitButton: UIImageView!

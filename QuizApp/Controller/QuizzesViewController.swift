@@ -8,7 +8,7 @@
 import UIKit
 
 class QuizzesViewController: UIViewController {
-    weak var coordinator: MainCoordinator?
+    weak var coordinator: QuizzesCoordinator?
     
 //      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
     private var appTitle: Label!

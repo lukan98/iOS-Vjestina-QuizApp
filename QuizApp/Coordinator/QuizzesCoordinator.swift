@@ -8,7 +8,7 @@
 import UIKit
 
 
-protocol QuizzesCoordinator {
+protocol QuizzesCoordinator : Coordinator {
     
     func handleQuizSelection(quiz selectedQuiz: Quiz)
     
@@ -16,7 +16,7 @@ protocol QuizzesCoordinator {
     
     func handleQuizReviewFinished()
     
-    func handleLogOut(window: UIWindow)
+    func handleLogOut()
     
     func handleLeaderboard()
 }
