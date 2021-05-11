@@ -216,3 +216,16 @@ extension DataService {
         return "NBA"
     }
 }
+
+extension DataService {
+    
+    func getLeaderboard() -> [LeaderboardResult] {
+        return [
+            LeaderboardResult(username: "Ironman", score: "4637"),
+            LeaderboardResult(username: "Batman", score: "4332"),
+            LeaderboardResult(username: "Black Widow", score: "1200"),
+            LeaderboardResult(username: "Captain America", score: "3050"),
+            LeaderboardResult(username: "Superman", score: "200")
+        ]
+    }
+}

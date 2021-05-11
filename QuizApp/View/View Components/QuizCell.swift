@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableViewCell: UITableViewCell {
+class QuizCell: UITableViewCell {
     
     private var containerView: UIView!
     private var titleLabel: Label!

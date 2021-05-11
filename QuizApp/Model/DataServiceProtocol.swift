@@ -7,5 +7,7 @@ protocol DataServiceProtocol {
     func getNoOfQuizCategories() -> (Int)
     
     func getRandomFunFactWord() -> (String)
+    
+    func getLeaderboard() -> [LeaderboardResult]
 
 }

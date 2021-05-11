@@ -63,7 +63,7 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let container = UILabel()
+        let container = UIView()
         let label = UILabel(frame: CGRect())
         let quizCategory : QuizCategory = QuizCategory.allCases[section]
         container.addSubview(label)
@@ -81,7 +81,7 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! QuizCell
         let quizCategory : QuizCategory = QuizCategory.allCases[indexPath.section]
         let quiz = quizzesByCategory[quizCategory]![indexPath.row]
         cell.backgroundColor = UIColor.clear
@@ -100,7 +100,7 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     func setUpTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(TableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.register(QuizCell.self, forCellReuseIdentifier: cellIdentifier)
     }
 }
 
@@ -109,7 +109,7 @@ private extension QuizzesViewController {
     
     func initalizeUIComponents() {
         //      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
-        appTitle = Label(text: .DefaultStrings.appTitle, font: UIFont.PopQuizDefaultFonts.heading3, textAlignment: .center)
+        appTitle = Label(text: .DefaultStrings.appTitle, font: UIFont.PopQuizDefaultFonts.heading2, textAlignment: .center)
         getQuizzesButton = Button(font: UIFont.PopQuizDefaultFonts.bodyBold, title: .DefaultStrings.getQuizString)
         
         //      PROPERTIES RELATED TO THE INITIAL ERROR MESSAGE WHICH IS SHOWN WHEN QUIZZES HAVEN'T BEEN/CAN'T BE LOADED
