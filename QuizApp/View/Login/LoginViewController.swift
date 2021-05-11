@@ -8,16 +8,14 @@
 import Foundation
 import UIKit
 
-class LoginViewController: UIViewController {
-    weak var coordinator: LoginCoordinator?
+class LoginViewController: UIViewController, LoginDelegate {
+    var presenter: LoginPresenterProtocol!
     
     private var appTitle: Label!
     private var emailField: TextField!
     private var passwordField: TextField!
     private var signInButton: Button!
     private var errorMessage: ErrorLabel!
-    
-    private let dataService: DataServiceProtocol = DataService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,10 +51,6 @@ private extension LoginViewController {
         errorMessage.isHidden = true
 
     }
-    
-}
-
-private extension LoginViewController {
     
     func addSubviews() {
         view.addSubview(appTitle)
@@ -109,13 +103,7 @@ private extension LoginViewController {
     
     @objc
     func signInAction() {
-        let result: LoginStatus = dataService.login(email: self.emailField.text!, password: self.passwordField.text!)
-        switch result {
-        case LoginStatus.success:
-            coordinator?.handleLogin()
-        case LoginStatus.error:
-            showError()
-        }
+        presenter?.handleLogin(email: emailField.text!, password: passwordField.text!)
     }
     
     @objc
@@ -126,5 +114,11 @@ private extension LoginViewController {
     @objc
     func hideError() {
         errorMessage.isHidden = true
+    }
+}
+
+extension LoginViewController {
+    func handleSignInError() {
+        showError()
     }
 }

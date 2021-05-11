@@ -7,9 +7,10 @@
 
 import UIKit
 
-class QuizzesViewController: UIViewController {
-    weak var coordinator: QuizzesCoordinator?
-    
+class QuizzesViewController: UIViewController, QuizzesDelegate {
+//    var coordinator: QuizzesCoordinator?
+    var presenter: QuizzesPresenterProtocol!
+
 //      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
     private var appTitle: Label!
     private var getQuizzesButton: Button!
@@ -30,9 +31,9 @@ class QuizzesViewController: UIViewController {
     private var tableView: UITableView!
     
 //      MODEL PROPERTIES
-    private let dataService: DataServiceProtocol = DataService()
-    private var quizzes: [Quiz] = []
-    private var quizzesByCategory = [QuizCategory : [Quiz]]()
+//    let dataService = DataService()
+//    private var quizzes: [Quiz] = []
+//    private var quizzesByCategory = [QuizCategory : [Quiz]]()
     
     override func viewDidLoad() {
         colorBackground()
@@ -50,12 +51,14 @@ class QuizzesViewController: UIViewController {
 extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return dataService.getNoOfQuizCategories()
+//        return dataService.getNoOfQuizCategories()
+        return presenter.getNoOfQuizCategories()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let quizCategory : QuizCategory = QuizCategory.allCases[section]
-        return quizzesByCategory[quizCategory]!.count
+//        let quizCategory: QuizCategory = QuizCategory.allCases[section]
+//        return quizzesByCategory[quizCategory]!.count
+        return presenter.getQuizCountForCategory(categoryIndex: section)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -64,16 +67,12 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let container = UIView()
-        let label = UILabel(frame: CGRect())
-        let quizCategory : QuizCategory = QuizCategory.allCases[section]
+//        let quizCategory: QuizCategory = QuizCategory.allCases[section]
+        let quizCategory = presenter.getQuizCategoryForSection(section: section)
+        let label = Label(text: quizCategory.rawValue,
+                          font: .PopQuizDefaultFonts.heading3,
+                          textAlignment: .left)
         container.addSubview(label)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
-        label.text = quizCategory.rawValue
-        label.font = UIFont.PopQuizDefaultFonts.heading3
-        label.textAlignment = .left
-        label.textColor = UIColor.white
-        
         NSLayoutConstraint.activate([label.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 30),
                                      label.heightAnchor.constraint(equalTo: container.heightAnchor),
                                      label.rightAnchor.constraint(equalTo: container.rightAnchor)])
@@ -82,8 +81,9 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! QuizCell
-        let quizCategory : QuizCategory = QuizCategory.allCases[indexPath.section]
-        let quiz = quizzesByCategory[quizCategory]![indexPath.row]
+//        let quizCategory: QuizCategory = QuizCategory.allCases[indexPath.section]
+//        let quiz = quizzesByCategory[quizCategory]![indexPath.row]
+        let quiz = presenter.getQuiz(at: indexPath)
         cell.backgroundColor = UIColor.clear
         cell.setTitleLabel(title: quiz.title)
         cell.setDescriptionLabel(description: quiz.description)
@@ -92,9 +92,10 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let quizCategory : QuizCategory = QuizCategory.allCases[indexPath.section]
-        let quiz = quizzesByCategory[quizCategory]![indexPath.row]
-        coordinator?.handleQuizSelection(quiz: quiz)
+//        let quizCategory : QuizCategory = QuizCategory.allCases[indexPath.section]
+//        let quiz = quizzesByCategory[quizCategory]![indexPath.row]
+//        coordinator?.handleQuizSelection(quiz: quiz)
+        presenter.handleQuizSelection(at: indexPath)
     }
     
     func setUpTableView() {
@@ -136,8 +137,12 @@ private extension QuizzesViewController {
             view.isHidden = true
             return view
         }()
-        funFactTitle = Label(text: .DefaultStrings.funFact, font: UIFont.PopQuizDefaultFonts.bodyBold, textAlignment: .left)
-        funFactDescription = Label(text: "", font: UIFont.PopQuizDefaultFonts.bodyLight, textAlignment: .left)
+        funFactTitle = Label(text: .DefaultStrings.funFact,
+                             font: UIFont.PopQuizDefaultFonts.bodyBold,
+                             textAlignment: .left)
+        funFactDescription = Label(text: "",
+                                   font: UIFont.PopQuizDefaultFonts.bodyLight,
+                                   textAlignment: .left)
         
         //      TABLEVIEW RELATED PROPERTIES
         cellIdentifier = "cellId"
@@ -238,28 +243,30 @@ private extension QuizzesViewController {
     
     @objc
     func fetchQuizzes() {
-        quizzes = dataService.fetchQuizes()
-        if (quizzes.count != 0) {
-            print("Quizzes fetched!")
-            categoriseQuizzes()
-            setFunFactDescription()
-            showQuizzes()
-        }
+//        quizzes = dataService.fetchQuizes()
+//        if (quizzes.count != 0) {
+//            print("Quizzes fetched!")
+//            categoriseQuizzes()
+//            setFunFactDescription()
+//            showQuizzes()
+//        }
+        presenter.fetchQuizzes()
+        showQuizzes()
     }
     
-    func calculateFunFactOccurence(funFactWord: String) -> (Int) {
-        let funFactWord = dataService.getRandomFunFactWord()
-        let counter = quizzes.flatMap({$0.questions}).map({$0.question}).filter({$0.contains(funFactWord)}).count
-        return counter
-    }
+//    func calculateFunFactOccurence(funFactWord: String) -> (Int) {
+//        let funFactWord = dataService.getRandomFunFactWord()
+//        let counter = quizzes.flatMap({$0.questions}).map({$0.question}).filter({$0.contains(funFactWord)}).count
+//        return counter
+//    }
     
-    func categoriseQuizzes() {
-        quizzesByCategory = Dictionary(grouping: quizzes, by: {$0.category})
-    }
+//    func categoriseQuizzes() {
+//        quizzesByCategory = Dictionary(grouping: quizzes, by: {$0.category})
+//    }
     
-    func setFunFactDescription() {
-        let word = dataService.getRandomFunFactWord()
-        let occurences = calculateFunFactOccurence(funFactWord: word)
-        funFactDescription.text = "Did you know there are \(occurences) quizzes with the word \(word) in them?"
-    }
+//    func setFunFactDescription() {
+//        let word = dataService.getRandomFunFactWord()
+//        let occurences = calculateFunFactOccurence(funFactWord: word)
+//        funFactDescription.text = "Did you know there are \(occurences) quizzes with the word \(word) in them?"
+//    }
 }

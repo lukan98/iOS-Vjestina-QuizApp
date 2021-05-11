@@ -17,7 +17,8 @@ class MainCoordinator: Coordinator {
     
     func start() {
         let loginVC = LoginViewController()
-        loginVC.coordinator = self
+        let loginPresenter = LoginPresenter(delegate: loginVC, coordinator: self)
+        loginVC.presenter = loginPresenter
         navigationController.pushViewController(loginVC, animated: false)
     }
 }
@@ -28,9 +29,11 @@ extension MainCoordinator: LoginCoordinator {
         tabBarController.styleTabBar()
         
         let quizzesVC = QuizzesViewController()
+        let quizzesPresenter = QuizzesPresenter(delegate: quizzesVC, coordinator: self)
+        quizzesVC.presenter = quizzesPresenter
+        
         let settingsVC = SettingsViewController()
         
-        quizzesVC.coordinator = self
         settingsVC.coordinator = self
         
         styleTabIcons(quizzesVC: quizzesVC, settingsVC: settingsVC)
@@ -58,7 +61,8 @@ extension MainCoordinator: QuizzesCoordinator {
     
     func handleLogOut() {
         let loginVC = LoginViewController()
-        loginVC.coordinator = self
+        let loginPresenter = LoginPresenter(delegate: loginVC, coordinator: self)
+        loginVC.presenter = loginPresenter
         navigationController.setViewControllers([loginVC], animated: true)
     }
     
