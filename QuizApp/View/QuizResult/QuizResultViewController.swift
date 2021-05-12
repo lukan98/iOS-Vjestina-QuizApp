@@ -7,25 +7,12 @@
 
 import UIKit
 
-class QuizResultViewController: UIViewController {
-    weak var coordinator: QuizzesCoordinator?
-    
-    private var result: Int!
-    private var total: Int!
+class QuizResultViewController: UIViewController, QuizResultDelegate {
+    var presenter: QuizResultPresenterProtocol!
     
     private var resultLabel: Label!
     private var finishButton: Button!
     private var leaderboardButton: Button!
-    
-    init(correctAnswers: Int, outOf total: Int) {
-        super.init(nibName: nil, bundle: nil)
-        self.result = correctAnswers
-        self.total = total
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +37,8 @@ private extension QuizResultViewController {
     }
     
     func initializeUIComponents() {
-        resultLabel = Label(text: "\(String(describing: result!))/\(String(describing: total!))",
+        let result = presenter.getResult()
+        resultLabel = Label(text: "\(result.correct)/\(result.total)",
                             font: UIFont.PopQuizDefaultFonts.title, textAlignment: .center)
         finishButton = Button(font: UIFont.PopQuizDefaultFonts.bodyBold, title: "Finish Quiz")
         leaderboardButton = Button(font: UIFont.PopQuizDefaultFonts.bodyBold, title: "See Leaderboard")
@@ -86,11 +74,11 @@ private extension QuizResultViewController {
     
     @objc
     func finishReview() {
-        coordinator?.handleQuizReviewFinished()
+        presenter.handleReviewFinished()
     }
     
     @objc
     func goToLeaderboard() {
-        coordinator?.handleLeaderboard()
+        presenter.handleGoToLeaderboard()
     }
 }

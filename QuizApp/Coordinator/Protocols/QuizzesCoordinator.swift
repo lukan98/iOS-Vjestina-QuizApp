@@ -7,16 +7,12 @@
 
 import UIKit
 
-
 protocol QuizzesCoordinator : Coordinator {
     
     func handleQuizSelection(quiz selectedQuiz: Quiz)
-    
-    func handleQuizFinished(correctAnswers: Int, outOf: Int)
-    
-    func handleQuizReviewFinished()
-    
+    func handleQuizFinished(correctAnswers: Int, quiz: Quiz)
+    func handleReviewFinished()
     func handleLogOut()
+    func handleGoToLeaderboard(quiz: Quiz)
     
-    func handleLeaderboard()
 }

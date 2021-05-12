@@ -8,10 +8,10 @@
 import Foundation
 
 protocol QuizzesDelegate: Delegate {
-    var presenter: QuizzesPresenterProtocol! { get }
+    var presenter: QuizzesPresenterProtocol! { get set }
     
     func showQuizzes()
     func showError()
     func reloadTable()
-    func setFunFact(word: String, occurences: Int)
+    func setFunFact(funFact: String)
 }

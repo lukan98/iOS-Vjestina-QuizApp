@@ -10,7 +10,7 @@ import Foundation
 protocol QuizzesPresenterProtocol: Presenter {
     var coordinator: QuizzesCoordinator? { get set }
     var dataService: DataServiceProtocol { get }
-    var delegate: QuizzesDelegate { get set }
+    var delegate: QuizzesDelegate { get }
     
     func fetchQuizzes()
     func getQuizzesByCategory() -> [QuizCategory : [Quiz]]

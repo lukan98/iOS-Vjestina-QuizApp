@@ -7,26 +7,35 @@
 
 import UIKit
 
-class LeaderboardViewController: UIViewController {
-    weak var coordinator: QuizzesCoordinator?
+class LeaderboardViewController: UIViewController, LeaderboardDelegate {
+    var presenter: LeaderboardPresenterProtocol!
     
     private var titleLabel: Label!
     private var exitButton: UIImageView!
     
+    private var errorMessage: Label!
+    
     private var leaderboardView: UITableView!
     private let cellIdentifier = "cellIdentifier"
     
-    private let dataService: DataServiceProtocol = DataService()
-    private var leaderboard: [LeaderboardResult]!
-
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Leaderboard"
-        fetchAndSortLeaderboard()
         colorBackground()
         initializeUIComponents()
         addSubviews()
         setUpLayout()
+        presenter.fetchAndSortLeaderboard()
+    }
+    
+    func showError() {
+        leaderboardView.isHidden = true
+        errorMessage.isHidden = false
+    }
+    
+    func showTable() {
+        leaderboardView.isHidden = false
+        errorMessage.isHidden = true
     }
 }
 
@@ -34,6 +43,10 @@ private extension LeaderboardViewController {
     
     func initializeUIComponents() {
         titleLabel = Label(text: "Leaderboard", font: .PopQuizDefaultFonts.heading2, textAlignment: .center)
+        
+        errorMessage = Label(text: "The leaderboard couldn't be reached",
+                             font: .PopQuizDefaultFonts.bodyBold,
+                             textAlignment: .center)
         
         exitButton = UIImageView(image: UIImage(named: .SymbolStrings.exit))
         exitButton.tintColor = .white
@@ -61,6 +74,7 @@ private extension LeaderboardViewController {
         view.addSubview(titleLabel)
         view.addSubview(exitButton)
         view.addSubview(leaderboardView)
+        view.addSubview(errorMessage)
     }
     
     func setUpLayout() {
@@ -78,13 +92,18 @@ private extension LeaderboardViewController {
                                      leaderboardView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
                                      leaderboardView.widthAnchor.constraint(equalTo: view.widthAnchor),
                                      leaderboardView.centerXAnchor.constraint(equalTo: view.centerXAnchor)])
+        
+        NSLayoutConstraint.activate([errorMessage.widthAnchor.constraint(equalToConstant: 300),
+                                     errorMessage.heightAnchor.constraint(equalToConstant: 30),
+                                     errorMessage.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                                     errorMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor)])
     }
 }
 
 extension LeaderboardViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return leaderboard.count
+        return presenter.getLeaderboardSize()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -98,9 +117,9 @@ extension LeaderboardViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = leaderboardView.dequeueReusableCell(withIdentifier: cellIdentifier,
                                                        for: indexPath) as! LeaderboardCell
-        cell.setUsername(username: leaderboard[indexPath.row].username)
+        cell.setUsername(username: presenter.getUsernameFor(index: indexPath.row))
         cell.setRank(rank: indexPath.row+1)
-        if let score = leaderboard[indexPath.row].score {
+        if let score = presenter.getScoreFor(index: indexPath.row) {
             cell.setScore(score: score)
         }
         return cell
@@ -128,15 +147,9 @@ extension LeaderboardViewController: UITableViewDelegate, UITableViewDataSource 
 
 private extension LeaderboardViewController {
     
-    private func fetchAndSortLeaderboard() {
-        leaderboard = dataService.getLeaderboard()
-        leaderboard.sort(by: {
-            Int($0.score!)! > Int($1.score!)!
-        })
-    }
-    
     @objc
     func goBack() {
         dismiss(animated: true, completion: nil)
     }
+    
 }

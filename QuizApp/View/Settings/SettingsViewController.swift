@@ -7,12 +7,11 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
-    weak var coordinator: QuizzesCoordinator?
+class SettingsViewController: UIViewController, SettingsDelegate {
+    var presenter: SettingsPresenterProtocol!
     
     private var usernameTag: Label!
     private var usernameLabel: Label!
-    private var username: String = "SportJunkie1234"
     
     private var logOutButton: Button!
 
@@ -26,8 +25,12 @@ class SettingsViewController: UIViewController {
     }
     
     private func initializeUIComponents() {
-        usernameTag = Label(text: "USERNAME", font: UIFont.PopQuizDefaultFonts.bodyLight, textAlignment: .left)
-        usernameLabel = Label(text: username, font: UIFont.PopQuizDefaultFonts.heading2, textAlignment: .left)
+        usernameTag = Label(text: "USERNAME",
+                            font: UIFont.PopQuizDefaultFonts.bodyLight,
+                            textAlignment: .left)
+        usernameLabel = Label(text: presenter.fetchUsername(),
+                              font: UIFont.PopQuizDefaultFonts.heading2,
+                              textAlignment: .left)
         logOutButton = Button(font: UIFont.PopQuizDefaultFonts.bodyBold,
                               title: "Log Out",
                               textColor: UIColor.PopQuizPalette.red,
@@ -67,7 +70,7 @@ private extension SettingsViewController {
     
     @objc
     func logOut() {
-        coordinator?.handleLogOut()
+        presenter.handleLogout()
     }
     
 }

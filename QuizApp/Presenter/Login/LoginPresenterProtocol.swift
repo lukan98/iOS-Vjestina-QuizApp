@@ -10,7 +10,7 @@ import Foundation
 protocol LoginPresenterProtocol: Presenter {
     var coordinator: LoginCoordinator? { get set }
     var dataService: DataServiceProtocol { get }
-    var delegate: LoginDelegate { get set }
+    var delegate: LoginDelegate { get }
     
     func handleLogin(email: String, password: String)
 }

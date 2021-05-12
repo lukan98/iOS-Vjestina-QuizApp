@@ -219,7 +219,7 @@ extension DataService {
 
 extension DataService {
     
-    func getLeaderboard() -> [LeaderboardResult] {
+    func getLeaderboard(forQuizID id: Int) -> [LeaderboardResult] {
         return [
             LeaderboardResult(username: "Ironman", score: "4637"),
             LeaderboardResult(username: "Batman", score: "4332"),

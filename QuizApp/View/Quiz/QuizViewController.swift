@@ -7,30 +7,16 @@
 
 import UIKit
 
-class QuizViewController: UIPageViewController {
-    weak var coordinator: QuizzesCoordinator?
+class QuizViewController: UIPageViewController, QuizDelegate {
+    var presenter: QuizPresenterProtocol!
     
-    private var quiz: Quiz!
     private var controllers: [UIViewController] = []
     private var questionIndex = 0
     private var correctAnswers = 0
     
     private var quizIndexLabel: Label!
     private var progressView: ProgressStackView!
-    
-    init(quiz q: Quiz) {
-        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
-        self.quiz = q
-        for question in quiz.questions {
-            let questionVC = QuestionViewController(question: question)
-            questionVC.pageVC = self
-            controllers.append(questionVC)
-        }
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,13 +40,21 @@ class QuizViewController: UIPageViewController {
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
+    
+    func setQuiz(quiz: Quiz) {
+        for question in quiz.questions {
+            let questionVC = QuestionViewController(question: question)
+            questionVC.pageVC = self
+            controllers.append(questionVC)
+        }
+    }
 }
 
 private extension QuizViewController {
     
     func initializeUIComponents() {
         quizIndexLabel = Label(text: "", font: UIFont.PopQuizDefaultFonts.bodyBold, textAlignment: .left)
-        progressView = ProgressStackView(noOfSegments: quiz.questions.count)
+        progressView = ProgressStackView(noOfSegments: presenter.getNoOfQuestions())
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: .SymbolStrings.back),
                                                            style: .plain,
@@ -71,7 +65,7 @@ private extension QuizViewController {
     }
     
     func updateUIComponents() {
-        quizIndexLabel.text = "\(questionIndex+1)/\(quiz.questions.count)"
+        quizIndexLabel.text = "\(questionIndex+1)/\(presenter.getNoOfQuestions())"
         progressView.colorSubview(at: questionIndex, color: UIColor.white)
     }
     
@@ -93,7 +87,7 @@ private extension QuizViewController {
         
         for subview in progressView.arrangedSubviews {
             NSLayoutConstraint.activate([subview.widthAnchor.constraint(equalTo: progressView.widthAnchor,
-                                                                        multiplier: CGFloat(1/Double(1+quiz.questions.count)))])
+                                                                        multiplier: CGFloat(1/Double(1+presenter.getNoOfQuestions())))])
         }
     }
     
@@ -114,7 +108,7 @@ extension QuizViewController {
             setViewControllers([controllers[questionIndex]], direction: .forward, animated: true, completion: nil)
         }
         else {
-            self.coordinator?.handleQuizFinished(correctAnswers: correctAnswers, outOf: quiz.questions.count)
+            presenter.handleFinishedQuiz(correctAnswers: correctAnswers)
         }
     }
     

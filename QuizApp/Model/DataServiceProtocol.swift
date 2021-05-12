@@ -8,6 +8,6 @@ protocol DataServiceProtocol {
     
     func getRandomFunFactWord() -> (String)
     
-    func getLeaderboard() -> [LeaderboardResult]
+    func getLeaderboard(forQuizID id: Int) -> [LeaderboardResult]
 
 }

@@ -15,7 +15,6 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
     var quizzes: [Quiz] {
         didSet {
             if quizzes.count > 0 {
-                
                 delegate.showQuizzes()
             }
             else {
@@ -35,6 +34,7 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
     func fetchQuizzes() {
         if Bool.random() {
             self.quizzes = dataService.fetchQuizes()
+            setFunFact()
         }
         else {
             self.quizzes = []
@@ -70,8 +70,17 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
     }
     
     private func calculateFunFactOccurence(funFactWord: String) -> (Int) {
-        let funFactWord = dataService.getRandomFunFactWord()
         return quizzes.flatMap({$0.questions}).map({$0.question}).filter({$0.contains(funFactWord)}).count
+    }
+    
+    private func getFunFactWord() -> (String) {
+        return dataService.getRandomFunFactWord()
+    }
+    
+    private func setFunFact() {
+        let funFactWord = getFunFactWord()
+        let count = calculateFunFactOccurence(funFactWord: funFactWord)
+        delegate.setFunFact(funFact: "Did you know there are \(count) quizzes with the word \(funFactWord) in them?")
     }
     
 }

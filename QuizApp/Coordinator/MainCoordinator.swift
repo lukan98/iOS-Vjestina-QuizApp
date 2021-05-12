@@ -33,8 +33,8 @@ extension MainCoordinator: LoginCoordinator {
         quizzesVC.presenter = quizzesPresenter
         
         let settingsVC = SettingsViewController()
-        
-        settingsVC.coordinator = self
+        let settingsPresenter = SettingsPresenter(delegate: settingsVC, coordinator: self)
+        settingsVC.presenter = settingsPresenter
         
         styleTabIcons(quizzesVC: quizzesVC, settingsVC: settingsVC)
         
@@ -53,9 +53,10 @@ extension MainCoordinator: LoginCoordinator {
 
 extension MainCoordinator: QuizzesCoordinator {
     
-    func handleLeaderboard() {
+    func handleGoToLeaderboard(quiz: Quiz) {
         let leaderboardVC = LeaderboardViewController()
-        leaderboardVC.coordinator = self
+        let leaderboardPresenter = LeaderboardPresenter(delegate: leaderboardVC, coordinator: self, quiz: quiz)
+        leaderboardVC.presenter = leaderboardPresenter
         navigationController.present(leaderboardVC, animated: true, completion: nil)
     }
     
@@ -66,19 +67,24 @@ extension MainCoordinator: QuizzesCoordinator {
         navigationController.setViewControllers([loginVC], animated: true)
     }
     
-    func handleQuizFinished(correctAnswers: Int, outOf: Int) {
-        let quizResultVC = QuizResultViewController(correctAnswers: correctAnswers, outOf: outOf)
-        quizResultVC.coordinator = self
+    func handleQuizFinished(correctAnswers: Int, quiz: Quiz) {
+        let quizResultVC = QuizResultViewController()
+        let quizResultPresenter = QuizResultPresenter(delegate: quizResultVC, coordinator: self,
+                                                      quiz: quiz, correctAnswers: correctAnswers)
+        quizResultVC.presenter = quizResultPresenter
         navigationController.pushViewController(quizResultVC, animated: true)
     }
     
-    func handleQuizReviewFinished() {
+    func handleReviewFinished() {
         navigationController.popToRootViewController(animated: true)
     }
     
     func handleQuizSelection(quiz selectedQuiz: Quiz) {
-        let quizVC = QuizViewController(quiz: selectedQuiz)
-        quizVC.coordinator = self
+        let quizVC = QuizViewController(transitionStyle: .scroll,
+                                        navigationOrientation: .horizontal,
+                                        options: .none)
+        let quizPresenter = QuizPresenter(delegate: quizVC, coordinator: self, quiz: selectedQuiz)
+        quizVC.presenter = quizPresenter
         navigationController.pushViewController(quizVC, animated: true)
     }
     

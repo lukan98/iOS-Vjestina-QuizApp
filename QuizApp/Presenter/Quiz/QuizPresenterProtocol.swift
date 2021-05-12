@@ -1,0 +1,19 @@
+//
+//  QuizPresenterProtocol.swift
+//  QuizApp
+//
+//  Created by Luka Namačinski on 12.05.2021..
+//
+
+import Foundation
+
+protocol QuizPresenterProtocol: Presenter {
+    var coordinator: QuizzesCoordinator? { get set }
+    var dataService: DataServiceProtocol { get }
+    var delegate: QuizDelegate { get }
+    
+    var quiz: Quiz { get }
+    
+    func handleFinishedQuiz(correctAnswers: Int)
+    func getNoOfQuestions() -> (Int)
+}

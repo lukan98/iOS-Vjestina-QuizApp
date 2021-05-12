@@ -50,8 +50,8 @@ class QuizzesViewController: UIViewController, QuizzesDelegate {
         errorContainer.isHidden = false
     }
     
-    func setFunFact(word: String, occurences: Int) {
-        funFactDescription.text = "Did you know there are \(occurences) quizzes with the word \(word) in them?"
+    func setFunFact(funFact: String) {
+        funFactDescription.text = funFact
     }
     
     func reloadTable() {
@@ -251,20 +251,4 @@ private extension QuizzesViewController {
     func fetchQuizzes() {
         presenter.fetchQuizzes()
     }
-    
-//    func calculateFunFactOccurence(funFactWord: String) -> (Int) {
-//        let funFactWord = dataService.getRandomFunFactWord()
-//        let counter = quizzes.flatMap({$0.questions}).map({$0.question}).filter({$0.contains(funFactWord)}).count
-//        return counter
-//    }
-    
-//    func categoriseQuizzes() {
-//        quizzesByCategory = Dictionary(grouping: quizzes, by: {$0.category})
-//    }
-    
-//    func setFunFactDescription() {
-//        let word = dataService.getRandomFunFactWord()
-//        let occurences = calculateFunFactOccurence(funFactWord: word)
-//        funFactDescription.text = "Did you know there are \(occurences) quizzes with the word \(word) in them?"
-//    }
 }
