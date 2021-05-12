@@ -12,7 +12,17 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
     var dataService: DataServiceProtocol = DataService()
     var delegate: QuizzesDelegate
     
-    var quizzes: [Quiz]
+    var quizzes: [Quiz] {
+        didSet {
+            if quizzes.count > 0 {
+                
+                delegate.showQuizzes()
+            }
+            else {
+                delegate.showError()
+            }
+        }
+    }
     var categorisedQuizzes: [QuizCategory : [Quiz]]
     
     init(delegate qd: QuizzesDelegate, coordinator qc: QuizzesCoordinator) {
@@ -23,8 +33,14 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
     }
     
     func fetchQuizzes() {
-        self.quizzes = dataService.fetchQuizes()
+        if Bool.random() {
+            self.quizzes = dataService.fetchQuizes()
+        }
+        else {
+            self.quizzes = []
+        }
         self.categorisedQuizzes = Dictionary(grouping: quizzes, by: {$0.category})
+        delegate.reloadTable()
     }
     
     func getQuizzesByCategory() -> [QuizCategory : [Quiz]] {
@@ -51,6 +67,11 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
     
     func handleQuizSelection(at indexPath: IndexPath) {
         coordinator?.handleQuizSelection(quiz: getQuiz(at: indexPath))
+    }
+    
+    private func calculateFunFactOccurence(funFactWord: String) -> (Int) {
+        let funFactWord = dataService.getRandomFunFactWord()
+        return quizzes.flatMap({$0.questions}).map({$0.question}).filter({$0.contains(funFactWord)}).count
     }
     
 }

@@ -8,7 +8,6 @@
 import UIKit
 
 class QuizzesViewController: UIViewController, QuizzesDelegate {
-//    var coordinator: QuizzesCoordinator?
     var presenter: QuizzesPresenterProtocol!
 
 //      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
@@ -30,11 +29,6 @@ class QuizzesViewController: UIViewController, QuizzesDelegate {
     private var cellIdentifier: String!
     private var tableView: UITableView!
     
-//      MODEL PROPERTIES
-//    let dataService = DataService()
-//    private var quizzes: [Quiz] = []
-//    private var quizzesByCategory = [QuizCategory : [Quiz]]()
-    
     override func viewDidLoad() {
         colorBackground()
         initalizeUIComponents()
@@ -42,8 +36,26 @@ class QuizzesViewController: UIViewController, QuizzesDelegate {
         setUpTableView()
         setUpLayout()
         setUpActions()
-        //TODO: Fix quiz fetching
-        fetchQuizzes()
+    }
+    
+    func showQuizzes() {
+        funFactContainer.isHidden = false
+        errorContainer.isHidden = true
+        tableView.isHidden = false
+    }
+    
+    func showError() {
+        funFactContainer.isHidden = true
+        tableView.isHidden = true
+        errorContainer.isHidden = false
+    }
+    
+    func setFunFact(word: String, occurences: Int) {
+        funFactDescription.text = "Did you know there are \(occurences) quizzes with the word \(word) in them?"
+    }
+    
+    func reloadTable() {
+        tableView.reloadData()
     }
 }
 
@@ -51,13 +63,10 @@ class QuizzesViewController: UIViewController, QuizzesDelegate {
 extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-//        return dataService.getNoOfQuizCategories()
         return presenter.getNoOfQuizCategories()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        let quizCategory: QuizCategory = QuizCategory.allCases[section]
-//        return quizzesByCategory[quizCategory]!.count
         return presenter.getQuizCountForCategory(categoryIndex: section)
     }
     
@@ -67,7 +76,6 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let container = UIView()
-//        let quizCategory: QuizCategory = QuizCategory.allCases[section]
         let quizCategory = presenter.getQuizCategoryForSection(section: section)
         let label = Label(text: quizCategory.rawValue,
                           font: .PopQuizDefaultFonts.heading3,
@@ -81,8 +89,6 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! QuizCell
-//        let quizCategory: QuizCategory = QuizCategory.allCases[indexPath.section]
-//        let quiz = quizzesByCategory[quizCategory]![indexPath.row]
         let quiz = presenter.getQuiz(at: indexPath)
         cell.backgroundColor = UIColor.clear
         cell.setTitleLabel(title: quiz.title)
@@ -92,9 +98,6 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let quizCategory : QuizCategory = QuizCategory.allCases[indexPath.section]
-//        let quiz = quizzesByCategory[quizCategory]![indexPath.row]
-//        coordinator?.handleQuizSelection(quiz: quiz)
         presenter.handleQuizSelection(at: indexPath)
     }
     
@@ -110,8 +113,11 @@ private extension QuizzesViewController {
     
     func initalizeUIComponents() {
         //      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
-        appTitle = Label(text: .DefaultStrings.appTitle, font: UIFont.PopQuizDefaultFonts.heading2, textAlignment: .center)
-        getQuizzesButton = Button(font: UIFont.PopQuizDefaultFonts.bodyBold, title: .DefaultStrings.getQuizString)
+        appTitle = Label(text: .DefaultStrings.appTitle,
+                         font: UIFont.PopQuizDefaultFonts.heading2,
+                         textAlignment: .center)
+        getQuizzesButton = Button(font: UIFont.PopQuizDefaultFonts.bodyBold,
+                                  title: .DefaultStrings.getQuizString)
         
         //      PROPERTIES RELATED TO THE INITIAL ERROR MESSAGE WHICH IS SHOWN WHEN QUIZZES HAVEN'T BEEN/CAN'T BE LOADED
         errorSymbol = {
@@ -123,7 +129,8 @@ private extension QuizzesViewController {
             return imageView
         }()
         errorLabel = Label(text: "Error", font: UIFont.PopQuizDefaultFonts.heading2)
-        errorDescription = Label(text: .DefaultStrings.noQuizzesDescription, font: UIFont.PopQuizDefaultFonts.bodyLight)
+        errorDescription = Label(text: .DefaultStrings.noQuizzesDescription,
+                                 font: UIFont.PopQuizDefaultFonts.bodyLight)
         errorContainer = {
             let view = UIView()
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -155,7 +162,7 @@ private extension QuizzesViewController {
     }
 }
 
-//      SETTING UP THE LAYOUT OF THE PAGE
+//      SETTING UP THE LAYOUT AND ACTIONS OF THE PAGE
 private extension QuizzesViewController {
     
     func addSubviews() {
@@ -170,12 +177,18 @@ private extension QuizzesViewController {
         view.addSubview(getQuizzesButton)
         view.addSubview(errorContainer)
         view.addSubview(funFactContainer)
+        view.addSubview(tableView)
+        
+        tableView.isHidden = true
+        errorContainer.isHidden = true
+        funFactContainer.isHidden = true
     }
     
     func setUpLayout() {
         setUpHeaderLayout()
         setUpErrorContainerLayout()
         setUpFunFactLayout()
+        setUpTableViewLayout()
     }
     
     func setUpHeaderLayout() {
@@ -226,32 +239,17 @@ private extension QuizzesViewController {
                                      tableView.leftAnchor.constraint(equalTo: view.leftAnchor)])
     }
     
-    func showQuizzes() {
-        errorContainer.isHidden = true
-        funFactContainer.isHidden = false
-        view.addSubview(tableView)
-        setUpTableViewLayout()
+    func setUpActions() {
+        getQuizzesButton.addTarget(self, action: #selector(fetchQuizzes), for: .touchUpInside)
     }
 }
 
 //      QUIZ FETCHING UTILITIES
 private extension QuizzesViewController {
     
-    func setUpActions() {
-        getQuizzesButton.addTarget(self, action: #selector(fetchQuizzes), for: .touchUpInside)
-    }
-    
     @objc
     func fetchQuizzes() {
-//        quizzes = dataService.fetchQuizes()
-//        if (quizzes.count != 0) {
-//            print("Quizzes fetched!")
-//            categoriseQuizzes()
-//            setFunFactDescription()
-//            showQuizzes()
-//        }
         presenter.fetchQuizzes()
-        showQuizzes()
     }
     
 //    func calculateFunFactOccurence(funFactWord: String) -> (Int) {
