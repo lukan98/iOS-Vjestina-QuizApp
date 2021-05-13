@@ -12,4 +12,5 @@ protocol LeaderboardDelegate: Delegate {
     
     func showError()
     func showTable()
+    func reloadTable()
 }

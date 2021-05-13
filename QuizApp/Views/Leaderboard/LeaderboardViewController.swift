@@ -37,6 +37,10 @@ class LeaderboardViewController: UIViewController, LeaderboardDelegate {
         leaderboardView.isHidden = false
         errorMessage.isHidden = true
     }
+    
+    func reloadTable() {
+        leaderboardView.reloadData()
+    }
 }
 
 private extension LeaderboardViewController {
@@ -47,6 +51,7 @@ private extension LeaderboardViewController {
         errorMessage = Label(text: "The leaderboard couldn't be reached",
                              font: .PopQuizDefaultFonts.bodyBold,
                              textAlignment: .center)
+        errorMessage.isHidden = true
         
         exitButton = UIImageView(image: UIImage(named: .SymbolStrings.exit))
         exitButton.tintColor = .white
@@ -119,9 +124,7 @@ extension LeaderboardViewController: UITableViewDelegate, UITableViewDataSource 
                                                        for: indexPath) as! LeaderboardCell
         cell.setUsername(username: presenter.getUsernameFor(index: indexPath.row))
         cell.setRank(rank: indexPath.row+1)
-        if let score = presenter.getScoreFor(index: indexPath.row) {
-            cell.setScore(score: score)
-        }
+        cell.setScore(score: presenter.getScoreFor(index: indexPath.row))
         return cell
     }
     

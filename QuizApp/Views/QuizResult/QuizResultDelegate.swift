@@ -9,4 +9,6 @@ import Foundation
 
 protocol QuizResultDelegate: Delegate {
     var presenter: QuizResultPresenterProtocol! { get set }
+    
+    func setResultLabel(correctAnswers correct: Int, totalQuestions total: Int)
 }

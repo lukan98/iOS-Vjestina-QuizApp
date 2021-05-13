@@ -10,6 +10,8 @@ import Foundation
 enum Router {
     case login(username: String, password: String)
     case getQuizzes
+    case postQuizResult(result: QuizResult)
+    case getLeaderboard(id: Int)
 
     var scheme: String {
         switch self {
@@ -31,6 +33,10 @@ enum Router {
             return "/api/session"
         case .getQuizzes:
             return "/api/quizzes"
+        case .postQuizResult:
+            return "/api/result"
+        case .getLeaderboard:
+            return "/api/score"
         }
     }
     
@@ -39,6 +45,8 @@ enum Router {
         case .login(let username, let password):
             return [URLQueryItem(name: "username", value: username),
                     URLQueryItem(name: "password", value: password)]
+        case .getLeaderboard(let quizID):
+            return [URLQueryItem(name: "quiz_id", value: String(quizID))]
         default:
             return nil
         }
@@ -46,10 +54,30 @@ enum Router {
     
     var method: String {
         switch self {
-        case .login:
+        case .login, .postQuizResult:
             return "POST"
-        case .getQuizzes:
+        case .getQuizzes, .getLeaderboard:
             return "GET"
+        }
+    }
+    
+    var body: Data? {
+        switch self {
+        case .postQuizResult(let quizResult):
+            let data = try! JSONEncoder().encode(quizResult)
+            return data
+        default:
+            return nil
+        }
+    }
+    
+    var headers: [String : String]? {
+        switch self {
+        case .postQuizResult, .getLeaderboard:
+            return [User.tokenKey : UserDefaults.standard.string(forKey: User.tokenKey)!,
+                    "Content-Type" : "application/json"]
+        default:
+            return nil
         }
     }
 }

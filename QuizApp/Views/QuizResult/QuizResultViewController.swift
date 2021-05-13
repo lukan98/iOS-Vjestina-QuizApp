@@ -13,6 +13,9 @@ class QuizResultViewController: UIViewController, QuizResultDelegate {
     private var resultLabel: Label!
     private var finishButton: Button!
     private var leaderboardButton: Button!
+
+    private var correctAnswers: Int!
+    private var totalQuestions: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +29,11 @@ class QuizResultViewController: UIViewController, QuizResultDelegate {
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
+    
+    func setResultLabel(correctAnswers correct: Int, totalQuestions total: Int) {
+        correctAnswers = correct
+        totalQuestions = total
+    }
 }
 
 private extension QuizResultViewController {
@@ -37,8 +45,7 @@ private extension QuizResultViewController {
     }
     
     func initializeUIComponents() {
-        let result = presenter.getResult()
-        resultLabel = Label(text: "\(result.correct)/\(result.total)",
+        resultLabel = Label(text: "\(correctAnswers!)/\(totalQuestions!)",
                             font: UIFont.PopQuizDefaultFonts.title, textAlignment: .center)
         finishButton = Button(font: UIFont.PopQuizDefaultFonts.bodyBold, title: "Finish Quiz")
         leaderboardButton = Button(font: UIFont.PopQuizDefaultFonts.bodyBold, title: "See Leaderboard")
@@ -55,16 +62,19 @@ private extension QuizResultViewController {
         NSLayoutConstraint.activate([resultLabel.widthAnchor.constraint(equalToConstant: 200),
                                      resultLabel.heightAnchor.constraint(equalToConstant: 110),
                                      resultLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                                     resultLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20)])
+                                     resultLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor,
+                                                                          constant: -20)])
 
         NSLayoutConstraint.activate([finishButton.widthAnchor.constraint(equalToConstant: 300),
                                      finishButton.heightAnchor.constraint(equalToConstant: 45),
-                                     finishButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
+                                     finishButton.bottomAnchor.constraint(equalTo: view.bottomAnchor,
+                                                                          constant: -40),
                                      finishButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)])
         
         NSLayoutConstraint.activate([leaderboardButton.widthAnchor.constraint(equalTo: finishButton.widthAnchor),
                                      leaderboardButton.heightAnchor.constraint(equalTo: finishButton.heightAnchor),
-                                     leaderboardButton.bottomAnchor.constraint(equalTo: finishButton.topAnchor, constant: -20),
+                                     leaderboardButton.bottomAnchor.constraint(equalTo: finishButton.topAnchor,
+                                                                               constant: -20),
                                      leaderboardButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)])
     }
     

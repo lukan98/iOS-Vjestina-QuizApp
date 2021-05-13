@@ -9,7 +9,7 @@ import Foundation
 
 class QuizPresenter: QuizPresenterProtocol {
     weak var coordinator: QuizzesCoordinator?
-    let dataService: DataServiceProtocol = DataService()
+    let dataService: NetworkServiceProtocol = NetworkService()
     var delegate: QuizDelegate
     
     let quiz: Quiz

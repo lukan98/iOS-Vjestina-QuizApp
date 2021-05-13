@@ -9,7 +9,7 @@ import Foundation
 
 protocol SettingsPresenterProtocol {
     var coordinator: QuizzesCoordinator? { get set }
-    var dataService: DataServiceProtocol { get }
+    var dataService: NetworkServiceProtocol { get }
     var delegate: SettingsDelegate { get }
     
     func fetchUsername() -> (String)

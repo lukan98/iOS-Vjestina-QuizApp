@@ -54,7 +54,7 @@ private extension LeaderboardCell {
     
     func setUpLayout() {
         NSLayoutConstraint.activate([rankLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10),
-                                     rankLabel.widthAnchor.constraint(equalToConstant: 20),
+                                     rankLabel.widthAnchor.constraint(equalToConstant: 40),
                                      rankLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)])
         
         NSLayoutConstraint.activate([usernameLabel.leftAnchor.constraint(equalTo: rankLabel.rightAnchor, constant: 5),
@@ -62,7 +62,7 @@ private extension LeaderboardCell {
                                      usernameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)])
         
         NSLayoutConstraint.activate([scoreLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
-                                     scoreLabel.widthAnchor.constraint(equalToConstant: 50),
+                                     scoreLabel.widthAnchor.constraint(equalToConstant: 100),
                                      scoreLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)])
     }
 }
@@ -73,8 +73,8 @@ extension LeaderboardCell {
         self.usernameLabel.text = username
     }
     
-    func setScore(score: String) {
-        self.scoreLabel.text = score
+    func setScore(score: Double) {
+        self.scoreLabel.text = String(format: "%.2f", score)
     }
     
     func setRank(rank: Int) {

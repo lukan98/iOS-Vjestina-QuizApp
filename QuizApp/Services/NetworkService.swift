@@ -14,7 +14,7 @@ class NetworkService {
     private func executeURLRequest<T: Decodable>(_ request: URLRequest,
                                                  completionHandler: @escaping (Result<T, RequestError>) -> Void) {
         
-        // TODO:No Internet connection
+        // TODO: No Internet connection
         
         URLSession.shared.dataTask(with: request) {
             (data, response, error) -> Void in
@@ -36,6 +36,12 @@ class NetworkService {
             }
             
             guard let value = try? JSONDecoder().decode(T.self, from: data) else {
+                // Pretty clunky but I couldn't think of another way to parse empty success responses
+                // TODO: Fix empty responses
+                guard data.isEmpty else {
+                    completionHandler(.success(data as! T))
+                    return
+                }
                 completionHandler(.failure(.dataDecodingError))
                 return
             }
@@ -59,6 +65,12 @@ class NetworkService {
 
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = route.method
+        urlRequest.httpBody = route.body
+        if let headers = route.headers {
+            for header in headers {
+                urlRequest.setValue(header.value, forHTTPHeaderField: header.key)
+            }
+        }
         
         executeURLRequest(urlRequest, completionHandler: completionHandler)
     }
@@ -77,12 +89,16 @@ extension NetworkService: NetworkServiceProtocol {
         executeURLRequest(route: getQuizzesRoute, completionHandler: completionHandler)
     }
     
-    func postQuizResult() {
-        
+    func postQuizResult(quizResult result: QuizResult,
+                        completionHandler: @escaping (Result<Data, RequestError>) -> Void) {
+        let postResultRoute = Router.postQuizResult(result: result)
+        executeURLRequest(route: postResultRoute, completionHandler: completionHandler)
     }
     
-    func fetchLeaderboard(forQuizID id: Int, completionHander: @escaping (Result<[LeaderboardResult], RequestError>) -> Void) {
-        
+    func fetchLeaderboard(forQuizID id: Int,
+                          completionHander: @escaping (Result<[LeaderboardResult], RequestError>) -> Void) {
+        let fetchLeaderboardRoute = Router.getLeaderboard(id: id)
+        executeURLRequest(route: fetchLeaderboardRoute, completionHandler: completionHander)
     }
 }
 

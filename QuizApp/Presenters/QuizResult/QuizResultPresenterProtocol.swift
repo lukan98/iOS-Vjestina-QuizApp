@@ -12,7 +12,6 @@ protocol QuizResultPresenterProtocol: Presenter {
     var dataService: NetworkServiceProtocol { get }
     var delegate: QuizResultDelegate { get }
     
-    func getResult() -> (correct: Int, total: Int)
     func handleGoToLeaderboard()
     func handleReviewFinished()
 }

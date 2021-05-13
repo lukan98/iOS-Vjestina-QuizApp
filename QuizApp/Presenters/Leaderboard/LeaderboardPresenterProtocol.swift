@@ -9,11 +9,11 @@ import Foundation
 
 protocol LeaderboardPresenterProtocol {
     var coordinator: QuizzesCoordinator? { get set }
-    var dataService: DataServiceProtocol { get }
+    var dataService: NetworkServiceProtocol { get }
     var delegate: LeaderboardDelegate { get }
     
     func fetchAndSortLeaderboard()
     func getLeaderboardSize() -> (Int)
     func getUsernameFor(index at: Int) -> (String)
-    func getScoreFor(index at: Int) -> (String?)
+    func getScoreFor(index at: Int) -> (Double)
 }

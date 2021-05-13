@@ -19,15 +19,30 @@ class QuizResultPresenter: QuizResultPresenterProtocol {
     init(delegate qrd: QuizResultDelegate, coordinator qc: QuizzesCoordinator,
          quiz q: Quiz, correctAnswers: Int, elapsedTime time: CFAbsoluteTime) {
         self.delegate = qrd
+        self.delegate.setResultLabel(correctAnswers: correctAnswers, totalQuestions: q.questions.count)
         self.coordinator = qc
         self.quiz = q
         self.correctAnswers = correctAnswers
         self.elapsedTime = time
+        
+        postQuizResult(quizResult: QuizResult(quizID: self.quiz.id,
+                                              userID: UserDefaults.standard.integer(forKey: User.userIDKey),
+                                              time: self.elapsedTime,
+                                              noOfCorrect: self.correctAnswers))
     }
     
-    func getResult() -> (correct: Int, total: Int) {
-        return (correct: self.correctAnswers,
-                total: self.quiz.questions.count)
+    private func postQuizResult(quizResult: QuizResult) {
+        DispatchQueue.global().async {
+            self.dataService.postQuizResult(quizResult: quizResult, completionHandler: {
+                (result: Result<Data, RequestError>) -> Void in
+                switch result {
+                case .failure(let error):
+                    print(error.errorDescription!)
+                case .success:
+                    print("Data posted successfully!")
+                }
+            })
+        }
     }
     
     func handleGoToLeaderboard() {
