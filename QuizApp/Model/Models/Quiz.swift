@@ -1,4 +1,4 @@
-struct Quiz {
+struct Quiz: Codable {
 
     let id: Int
     let title: String

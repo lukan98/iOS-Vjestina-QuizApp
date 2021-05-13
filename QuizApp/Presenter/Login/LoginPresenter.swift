@@ -9,7 +9,7 @@ import Foundation
 
 class LoginPresenter: LoginPresenterProtocol {
     weak var coordinator: LoginCoordinator?
-    let dataService: DataServiceProtocol = DataService()
+    let dataService: NetworkServiceProtocol = NetworkService()
     var delegate: LoginDelegate
     
     init(delegate ld: LoginDelegate, coordinator lc: LoginCoordinator) {

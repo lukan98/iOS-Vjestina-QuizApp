@@ -49,6 +49,12 @@
 		FCE2A0A0264C275E00B88387 /* SettingsPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2A09F264C275E00B88387 /* SettingsPresenterProtocol.swift */; };
 		FCE2A0A2264C276900B88387 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2A0A1264C276900B88387 /* SettingsPresenter.swift */; };
 		FCE2A0A4264C278100B88387 /* SettingsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2A0A3264C278100B88387 /* SettingsDelegate.swift */; };
+		FCE2A0A6264C2E7400B88387 /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2A0A5264C2E7400B88387 /* NetworkServiceProtocol.swift */; };
+		FCE2A0A8264C2E8200B88387 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2A0A7264C2E8200B88387 /* NetworkService.swift */; };
+		FCE2A0AB264D4C7C00B88387 /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2A0AA264D4C7C00B88387 /* RequestError.swift */; };
+		FCE2A0AD264D4CA300B88387 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2A0AC264D4CA300B88387 /* Result.swift */; };
+		FCE2A0B2264D518300B88387 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2A0B1264D518300B88387 /* Router.swift */; };
+		FCE2A0B4264D592E00B88387 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE2A0B3264D592E00B88387 /* User.swift */; };
 		FCE7B470263F46F000BF50A3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE7B46F263F46F000BF50A3 /* Coordinator.swift */; };
 		FCE7B473263F804C00BF50A3 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE7B472263F804C00BF50A3 /* MainCoordinator.swift */; };
 		FCE7B47526402EC900BF50A3 /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE7B47426402EC900BF50A3 /* QuestionViewController.swift */; };
@@ -108,6 +114,12 @@
 		FCE2A09F264C275E00B88387 /* SettingsPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenterProtocol.swift; sourceTree = "<group>"; };
 		FCE2A0A1264C276900B88387 /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		FCE2A0A3264C278100B88387 /* SettingsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDelegate.swift; sourceTree = "<group>"; };
+		FCE2A0A5264C2E7400B88387 /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
+		FCE2A0A7264C2E8200B88387 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		FCE2A0AA264D4C7C00B88387 /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
+		FCE2A0AC264D4CA300B88387 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		FCE2A0B1264D518300B88387 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		FCE2A0B3264D592E00B88387 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FCE7B46F263F46F000BF50A3 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		FCE7B472263F804C00BF50A3 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		FCE7B47426402EC900BF50A3 /* QuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewController.swift; sourceTree = "<group>"; };
@@ -152,11 +164,12 @@
 		FC615F7926212771004B1ACB /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				FC615F7A26212771004B1ACB /* QuizCategory.swift */,
-				FC615F7B26212771004B1ACB /* Question.swift */,
-				FC615F7C26212771004B1ACB /* LoginStatus.swift */,
-				FC615F7D26212771004B1ACB /* Quiz.swift */,
 				FCE2A03E264A8DB000B88387 /* LeaderboardResult.swift */,
+				FC615F7C26212771004B1ACB /* LoginStatus.swift */,
+				FC615F7B26212771004B1ACB /* Question.swift */,
+				FC615F7D26212771004B1ACB /* Quiz.swift */,
+				FC615F7A26212771004B1ACB /* QuizCategory.swift */,
+				FCE2A0B3264D592E00B88387 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -179,8 +192,11 @@
 		FC615F8F26220A16004B1ACB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FCE2A0A9264D4C6600B88387 /* ServiceUtils */,
 				FC615F7826212771004B1ACB /* DataService.swift */,
 				FC615F7E26212771004B1ACB /* DataServiceProtocol.swift */,
+				FCE2A0A7264C2E8200B88387 /* NetworkService.swift */,
+				FCE2A0A5264C2E7400B88387 /* NetworkServiceProtocol.swift */,
 				FC615F7926212771004B1ACB /* Models */,
 			);
 			path = Model;
@@ -369,6 +385,16 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		FCE2A0A9264D4C6600B88387 /* ServiceUtils */ = {
+			isa = PBXGroup;
+			children = (
+				FCE2A0AA264D4C7C00B88387 /* RequestError.swift */,
+				FCE2A0AC264D4CA300B88387 /* Result.swift */,
+				FCE2A0B1264D518300B88387 /* Router.swift */,
+			);
+			path = ServiceUtils;
+			sourceTree = "<group>";
+		};
 		FCE7B471263F48D800BF50A3 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
@@ -495,6 +521,7 @@
 				FC615F8026212771004B1ACB /* QuizCategory.swift in Sources */,
 				FC615F75262126E9004B1ACB /* LoginViewController.swift in Sources */,
 				FCE7B47726404CDC00BF50A3 /* QuizzesCoordinator.swift in Sources */,
+				FCE2A0B2264D518300B88387 /* Router.swift in Sources */,
 				FCB23E43261B385E00405F5D /* AppDelegate.swift in Sources */,
 				FCE2A094264C0C7300B88387 /* QuizResultPresenter.swift in Sources */,
 				FCE2A041264A91E900B88387 /* LeaderboardCell.swift in Sources */,
@@ -505,13 +532,17 @@
 				FCE2A08C264C015F00B88387 /* QuizDelegate.swift in Sources */,
 				FCE2A0A2264C276900B88387 /* SettingsPresenter.swift in Sources */,
 				FCE2A092264C0C6700B88387 /* QuizResultPresenterProtocol.swift in Sources */,
+				FCE2A0A6264C2E7400B88387 /* NetworkServiceProtocol.swift in Sources */,
 				FCE7B473263F804C00BF50A3 /* MainCoordinator.swift in Sources */,
+				FCE2A0AB264D4C7C00B88387 /* RequestError.swift in Sources */,
 				FCE7B47F2643518600BF50A3 /* ProgressStackView.swift in Sources */,
 				FCE2A03F264A8DB000B88387 /* LeaderboardResult.swift in Sources */,
 				FCE2A07A264B367000B88387 /* Presenter.swift in Sources */,
 				FC615FB426238BB4004B1ACB /* ErrorLabel.swift in Sources */,
+				FCE2A0AD264D4CA300B88387 /* Result.swift in Sources */,
 				FCE2A076264B25D700B88387 /* LoginPresenterProtocol.swift in Sources */,
 				FCE7B47526402EC900BF50A3 /* QuestionViewController.swift in Sources */,
+				FCE2A0A8264C2E8200B88387 /* NetworkService.swift in Sources */,
 				FC615FAB262236B6004B1ACB /* Button.swift in Sources */,
 				FCE2A088264C011A00B88387 /* QuizPresenterProtocol.swift in Sources */,
 				FCE2A09A264C1CA700B88387 /* LeaderboardPresenterProtocol.swift in Sources */,
@@ -529,6 +560,7 @@
 				FCE2A078264B25E100B88387 /* LoginPresenter.swift in Sources */,
 				FCE2A07C264B369200B88387 /* Delegate.swift in Sources */,
 				FCE2A0A0264C275E00B88387 /* SettingsPresenterProtocol.swift in Sources */,
+				FCE2A0B4264D592E00B88387 /* User.swift in Sources */,
 				FCE2A081264B3F6800B88387 /* QuizzesPresenter.swift in Sources */,
 				FC615F9B26220ED7004B1ACB /* Label.swift in Sources */,
 				FCE7B47B2642D3D100BF50A3 /* QuizResultViewController.swift in Sources */,
