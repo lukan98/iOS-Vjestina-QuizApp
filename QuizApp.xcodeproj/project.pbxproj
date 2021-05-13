@@ -12,7 +12,6 @@
 		FC615F7F26212771004B1ACB /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC615F7826212771004B1ACB /* DataService.swift */; };
 		FC615F8026212771004B1ACB /* QuizCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC615F7A26212771004B1ACB /* QuizCategory.swift */; };
 		FC615F8126212771004B1ACB /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC615F7B26212771004B1ACB /* Question.swift */; };
-		FC615F8226212771004B1ACB /* LoginStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC615F7C26212771004B1ACB /* LoginStatus.swift */; };
 		FC615F8326212771004B1ACB /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC615F7D26212771004B1ACB /* Quiz.swift */; };
 		FC615F8426212771004B1ACB /* DataServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC615F7E26212771004B1ACB /* DataServiceProtocol.swift */; };
 		FC615F9B26220ED7004B1ACB /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC615F9A26220ED7004B1ACB /* Label.swift */; };
@@ -75,7 +74,6 @@
 		FC615F7826212771004B1ACB /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		FC615F7A26212771004B1ACB /* QuizCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizCategory.swift; sourceTree = "<group>"; };
 		FC615F7B26212771004B1ACB /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
-		FC615F7C26212771004B1ACB /* LoginStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginStatus.swift; sourceTree = "<group>"; };
 		FC615F7D26212771004B1ACB /* Quiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 		FC615F7E26212771004B1ACB /* DataServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataServiceProtocol.swift; sourceTree = "<group>"; };
 		FC615F9A26220ED7004B1ACB /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
@@ -165,7 +163,6 @@
 			isa = PBXGroup;
 			children = (
 				FCE2A03E264A8DB000B88387 /* LeaderboardResult.swift */,
-				FC615F7C26212771004B1ACB /* LoginStatus.swift */,
 				FC615F7B26212771004B1ACB /* Question.swift */,
 				FC615F7D26212771004B1ACB /* Quiz.swift */,
 				FC615F7A26212771004B1ACB /* QuizCategory.swift */,
@@ -549,7 +546,6 @@
 				FC615FA526221F9C004B1ACB /* TextField.swift in Sources */,
 				FCE2A070264B247900B88387 /* LoginDelegate.swift in Sources */,
 				FCE2A08F264C0C1200B88387 /* QuizResultDelegate.swift in Sources */,
-				FC615F8226212771004B1ACB /* LoginStatus.swift in Sources */,
 				FCE7B470263F46F000BF50A3 /* Coordinator.swift in Sources */,
 				FCE2A07F264B3F5E00B88387 /* QuizzesPresenterProtocol.swift in Sources */,
 				FC615FB92623B224004B1ACB /* QuizzesViewController.swift in Sources */,

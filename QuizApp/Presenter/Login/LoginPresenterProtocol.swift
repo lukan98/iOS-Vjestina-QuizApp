@@ -12,5 +12,5 @@ protocol LoginPresenterProtocol: Presenter {
     var dataService: NetworkServiceProtocol { get }
     var delegate: LoginDelegate { get }
     
-    func handleLogin(email: String, password: String)
+    func handleLogin(username: String, password: String)
 }

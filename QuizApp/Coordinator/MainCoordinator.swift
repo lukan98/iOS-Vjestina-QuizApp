@@ -67,10 +67,11 @@ extension MainCoordinator: QuizzesCoordinator {
         navigationController.setViewControllers([loginVC], animated: true)
     }
     
-    func handleQuizFinished(correctAnswers: Int, quiz: Quiz) {
+    func handleQuizFinished(correctAnswers: Int, elapsedTime: CFAbsoluteTime, quiz: Quiz) {
         let quizResultVC = QuizResultViewController()
         let quizResultPresenter = QuizResultPresenter(delegate: quizResultVC, coordinator: self,
-                                                      quiz: quiz, correctAnswers: correctAnswers)
+                                                      quiz: quiz, correctAnswers: correctAnswers,
+                                                      elapsedTime: elapsedTime)
         quizResultVC.presenter = quizResultPresenter
         navigationController.pushViewController(quizResultVC, animated: true)
     }

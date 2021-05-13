@@ -7,5 +7,20 @@ struct Quiz: Codable {
     let level: Int
     let imageUrl: String
     let questions: [Question]
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case description
+        case category
+        case level
+        case imageUrl = "image"
+        case questions
+    }
+}
 
+struct QuizCollection: Codable {
+    
+    let quizzes: [Quiz]
+    
 }

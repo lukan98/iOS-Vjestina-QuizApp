@@ -16,7 +16,8 @@ class QuizViewController: UIPageViewController, QuizDelegate {
     
     private var quizIndexLabel: Label!
     private var progressView: ProgressStackView!
-
+    
+    private var timeStarted: CFAbsoluteTime!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,10 @@ class QuizViewController: UIPageViewController, QuizDelegate {
         pageAppearance.isHidden = true
         
         setViewControllers([firstQuestionVC], direction: .forward, animated: true, completion: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        timeStarted = CFAbsoluteTimeGetCurrent()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,7 +100,7 @@ private extension QuizViewController {
 
 extension QuizViewController {
     
-    func showNextQuestion(correctlyAnswered: Bool) {
+    func questionAnswered(correctlyAnswered: Bool) {
         if correctlyAnswered {
             progressView.colorSubview(at: questionIndex, color: UIColor.PopQuizPalette.green, animationDuration: 0.3)
             correctAnswers += 1
@@ -103,13 +108,18 @@ extension QuizViewController {
             progressView.colorSubview(at: questionIndex, color: UIColor.PopQuizPalette.red, animationDuration: 0.3)
         }
         questionIndex += 1
-        if questionIndex < controllers.count {
-            updateUIComponents()
-            setViewControllers([controllers[questionIndex]], direction: .forward, animated: true, completion: nil)
-        }
-        else {
-            presenter.handleFinishedQuiz(correctAnswers: correctAnswers)
-        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+            if self.questionIndex < self.controllers.count {
+                self.updateUIComponents()
+                self.setViewControllers([self.controllers[self.questionIndex]],
+                                        direction: .forward, animated: true,
+                                        completion: nil)
+            }
+            else {
+                self.presenter.handleFinishedQuiz(correctAnswers: self.correctAnswers,
+                                                  elapsedTime: CFAbsoluteTimeGetCurrent() - self.timeStarted)
+            }
+        })
     }
     
     @objc

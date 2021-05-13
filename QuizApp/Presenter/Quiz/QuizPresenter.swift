@@ -21,8 +21,8 @@ class QuizPresenter: QuizPresenterProtocol {
         self.delegate.setQuiz(quiz: quiz)
     }
     
-    func handleFinishedQuiz(correctAnswers: Int) {
-        coordinator?.handleQuizFinished(correctAnswers: correctAnswers, quiz: self.quiz)
+    func handleFinishedQuiz(correctAnswers: Int, elapsedTime time: CFAbsoluteTime) {
+        coordinator?.handleQuizFinished(correctAnswers: correctAnswers, elapsedTime: time, quiz: self.quiz)
     }
     
     func getNoOfQuestions() -> (Int) {

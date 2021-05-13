@@ -10,5 +10,5 @@ import Foundation
 protocol LoginDelegate: AnyObject {
     var presenter: LoginPresenterProtocol! { get set }
     
-    func handleSignInError()
+    func handleSignInError(errorMessage error: String)
 }

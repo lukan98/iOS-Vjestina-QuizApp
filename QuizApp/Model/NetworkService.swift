@@ -8,13 +8,18 @@
 import Foundation
 
 class NetworkService {
+
+    private static var currentUser: User!
     
     private func executeURLRequest<T: Decodable>(_ request: URLRequest,
                                                  completionHandler: @escaping (Result<T, RequestError>) -> Void) {
+        
+        // TODO:No Internet connection
+        
         URLSession.shared.dataTask(with: request) {
             (data, response, error) -> Void in
             
-            guard error != nil else {
+            guard error == nil else {
                 completionHandler(.failure(.clientError))
                 return
             }
@@ -39,13 +44,13 @@ class NetworkService {
         }.resume()
     }
     
-    private func executeURLRequest<T: Decodable>(router: Router,
-                                         completionHandler: @escaping (Result<T, RequestError>) -> Void) {
+    private func executeURLRequest<T: Decodable>(route: Router,
+                                                 completionHandler: @escaping (Result<T, RequestError>) -> Void) {
         var components = URLComponents()
-        components.scheme = router.scheme
-        components.host = router.host
-        components.path = router.path
-        components.queryItems = router.queryItems
+        components.scheme = route.scheme
+        components.host = route.host
+        components.path = route.path
+        components.queryItems = route.queryItems
         
         guard let url = components.url else {
             completionHandler(.failure(.invalidURLError))
@@ -53,7 +58,7 @@ class NetworkService {
         }
 
         var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = router.method
+        urlRequest.httpMethod = route.method
         
         executeURLRequest(urlRequest, completionHandler: completionHandler)
     }
@@ -62,34 +67,22 @@ class NetworkService {
 
 extension NetworkService: NetworkServiceProtocol {
     
-    func login(email: String, password: String) -> LoginStatus {
-        let loginRoute: Router = .login(username: email, password: password)
-        executeURLRequest(router: loginRoute, completionHandler: {
-            (result: Result<User, RequestError>) -> (Void) in
-            switch result {
-            case .failure(let error):
-                print(error.errorDescription!)
-            case .success(let value):
-                print(value)
-            }
-        })
-        return LoginStatus.error(400, "Something")
+    func login(username: String, password: String, completionHandler: @escaping (Result<User, RequestError>) -> Void) {
+        let loginRoute = Router.login(username: username, password: password)
+        executeURLRequest(route: loginRoute, completionHandler: completionHandler)
     }
     
-    func fetchQuizes() -> [Quiz] {
-        return []
+    func fetchQuizes(completionHandler: @escaping (Result<QuizCollection, RequestError>) -> Void) {
+        let getQuizzesRoute = Router.getQuizzes
+        executeURLRequest(route: getQuizzesRoute, completionHandler: completionHandler)
     }
     
-    func getNoOfQuizCategories() -> (Int) {
-        return 0
+    func postQuizResult() {
+        
     }
     
-    func getRandomFunFactWord() -> (String) {
-        return "A"
-    }
-    
-    func getLeaderboard(forQuizID id: Int) -> [LeaderboardResult] {
-        return []
+    func fetchLeaderboard(forQuizID id: Int, completionHander: @escaping (Result<[LeaderboardResult], RequestError>) -> Void) {
+        
     }
 }
 

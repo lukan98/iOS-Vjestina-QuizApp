@@ -7,9 +7,9 @@
 
 import Foundation
 
-class QuizzesPresenter: QuizzesPresenterProtocol {    
+class QuizzesPresenter: QuizzesPresenterProtocol {
     weak var coordinator: QuizzesCoordinator?
-    var dataService: DataServiceProtocol = DataService()
+    var dataService: NetworkServiceProtocol = NetworkService()
     var delegate: QuizzesDelegate
     
     var quizzes: [Quiz] {
@@ -32,15 +32,23 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
     }
     
     func fetchQuizzes() {
-        if Bool.random() {
-            self.quizzes = dataService.fetchQuizes()
-            setFunFact()
+        DispatchQueue.global().async {
+            self.dataService.fetchQuizes(completionHandler: {
+                (result: Result<QuizCollection, RequestError>) -> Void in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .failure(let error):
+                        print(error)
+                        self.quizzes = []
+                    case .success(let fetchedCollection):
+                        self.quizzes = fetchedCollection.quizzes
+                        self.setFunFact()
+                    }
+                    self.categorisedQuizzes = Dictionary(grouping: self.quizzes, by: {$0.category})
+                    self.delegate.reloadTable()
+                }
+            })
         }
-        else {
-            self.quizzes = []
-        }
-        self.categorisedQuizzes = Dictionary(grouping: quizzes, by: {$0.category})
-        delegate.reloadTable()
     }
     
     func getQuizzesByCategory() -> [QuizCategory : [Quiz]] {
@@ -73,14 +81,10 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
         return quizzes.flatMap({$0.questions}).map({$0.question}).filter({$0.contains(funFactWord)}).count
     }
     
-    private func getFunFactWord() -> (String) {
-        return dataService.getRandomFunFactWord()
-    }
-    
     private func setFunFact() {
-        let funFactWord = getFunFactWord()
+        let funFactWord = "NBA"
         let count = calculateFunFactOccurence(funFactWord: funFactWord)
-        delegate.setFunFact(funFact: "Did you know there are \(count) quizzes with the word \(funFactWord) in them?")
+        delegate.setFunFact(funFact: "Did you know there are \(count) questions with the word \(funFactWord) in them?")
     }
     
 }

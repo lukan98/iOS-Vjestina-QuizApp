@@ -14,6 +14,6 @@ protocol QuizPresenterProtocol: Presenter {
     
     var quiz: Quiz { get }
     
-    func handleFinishedQuiz(correctAnswers: Int)
+    func handleFinishedQuiz(correctAnswers: Int, elapsedTime: CFAbsoluteTime)
     func getNoOfQuestions() -> (Int)
 }

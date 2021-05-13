@@ -8,9 +8,10 @@
 import Foundation
 
 protocol NetworkServiceProtocol {
-    func login(email: String, password: String) -> LoginStatus
-    func fetchQuizes() -> [Quiz]
-    func getNoOfQuizCategories() -> (Int)
-    func getRandomFunFactWord() -> (String)
-    func getLeaderboard(forQuizID id: Int) -> [LeaderboardResult]
+    func login(username: String, password: String,
+               completionHandler: @escaping (Result<User, RequestError>) -> Void)
+    func fetchQuizes(completionHandler: @escaping (Result<QuizCollection, RequestError>) -> Void)
+    func fetchLeaderboard(forQuizID id: Int,
+                          completionHander: @escaping (Result<[LeaderboardResult], RequestError>) -> Void)
+    func postQuizResult()
 }

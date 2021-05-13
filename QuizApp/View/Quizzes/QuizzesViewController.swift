@@ -10,22 +10,20 @@ import UIKit
 class QuizzesViewController: UIViewController, QuizzesDelegate {
     var presenter: QuizzesPresenterProtocol!
 
-//      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
     private var appTitle: Label!
     private var getQuizzesButton: Button!
-    
-//      PROPERTIES RELATED TO THE INITIAL ERROR MESSAGE WHICH IS SHOWN WHEN QUIZZES HAVEN'T BEEN/CAN'T BE LOADED
+
     private var errorSymbol: UIImageView!
     private var errorLabel: Label!
     private var errorDescription: Label!
     private var errorContainer: UIView!
     
-//      PROPERTIES RELATED TO THE FUN FACT DISPLAYED ABOVE THE TABLEVIEW
+    //TODO: Add loading wheel
+
     private var funFactContainer: UIView!
     private var funFactTitle: Label!
     private var funFactDescription: Label!
-    
-//      TABLEVIEW RELATED PROPERTIES
+
     private var cellIdentifier: String!
     private var tableView: UITableView!
     
@@ -59,7 +57,6 @@ class QuizzesViewController: UIViewController, QuizzesDelegate {
     }
 }
 
-//      IMPLEMENTATION OF TABLEVIEWDELEGATE AND TABLEVIEWDATASOURCE
 extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -108,18 +105,15 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-//      SETTING UP THE UI
 private extension QuizzesViewController {
     
     func initalizeUIComponents() {
-        //      PROPERTIES RELATED TO THE APP HEADER - THE APP TITLE AND THE GET QUIZZES BUTTON
         appTitle = Label(text: .DefaultStrings.appTitle,
                          font: UIFont.PopQuizDefaultFonts.heading2,
                          textAlignment: .center)
         getQuizzesButton = Button(font: UIFont.PopQuizDefaultFonts.bodyBold,
                                   title: .DefaultStrings.getQuizString)
         
-        //      PROPERTIES RELATED TO THE INITIAL ERROR MESSAGE WHICH IS SHOWN WHEN QUIZZES HAVEN'T BEEN/CAN'T BE LOADED
         errorSymbol = {
             let imageView = UIImageView(image: UIImage(named: .SymbolStrings.quizzesError))
             imageView.sizeToFit()
@@ -136,8 +130,7 @@ private extension QuizzesViewController {
             view.translatesAutoresizingMaskIntoConstraints = false
             return view
         }()
-        
-        //      PROPERTIES RELATED TO THE FUN FACT DISPLAYED ABOVE THE TABLEVIEW
+
         funFactContainer = {
             let view = UIView()
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -150,8 +143,7 @@ private extension QuizzesViewController {
         funFactDescription = Label(text: "",
                                    font: UIFont.PopQuizDefaultFonts.bodyLight,
                                    textAlignment: .left)
-        
-        //      TABLEVIEW RELATED PROPERTIES
+
         cellIdentifier = "cellId"
         tableView = {
             let tableView = UITableView(frame: CGRect(), style: .grouped)
@@ -162,7 +154,6 @@ private extension QuizzesViewController {
     }
 }
 
-//      SETTING UP THE LAYOUT AND ACTIONS OF THE PAGE
 private extension QuizzesViewController {
     
     func addSubviews() {
@@ -242,10 +233,6 @@ private extension QuizzesViewController {
     func setUpActions() {
         getQuizzesButton.addTarget(self, action: #selector(fetchQuizzes), for: .touchUpInside)
     }
-}
-
-//      QUIZ FETCHING UTILITIES
-private extension QuizzesViewController {
     
     @objc
     func fetchQuizzes() {

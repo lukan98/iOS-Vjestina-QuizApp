@@ -17,13 +17,24 @@ class LoginPresenter: LoginPresenterProtocol {
         self.coordinator = lc
     }
     
-    func handleLogin(email: String, password: String) {
-        let result: LoginStatus = dataService.login(email: email, password: password)
-        switch result {
-        case LoginStatus.success:
-            coordinator?.handleLogin()
-        case LoginStatus.error:
-            delegate.handleSignInError()
+    func handleLogin(username: String, password: String) {
+        DispatchQueue.global().async {
+            self.dataService.login(username: username, password: password, completionHandler: {
+                (loginResult: Result<User, RequestError>) -> Void in
+                switch loginResult {
+                case .failure:
+                    DispatchQueue.main.async {
+                        //TODO: Fix error messages (but the error is always nil)
+                        self.delegate.handleSignInError(errorMessage: "Login failed!")
+                    }
+                case .success(let fetchedUser):
+                    UserDefaults.standard.set(fetchedUser.user_id, forKey: User.userIDKey)
+                    UserDefaults.standard.set(fetchedUser.token, forKey: User.tokenKey)
+                    DispatchQueue.main.async {
+                        self.coordinator?.handleLogin()
+                    }
+                }
+            })
         }
     }
 }

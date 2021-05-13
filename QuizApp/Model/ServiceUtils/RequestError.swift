@@ -24,13 +24,13 @@ extension RequestError: LocalizedError {
         case .invalidURLError:
             return "Invalid URL!"
         case .clientError:
-            return "Client error!"
+            return "The data supplied is wrong"
         case .serverError:
-            return "Server error!"
+            return "A server error has occured"
         case .noDataError:
-            return "No data!"
+            return "No data could be retrieved"
         case .dataDecodingError:
-            return "Couldn't decode data!"
+            return "Couldn't read fetched data"
         }
     }
 }

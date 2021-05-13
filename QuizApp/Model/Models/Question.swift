@@ -5,4 +5,10 @@ struct Question: Codable {
     let answers: [String]
     let correctAnswer: Int
 
+    enum CodingKeys: String, CodingKey {
+        case id
+        case question
+        case answers
+        case correctAnswer = "correct_answer"
+    }
 }

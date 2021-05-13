@@ -6,6 +6,9 @@
 //
 
 struct User: Codable {
+    static let tokenKey = "Authorization"
+    static let userIDKey = "user_id"
+    
     let token: String
-    let id: Int
+    let user_id: Int
 }

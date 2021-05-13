@@ -47,7 +47,7 @@ private extension LoginViewController {
                                   placeholderText: .DefaultStrings.passwordPlaceholder,
                                   isSecure: true)
         signInButton = Button(font: UIFont.PopQuizDefaultFonts.bodyBold, title: .DefaultStrings.signInString)
-        errorMessage = ErrorLabel(font: UIFont.PopQuizDefaultFonts.heading3, text: .DefaultStrings.signInFail)
+        errorMessage = ErrorLabel(font: UIFont.PopQuizDefaultFonts.heading3, text: "")
         errorMessage.isHidden = true
 
     }
@@ -103,7 +103,7 @@ private extension LoginViewController {
     
     @objc
     func signInAction() {
-        presenter?.handleLogin(email: emailField.text!, password: passwordField.text!)
+        presenter?.handleLogin(username: emailField.text!, password: passwordField.text!)
     }
     
     @objc
@@ -118,7 +118,8 @@ private extension LoginViewController {
 }
 
 extension LoginViewController {
-    func handleSignInError() {
+    func handleSignInError(errorMessage error: String) {
+        errorMessage.text = error
         showError()
     }
 }

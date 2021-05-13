@@ -9,7 +9,7 @@ import Foundation
 
 protocol QuizResultPresenterProtocol: Presenter {
     var coordinator: QuizzesCoordinator? { get set }
-    var dataService: DataServiceProtocol { get }
+    var dataService: NetworkServiceProtocol { get }
     var delegate: QuizResultDelegate { get }
     
     func getResult() -> (correct: Int, total: Int)

@@ -90,8 +90,6 @@ private extension QuestionViewController {
             sender.backgroundColor = UIColor.PopQuizPalette.red
             answerButtonStack.arrangedSubviews[question.correctAnswer].backgroundColor = UIColor.PopQuizPalette.green
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.pageVC?.showNextQuestion(correctlyAnswered: sender.tag == self.question.correctAnswer)
-        }
+        self.pageVC?.questionAnswered(correctlyAnswered: sender.tag == question.correctAnswer)
     }
 }

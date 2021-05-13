@@ -9,6 +9,7 @@ import Foundation
 
 enum Router {
     case login(username: String, password: String)
+    case getQuizzes
 
     var scheme: String {
         switch self {
@@ -28,14 +29,18 @@ enum Router {
         switch self {
         case .login:
             return "/api/session"
+        case .getQuizzes:
+            return "/api/quizzes"
         }
     }
     
-    var queryItems: [URLQueryItem] {
+    var queryItems: [URLQueryItem]? {
         switch self {
         case .login(let username, let password):
             return [URLQueryItem(name: "username", value: username),
                     URLQueryItem(name: "password", value: password)]
+        default:
+            return nil
         }
     }
     
@@ -43,6 +48,8 @@ enum Router {
         switch self {
         case .login:
             return "POST"
+        case .getQuizzes:
+            return "GET"
         }
     }
 }
