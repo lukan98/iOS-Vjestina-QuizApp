@@ -7,11 +7,7 @@
 
 import Foundation
 
-protocol LeaderboardPresenterProtocol {
-    var coordinator: QuizzesCoordinator? { get set }
-    var dataService: NetworkServiceProtocol { get }
-    var delegate: LeaderboardDelegate { get }
-    
+protocol LeaderboardPresenterProtocol: Presenter {
     func fetchAndSortLeaderboard()
     func getLeaderboardSize() -> (Int)
     func getUsernameFor(index at: Int) -> (String)

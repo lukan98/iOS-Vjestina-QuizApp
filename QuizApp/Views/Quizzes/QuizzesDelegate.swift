@@ -7,9 +7,7 @@
 
 import Foundation
 
-protocol QuizzesDelegate: Delegate {
-    var presenter: QuizzesPresenterProtocol! { get set }
-    
+protocol QuizzesDelegate: Delegate {   
     func showQuizzes()
     func showError()
     func reloadTable()

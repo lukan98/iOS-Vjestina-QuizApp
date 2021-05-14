@@ -7,5 +7,4 @@
 
 import Foundation
 
-protocol Delegate: AnyObject {
-}
+protocol Delegate: AnyObject {}

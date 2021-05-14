@@ -7,11 +7,7 @@
 
 import Foundation
 
-protocol QuizResultPresenterProtocol: Presenter {
-    var coordinator: QuizzesCoordinator? { get set }
-    var dataService: NetworkServiceProtocol { get }
-    var delegate: QuizResultDelegate { get }
-    
+protocol QuizResultPresenterProtocol: Presenter {    
     func handleGoToLeaderboard()
     func handleReviewFinished()
 }

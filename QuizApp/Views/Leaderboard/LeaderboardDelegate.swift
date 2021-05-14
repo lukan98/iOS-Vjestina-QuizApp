@@ -7,9 +7,7 @@
 
 import Foundation
 
-protocol LeaderboardDelegate: Delegate {
-    var presenter: LeaderboardPresenterProtocol! { get set }
-    
+protocol LeaderboardDelegate: Delegate { 
     func showError()
     func showTable()
     func reloadTable()

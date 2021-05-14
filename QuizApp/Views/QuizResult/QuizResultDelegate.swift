@@ -7,8 +7,6 @@
 
 import Foundation
 
-protocol QuizResultDelegate: Delegate {
-    var presenter: QuizResultPresenterProtocol! { get set }
-    
+protocol QuizResultDelegate: Delegate { 
     func setResultLabel(correctAnswers correct: Int, totalQuestions total: Int)
 }

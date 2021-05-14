@@ -8,9 +8,5 @@
 import Foundation
 
 protocol LoginPresenterProtocol: Presenter {
-    var coordinator: LoginCoordinator? { get set }
-    var dataService: NetworkServiceProtocol { get }
-    var delegate: LoginDelegate { get }
-    
     func handleLogin(username: String, password: String)
 }

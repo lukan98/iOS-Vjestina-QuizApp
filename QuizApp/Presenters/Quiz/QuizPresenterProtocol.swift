@@ -8,12 +8,6 @@
 import Foundation
 
 protocol QuizPresenterProtocol: Presenter {
-    var coordinator: QuizzesCoordinator? { get set }
-    var dataService: NetworkServiceProtocol { get }
-    var delegate: QuizDelegate { get }
-    
-    var quiz: Quiz { get }
-    
     func handleFinishedQuiz(correctAnswers: Int, elapsedTime: CFAbsoluteTime)
     func getNoOfQuestions() -> (Int)
 }

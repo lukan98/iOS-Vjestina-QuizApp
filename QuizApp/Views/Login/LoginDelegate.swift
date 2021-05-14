@@ -7,8 +7,6 @@
 
 import Foundation
 
-protocol LoginDelegate: AnyObject {
-    var presenter: LoginPresenterProtocol! { get set }
-    
+protocol LoginDelegate: AnyObject { 
     func handleSignInError(errorMessage error: String)
 }

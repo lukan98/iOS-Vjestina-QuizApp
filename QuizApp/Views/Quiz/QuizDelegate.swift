@@ -8,7 +8,5 @@
 import Foundation
 
 protocol QuizDelegate: Delegate {
-    var presenter: QuizPresenterProtocol! { get set }
-    
     func setQuiz(quiz: Quiz)
 }

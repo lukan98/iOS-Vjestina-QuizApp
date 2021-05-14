@@ -8,10 +8,6 @@
 import Foundation
 
 protocol SettingsPresenterProtocol {
-    var coordinator: QuizzesCoordinator? { get set }
-    var dataService: NetworkServiceProtocol { get }
-    var delegate: SettingsDelegate { get }
-    
     func fetchUsername() -> (String)
     func handleLogout()
 }

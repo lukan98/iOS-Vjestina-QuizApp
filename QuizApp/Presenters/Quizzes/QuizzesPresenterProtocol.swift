@@ -8,10 +8,6 @@
 import Foundation
 
 protocol QuizzesPresenterProtocol: Presenter {
-    var coordinator: QuizzesCoordinator? { get set }
-    var dataService: NetworkServiceProtocol { get }
-    var delegate: QuizzesDelegate { get }
-    
     func fetchQuizzes()
     func getQuizzesByCategory() -> [QuizCategory : [Quiz]]
     func getNoOfQuizCategories() -> Int
