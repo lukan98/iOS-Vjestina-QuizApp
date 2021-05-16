@@ -33,23 +33,35 @@ class LeaderboardPresenter: LeaderboardPresenterProtocol {
     }
     
     func fetchAndSortLeaderboard() {
-//        if Bool.random() {
-//            leaderboard = dataService.getLeaderboard(forQuizID: quiz.id)
-//            leaderboard.sort(by: {Int($0.score!)! > Int($1.score!)!})
-//        }
-//        else {
-//            leaderboard = []
-//        }
         DispatchQueue.global().async {
             self.dataService.fetchLeaderboard(forQuizID: self.quiz.id, completionHander: {
                 (result: Result<[LeaderboardResult], RequestError>) -> Void in
                 DispatchQueue.main.async {
                     switch result {
                     case .failure(let error):
-                        print(error)
+                        self.leaderboard = []
+                        self.delegate.setErrorMessage(message: error.localizedDescription)
                     case .success(let value):
                         self.leaderboard = value
-                        self.leaderboard.sort(by: {Double($0.score!)! > Double($1.score!)!})
+                        // TODO:Feels kinda hacky look into improvements
+                        self.leaderboard.sort(by: {
+                            entryA, entryB in
+                            var scoreA, scoreB: Double
+                            if entryA.score == nil {
+                                scoreA = 0
+                            } else {
+                                scoreA = Double(entryA.score!)!
+                            }
+                            if entryB.score == nil {
+                                scoreB = 0
+                            } else {
+                                scoreB = Double(entryB.score!)!
+                            }
+                            if scoreA == 0 && scoreB == 0 {
+                                return entryA.username > entryB.username
+                            }
+                            return scoreA > scoreB
+                        })
                     }
                     self.delegate.reloadTable()
                 }

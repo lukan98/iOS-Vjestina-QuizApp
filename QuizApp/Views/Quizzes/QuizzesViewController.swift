@@ -48,6 +48,10 @@ class QuizzesViewController: UIViewController, QuizzesDelegate {
         errorContainer.isHidden = false
     }
     
+    func setErrorMessage(message: String) {
+        errorDescription.text = message
+    }
+    
     func setFunFact(funFact: String) {
         funFactDescription.text = funFact
     }
@@ -125,6 +129,7 @@ private extension QuizzesViewController {
         errorLabel = Label(text: "Error", font: UIFont.PopQuizDefaultFonts.heading2)
         errorDescription = Label(text: .DefaultStrings.noQuizzesDescription,
                                  font: UIFont.PopQuizDefaultFonts.bodyLight)
+        errorDescription.numberOfLines = 0
         errorContainer = {
             let view = UIView()
             view.translatesAutoresizingMaskIntoConstraints = false

@@ -10,6 +10,7 @@ import Foundation
 protocol QuizzesDelegate: Delegate {   
     func showQuizzes()
     func showError()
+    func setErrorMessage(message: String)
     func reloadTable()
     func setFunFact(funFact: String)
 }

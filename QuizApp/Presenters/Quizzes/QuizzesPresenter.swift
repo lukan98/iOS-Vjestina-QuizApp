@@ -38,7 +38,7 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
                 DispatchQueue.main.async {
                     switch result {
                     case .failure(let error):
-                        print(error)
+                        self.delegate.setErrorMessage(message: error.localizedDescription)
                         self.quizzes = []
                     case .success(let fetchedCollection):
                         self.quizzes = fetchedCollection.quizzes

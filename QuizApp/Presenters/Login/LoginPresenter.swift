@@ -22,10 +22,10 @@ class LoginPresenter: LoginPresenterProtocol {
             self.dataService.login(username: username, password: password, completionHandler: {
                 (loginResult: Result<User, RequestError>) -> Void in
                 switch loginResult {
-                case .failure:
+                case .failure(let requestError):
                     DispatchQueue.main.async {
                         //TODO: Fix error messages (but the error is always nil)
-                        self.delegate.handleSignInError(errorMessage: "Login failed!")
+                        self.delegate.handleSignInError(errorMessage: requestError.localizedDescription)
                     }
                 case .success(let fetchedUser):
                     UserDefaults.standard.set(fetchedUser.user_id, forKey: User.userIDKey)

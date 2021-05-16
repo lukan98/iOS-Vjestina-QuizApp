@@ -9,6 +9,7 @@ import Foundation
 
 protocol LeaderboardDelegate: Delegate { 
     func showError()
+    func setErrorMessage(message: String)
     func showTable()
     func reloadTable()
 }

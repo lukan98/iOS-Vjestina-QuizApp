@@ -47,7 +47,8 @@ private extension LoginViewController {
                                   placeholderText: .DefaultStrings.passwordPlaceholder,
                                   isSecure: true)
         signInButton = Button(font: UIFont.PopQuizDefaultFonts.bodyBold, title: .DefaultStrings.signInString)
-        errorMessage = ErrorLabel(font: UIFont.PopQuizDefaultFonts.heading3, text: "")
+        errorMessage = ErrorLabel(font: UIFont.PopQuizDefaultFonts.bodyBold, text: "")
+        errorMessage.numberOfLines = 0
         errorMessage.isHidden = true
 
     }

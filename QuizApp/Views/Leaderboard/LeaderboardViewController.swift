@@ -33,6 +33,10 @@ class LeaderboardViewController: UIViewController, LeaderboardDelegate {
         errorMessage.isHidden = false
     }
     
+    func setErrorMessage(message: String) {
+        errorMessage.text = message
+    }
+    
     func showTable() {
         leaderboardView.isHidden = false
         errorMessage.isHidden = true
@@ -51,6 +55,7 @@ private extension LeaderboardViewController {
         errorMessage = Label(text: "The leaderboard couldn't be reached",
                              font: .PopQuizDefaultFonts.bodyBold,
                              textAlignment: .center)
+        errorMessage.numberOfLines = 0
         errorMessage.isHidden = true
         
         exitButton = UIImageView(image: UIImage(named: .SymbolStrings.exit))
@@ -99,7 +104,7 @@ private extension LeaderboardViewController {
                                      leaderboardView.centerXAnchor.constraint(equalTo: view.centerXAnchor)])
         
         NSLayoutConstraint.activate([errorMessage.widthAnchor.constraint(equalToConstant: 300),
-                                     errorMessage.heightAnchor.constraint(equalToConstant: 30),
+                                     errorMessage.heightAnchor.constraint(equalToConstant: 60),
                                      errorMessage.centerYAnchor.constraint(equalTo: view.centerYAnchor),
                                      errorMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor)])
     }

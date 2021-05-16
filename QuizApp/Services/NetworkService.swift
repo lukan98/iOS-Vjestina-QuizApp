@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Reachability
 
 class NetworkService {
 
@@ -20,7 +21,7 @@ class NetworkService {
             (data, response, error) -> Void in
             
             guard error == nil else {
-                completionHandler(.failure(.clientError))
+                completionHandler(.failure(.networkError))
                 return
             }
             
@@ -31,7 +32,7 @@ class NetworkService {
             }
             
             guard let data = data else {
-                completionHandler(.failure(.noDataError))
+                completionHandler(.failure(self.handleErrorCode(httpResponse.statusCode)))
                 return
             }
             
