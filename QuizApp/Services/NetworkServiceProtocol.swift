@@ -13,5 +13,6 @@ protocol NetworkServiceProtocol {
     func fetchQuizes(completionHandler: @escaping (Result<QuizCollection, RequestError>) -> Void)
     func fetchLeaderboard(forQuizID id: Int,
                           completionHander: @escaping (Result<[LeaderboardResult], RequestError>) -> Void)
-    func postQuizResult(quizResult: QuizResult, completionHandler: @escaping (Result<Data, RequestError>) -> Void)
+    func postQuizResult(quizResult: QuizResult,
+                        completionHandler: @escaping (Result<EmptyResponse, RequestError>) -> Void)
 }

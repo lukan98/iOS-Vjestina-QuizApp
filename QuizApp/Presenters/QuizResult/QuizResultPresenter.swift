@@ -34,7 +34,7 @@ class QuizResultPresenter: QuizResultPresenterProtocol {
     private func postQuizResult(quizResult: QuizResult) {
         DispatchQueue.global().async {
             self.dataService.postQuizResult(quizResult: quizResult, completionHandler: {
-                (result: Result<Data, RequestError>) -> Void in
+                (result: Result<EmptyResponse, RequestError>) -> Void in
                 switch result {
                 case .failure(let error):
                     print(error.errorDescription!)

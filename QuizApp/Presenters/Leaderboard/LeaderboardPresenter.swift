@@ -43,25 +43,7 @@ class LeaderboardPresenter: LeaderboardPresenterProtocol {
                         self.delegate.setErrorMessage(message: error.localizedDescription)
                     case .success(let value):
                         self.leaderboard = value
-                        // TODO:Feels kinda hacky look into improvements
-                        self.leaderboard.sort(by: {
-                            entryA, entryB in
-                            var scoreA, scoreB: Double
-                            if entryA.score == nil {
-                                scoreA = 0
-                            } else {
-                                scoreA = Double(entryA.score!)!
-                            }
-                            if entryB.score == nil {
-                                scoreB = 0
-                            } else {
-                                scoreB = Double(entryB.score!)!
-                            }
-                            if scoreA == 0 && scoreB == 0 {
-                                return entryA.username > entryB.username
-                            }
-                            return scoreA > scoreB
-                        })
+                        self.leaderboard.sort(by: LeaderboardResult.leaderboardSorter)
                     }
                     self.delegate.reloadTable()
                 }

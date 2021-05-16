@@ -24,8 +24,12 @@ class LoginPresenter: LoginPresenterProtocol {
                 switch loginResult {
                 case .failure(let requestError):
                     DispatchQueue.main.async {
-                        //TODO: Fix error messages (but the error is always nil)
-                        self.delegate.handleSignInError(errorMessage: requestError.localizedDescription)
+                        switch requestError {
+                        case .networkError:
+                            self.delegate.handleSignInError(errorMessage: requestError.localizedDescription)
+                        default:
+                            self.delegate.handleSignInError(errorMessage: "Username or password incorrect!")
+                        }
                     }
                 case .success(let fetchedUser):
                     UserDefaults.standard.set(fetchedUser.user_id, forKey: User.userIDKey)

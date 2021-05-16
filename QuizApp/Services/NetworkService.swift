@@ -9,19 +9,37 @@ import Foundation
 import Reachability
 
 class NetworkService {
-
-    private static var currentUser: User!
+    
+    private static var reachability: Reachability!
+    
+    init() {
+        if NetworkService.reachability == nil {
+            NetworkService.reachability = Reachability(hostname: "www.google.com")
+        }
+    }
+    
+    private func checkReachability() -> Bool {
+        switch NetworkService.reachability.currentReachabilityStatus() {
+        case .NotReachable:
+            return false
+        default:
+            return true
+        }
+    }
     
     private func executeURLRequest<T: Decodable>(_ request: URLRequest,
                                                  completionHandler: @escaping (Result<T, RequestError>) -> Void) {
         
-        // TODO: No Internet connection
+        if !checkReachability() {
+            completionHandler(.failure(.networkError))
+            return
+        }
         
         URLSession.shared.dataTask(with: request) {
             (data, response, error) -> Void in
             
             guard error == nil else {
-                completionHandler(.failure(.networkError))
+                completionHandler(.failure(.clientError))
                 return
             }
             
@@ -37,12 +55,6 @@ class NetworkService {
             }
             
             guard let value = try? JSONDecoder().decode(T.self, from: data) else {
-                // Pretty clunky but I couldn't think of another way to parse empty success responses
-                // TODO: Fix empty responses
-                guard data.isEmpty else {
-                    completionHandler(.success(data as! T))
-                    return
-                }
                 completionHandler(.failure(.dataDecodingError))
                 return
             }
@@ -91,7 +103,7 @@ extension NetworkService: NetworkServiceProtocol {
     }
     
     func postQuizResult(quizResult result: QuizResult,
-                        completionHandler: @escaping (Result<Data, RequestError>) -> Void) {
+                        completionHandler: @escaping (Result<EmptyResponse, RequestError>) -> Void) {
         let postResultRoute = Router.postQuizResult(result: result)
         executeURLRequest(route: postResultRoute, completionHandler: completionHandler)
     }

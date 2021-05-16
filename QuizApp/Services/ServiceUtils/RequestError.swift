@@ -42,7 +42,6 @@ extension RequestError: LocalizedError {
 }
 
 extension NetworkService {
-    
     func handleErrorCode(_ statusCode: Int) -> RequestError {
         switch statusCode {
         case 400:
@@ -57,5 +56,4 @@ extension NetworkService {
             return .clientError
         }
     }
-    
 }
