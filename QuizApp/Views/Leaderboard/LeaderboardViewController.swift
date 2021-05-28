@@ -16,7 +16,6 @@ class LeaderboardViewController: UIViewController, LeaderboardDelegate {
     private var errorMessage: Label!
     
     private var leaderboardView: UITableView!
-    private let cellIdentifier = "cellIdentifier"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +76,7 @@ private extension LeaderboardViewController {
         }()
         leaderboardView.delegate = self
         leaderboardView.dataSource = self
-        leaderboardView.register(LeaderboardCell.self, forCellReuseIdentifier: cellIdentifier)
+        leaderboardView.register(LeaderboardCell.self, forCellReuseIdentifier: LeaderboardCell.cellID)
     }
     
     func addSubviews() {
@@ -125,7 +124,7 @@ extension LeaderboardViewController: UITableViewDelegate, UITableViewDataSource 
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = leaderboardView.dequeueReusableCell(withIdentifier: cellIdentifier,
+        let cell = leaderboardView.dequeueReusableCell(withIdentifier: LeaderboardCell.cellID,
                                                        for: indexPath) as! LeaderboardCell
         cell.setUsername(username: presenter.getUsernameFor(index: indexPath.row))
         cell.setRank(rank: indexPath.row+1)

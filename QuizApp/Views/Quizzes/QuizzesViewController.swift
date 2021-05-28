@@ -24,7 +24,6 @@ class QuizzesViewController: UIViewController, QuizzesDelegate {
     private var funFactTitle: Label!
     private var funFactDescription: Label!
 
-    private var cellIdentifier: String!
     private var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -89,7 +88,7 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! QuizCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: QuizCell.cellID, for: indexPath) as! QuizCell
         let quiz = presenter.getQuiz(at: indexPath)
         cell.backgroundColor = UIColor.clear
         cell.setTitleLabel(title: quiz.title)
@@ -105,7 +104,7 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     func setUpTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(QuizCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.register(QuizCell.self, forCellReuseIdentifier: QuizCell.cellID)
     }
 }
 
@@ -149,7 +148,6 @@ private extension QuizzesViewController {
                                    font: UIFont.PopQuizDefaultFonts.bodyLight,
                                    textAlignment: .left)
 
-        cellIdentifier = "cellId"
         tableView = {
             let tableView = UITableView(frame: CGRect(), style: .grouped)
             tableView.translatesAutoresizingMaskIntoConstraints = false

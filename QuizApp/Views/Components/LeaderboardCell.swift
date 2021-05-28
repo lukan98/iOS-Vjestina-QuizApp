@@ -12,10 +12,7 @@ class LeaderboardCell: UITableViewCell {
     private var rankLabel: Label!
     private var usernameLabel: Label!
     private var scoreLabel: Label!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
+    static let cellID = "leaderboardCell"
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

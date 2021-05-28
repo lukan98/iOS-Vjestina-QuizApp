@@ -9,8 +9,8 @@ import Foundation
 
 class QuizPresenter: QuizPresenterProtocol {
     weak var coordinator: QuizzesCoordinator?
-    let dataService: NetworkServiceProtocol = NetworkService()
-    var delegate: QuizDelegate
+    let dataService: NetworkServiceProtocol = NetworkService.shared
+    weak var delegate: QuizDelegate?
     
     let quiz: Quiz
     
@@ -18,7 +18,7 @@ class QuizPresenter: QuizPresenterProtocol {
         self.delegate = qd
         self.coordinator = qc
         self.quiz = quiz
-        self.delegate.setQuiz(quiz: quiz)
+        self.delegate!.setQuiz(quiz: quiz)
     }
     
     func handleFinishedQuiz(correctAnswers: Int, elapsedTime time: CFAbsoluteTime) {

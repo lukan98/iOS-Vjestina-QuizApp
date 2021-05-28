@@ -104,7 +104,8 @@ private extension LoginViewController {
     
     @objc
     func signInAction() {
-        presenter?.handleLogin(username: emailField.text!, password: passwordField.text!)
+        guard let username = emailField.text, let password = passwordField.text else { return }
+        presenter?.handleLogin(username: username, password: password)
     }
     
     @objc

@@ -9,8 +9,8 @@ import Foundation
 
 class QuizResultPresenter: QuizResultPresenterProtocol {
     weak var coordinator: QuizzesCoordinator?
-    let dataService: NetworkServiceProtocol = NetworkService()
-    var delegate: QuizResultDelegate
+    let dataService: NetworkServiceProtocol = NetworkService.shared
+    weak var delegate: QuizResultDelegate?
     
     let quiz: Quiz
     let correctAnswers: Int
@@ -19,7 +19,7 @@ class QuizResultPresenter: QuizResultPresenterProtocol {
     init(delegate qrd: QuizResultDelegate, coordinator qc: QuizzesCoordinator,
          quiz q: Quiz, correctAnswers: Int, elapsedTime time: CFAbsoluteTime) {
         self.delegate = qrd
-        self.delegate.setResultLabel(correctAnswers: correctAnswers, totalQuestions: q.questions.count)
+        self.delegate!.setResultLabel(correctAnswers: correctAnswers, totalQuestions: q.questions.count)
         self.coordinator = qc
         self.quiz = q
         self.correctAnswers = correctAnswers
@@ -32,17 +32,15 @@ class QuizResultPresenter: QuizResultPresenterProtocol {
     }
     
     private func postQuizResult(quizResult: QuizResult) {
-        DispatchQueue.global().async {
-            self.dataService.postQuizResult(quizResult: quizResult, completionHandler: {
-                (result: Result<EmptyResponse, RequestError>) -> Void in
-                switch result {
-                case .failure(let error):
-                    print(error.errorDescription!)
-                case .success:
-                    print("Data posted successfully!")
-                }
-            })
-        }
+        self.dataService.postQuizResult(quizResult: quizResult, completionHandler: {
+            (result: Result<EmptyResponse, RequestError>) -> Void in
+            switch result {
+            case .failure(let error):
+                print(error.errorDescription!)
+            case .success:
+                print("Data posted successfully!")
+            }
+        })
     }
     
     func handleGoToLeaderboard() {

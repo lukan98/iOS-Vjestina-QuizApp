@@ -9,8 +9,8 @@ import Foundation
 
 class LoginPresenter: LoginPresenterProtocol {
     weak var coordinator: LoginCoordinator?
-    let dataService: NetworkServiceProtocol = NetworkService()
-    var delegate: LoginDelegate
+    let dataService: NetworkServiceProtocol = NetworkService.shared
+    weak var delegate: LoginDelegate?
     
     init(delegate ld: LoginDelegate, coordinator lc: LoginCoordinator) {
         self.delegate = ld
@@ -26,14 +26,13 @@ class LoginPresenter: LoginPresenterProtocol {
                     DispatchQueue.main.async {
                         switch requestError {
                         case .networkError:
-                            self.delegate.handleSignInError(errorMessage: requestError.localizedDescription)
+                            self.delegate!.handleSignInError(errorMessage: requestError.localizedDescription)
                         default:
-                            self.delegate.handleSignInError(errorMessage: "Username or password incorrect!")
+                            self.delegate!.handleSignInError(errorMessage: "Username or password incorrect!")
                         }
                     }
                 case .success(let fetchedUser):
-                    UserDefaults.standard.set(fetchedUser.user_id, forKey: User.userIDKey)
-                    UserDefaults.standard.set(fetchedUser.token, forKey: User.tokenKey)
+                    UserCredentialsService.setUserCredentials(fetchedUser)
                     DispatchQueue.main.async {
                         self.coordinator?.handleLogin()
                     }

@@ -7,24 +7,18 @@
 
 import Foundation
 
-enum Router {
+enum URLBuilder {
     case login(username: String, password: String)
     case getQuizzes
     case postQuizResult(result: QuizResult)
     case getLeaderboard(id: Int)
 
     var scheme: String {
-        switch self {
-        default:
             return "https"
-        }
     }
     
     var host: String {
-        switch self {
-        default:
             return "iosquiz.herokuapp.com"
-        }
     }
     
     var path: String {
@@ -47,7 +41,7 @@ enum Router {
                     URLQueryItem(name: "password", value: password)]
         case .getLeaderboard(let quizID):
             return [URLQueryItem(name: "quiz_id", value: String(quizID))]
-        default:
+        case .postQuizResult, .getQuizzes:
             return nil
         }
     }
@@ -66,7 +60,7 @@ enum Router {
         case .postQuizResult(let quizResult):
             let data = try! JSONEncoder().encode(quizResult)
             return data
-        default:
+        case .login, .getQuizzes, .getLeaderboard:
             return nil
         }
     }
@@ -76,7 +70,7 @@ enum Router {
         case .postQuizResult, .getLeaderboard:
             return [User.tokenKey : UserDefaults.standard.string(forKey: User.tokenKey)!,
                     "Content-Type" : "application/json"]
-        default:
+        case .login, .getQuizzes:
             return nil
         }
     }

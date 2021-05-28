@@ -10,9 +10,10 @@ import Reachability
 
 class NetworkService {
     
+    static let shared = NetworkService()
     private static var reachability: Reachability!
     
-    init() {
+    private init() {
         if NetworkService.reachability == nil {
             NetworkService.reachability = Reachability(hostname: "www.google.com")
         }
@@ -63,7 +64,7 @@ class NetworkService {
         }.resume()
     }
     
-    private func executeURLRequest<T: Decodable>(route: Router,
+    private func executeURLRequest<T: Decodable>(route: URLBuilder,
                                                  completionHandler: @escaping (Result<T, RequestError>) -> Void) {
         var components = URLComponents()
         components.scheme = route.scheme
@@ -93,24 +94,24 @@ class NetworkService {
 extension NetworkService: NetworkServiceProtocol {
     
     func login(username: String, password: String, completionHandler: @escaping (Result<User, RequestError>) -> Void) {
-        let loginRoute = Router.login(username: username, password: password)
+        let loginRoute = URLBuilder.login(username: username, password: password)
         executeURLRequest(route: loginRoute, completionHandler: completionHandler)
     }
     
     func fetchQuizes(completionHandler: @escaping (Result<QuizCollection, RequestError>) -> Void) {
-        let getQuizzesRoute = Router.getQuizzes
+        let getQuizzesRoute = URLBuilder.getQuizzes
         executeURLRequest(route: getQuizzesRoute, completionHandler: completionHandler)
     }
     
     func postQuizResult(quizResult result: QuizResult,
                         completionHandler: @escaping (Result<EmptyResponse, RequestError>) -> Void) {
-        let postResultRoute = Router.postQuizResult(result: result)
+        let postResultRoute = URLBuilder.postQuizResult(result: result)
         executeURLRequest(route: postResultRoute, completionHandler: completionHandler)
     }
     
     func fetchLeaderboard(forQuizID id: Int,
                           completionHander: @escaping (Result<[LeaderboardResult], RequestError>) -> Void) {
-        let fetchLeaderboardRoute = Router.getLeaderboard(id: id)
+        let fetchLeaderboardRoute = URLBuilder.getLeaderboard(id: id)
         executeURLRequest(route: fetchLeaderboardRoute, completionHandler: completionHander)
     }
 }

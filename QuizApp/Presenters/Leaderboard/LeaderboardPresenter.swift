@@ -9,18 +9,18 @@ import Foundation
 
 class LeaderboardPresenter: LeaderboardPresenterProtocol {
     weak var coordinator: QuizzesCoordinator?
-    let dataService: NetworkServiceProtocol = NetworkService()
-    var delegate: LeaderboardDelegate
+    let dataService: NetworkServiceProtocol = NetworkService.shared
+    weak var delegate: LeaderboardDelegate?
     
     var quiz: Quiz
     
     private var leaderboard: [LeaderboardResult] {
         didSet {
             if leaderboard.count > 0 {
-                delegate.showTable()
+                delegate!.showTable()
             }
             else {
-                delegate.showError()
+                delegate!.showError()
             }
         }
     }
@@ -40,12 +40,12 @@ class LeaderboardPresenter: LeaderboardPresenterProtocol {
                     switch result {
                     case .failure(let error):
                         self.leaderboard = []
-                        self.delegate.setErrorMessage(message: error.localizedDescription)
+                        self.delegate!.setErrorMessage(message: error.localizedDescription)
                     case .success(let value):
                         self.leaderboard = value
-                        self.leaderboard.sort(by: LeaderboardResult.leaderboardSorter)
+                        self.leaderboard = self.leaderboard.sorted()
                     }
-                    self.delegate.reloadTable()
+                    self.delegate!.reloadTable()
                 }
             })
         }

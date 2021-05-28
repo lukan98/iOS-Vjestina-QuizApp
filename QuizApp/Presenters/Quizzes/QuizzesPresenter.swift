@@ -9,16 +9,16 @@ import Foundation
 
 class QuizzesPresenter: QuizzesPresenterProtocol {
     weak var coordinator: QuizzesCoordinator?
-    var dataService: NetworkServiceProtocol = NetworkService()
-    var delegate: QuizzesDelegate
+    var dataService: NetworkServiceProtocol = NetworkService.shared
+    weak var delegate: QuizzesDelegate?
     
     var quizzes: [Quiz] {
         didSet {
             if quizzes.count > 0 {
-                delegate.showQuizzes()
+                delegate!.showQuizzes()
             }
             else {
-                delegate.showError()
+                delegate!.showError()
             }
         }
     }
@@ -33,19 +33,21 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
     
     func fetchQuizzes() {
         DispatchQueue.global().async {
-            self.dataService.fetchQuizes(completionHandler: {
+            self.dataService.fetchQuizes(completionHandler: { [weak self]
                 (result: Result<QuizCollection, RequestError>) -> Void in
+                guard let self = self else { return }
+                
                 DispatchQueue.main.async {
                     switch result {
                     case .failure(let error):
-                        self.delegate.setErrorMessage(message: error.localizedDescription)
+                        self.delegate!.setErrorMessage(message: error.localizedDescription)
                         self.quizzes = []
                     case .success(let fetchedCollection):
                         self.quizzes = fetchedCollection.quizzes
                         self.setFunFact()
                     }
                     self.categorisedQuizzes = Dictionary(grouping: self.quizzes, by: {$0.category})
-                    self.delegate.reloadTable()
+                    self.delegate!.reloadTable()
                 }
             })
         }
@@ -84,7 +86,7 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
     private func setFunFact() {
         let funFactWord = "NBA"
         let count = calculateFunFactOccurence(funFactWord: funFactWord)
-        delegate.setFunFact(funFact: "Did you know there are \(count) questions with the word \(funFactWord) in them?")
+        delegate!.setFunFact(funFact: "Did you know there are \(count) questions with the word \(funFactWord) in them?")
     }
     
 }

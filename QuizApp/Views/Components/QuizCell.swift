@@ -14,6 +14,7 @@ class QuizCell: UITableViewCell {
     private var descriptionLabel: Label!
     private var picture: UIImageView!
     private var levelStackView: UIStackView!
+    static let cellID = "quizCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()
