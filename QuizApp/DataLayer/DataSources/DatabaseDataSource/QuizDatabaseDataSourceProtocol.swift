@@ -9,4 +9,6 @@ import Foundation
 
 protocol QuizDatabaseDataSourceProtocol {
     
+    func fetchQuizzesfromDatabase(search: String?) -> [Quiz]
+    
 }

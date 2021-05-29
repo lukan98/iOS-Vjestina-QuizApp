@@ -11,14 +11,11 @@ class QuizzesViewController: UIViewController, QuizzesDelegate {
     var presenter: QuizzesPresenterProtocol!
 
     private var appTitle: Label!
-    private var getQuizzesButton: Button!
 
     private var errorSymbol: UIImageView!
     private var errorLabel: Label!
     private var errorDescription: Label!
     private var errorContainer: UIView!
-    
-    //TODO: Add loading wheel
 
     private var funFactContainer: UIView!
     private var funFactTitle: Label!
@@ -32,7 +29,7 @@ class QuizzesViewController: UIViewController, QuizzesDelegate {
         addSubviews()
         setUpTableView()
         setUpLayout()
-        setUpActions()
+        presenter.fetchQuizzes()
     }
     
     func showQuizzes() {
@@ -114,8 +111,6 @@ private extension QuizzesViewController {
         appTitle = Label(text: .DefaultStrings.appTitle,
                          font: UIFont.PopQuizDefaultFonts.heading2,
                          textAlignment: .center)
-        getQuizzesButton = Button(font: UIFont.PopQuizDefaultFonts.bodyBold,
-                                  title: .DefaultStrings.getQuizString)
         
         errorSymbol = {
             let imageView = UIImageView(image: UIImage(named: .SymbolStrings.quizzesError))
@@ -168,7 +163,6 @@ private extension QuizzesViewController {
         errorContainer.addSubview(errorSymbol)
         
         view.addSubview(appTitle)
-        view.addSubview(getQuizzesButton)
         view.addSubview(errorContainer)
         view.addSubview(funFactContainer)
         view.addSubview(tableView)
@@ -190,17 +184,12 @@ private extension QuizzesViewController {
                                      appTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                                      appTitle.heightAnchor.constraint(equalToConstant: 45),
                                      appTitle.widthAnchor.constraint(equalToConstant: 300)])
-        
-        NSLayoutConstraint.activate([getQuizzesButton.topAnchor.constraint(equalTo: appTitle.bottomAnchor),
-                                     getQuizzesButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                                     getQuizzesButton.heightAnchor.constraint(equalToConstant: 45),
-                                     getQuizzesButton.widthAnchor.constraint(equalToConstant: 300)])
     }
     
     func setUpFunFactLayout() {
-        NSLayoutConstraint.activate([funFactTitle.topAnchor.constraint(equalTo: getQuizzesButton.bottomAnchor, constant: 5),
-                                     funFactTitle.rightAnchor.constraint(equalTo: getQuizzesButton.rightAnchor),
-                                     funFactTitle.widthAnchor.constraint(equalTo: getQuizzesButton.widthAnchor),
+        NSLayoutConstraint.activate([funFactTitle.topAnchor.constraint(equalTo: appTitle.bottomAnchor, constant: 5),
+                                     funFactTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                                     funFactTitle.widthAnchor.constraint(equalToConstant: 300),
                                      funFactTitle.heightAnchor.constraint(equalToConstant: 25)])
         
         NSLayoutConstraint.activate([funFactDescription.topAnchor.constraint(equalTo: funFactTitle.bottomAnchor),
@@ -231,14 +220,5 @@ private extension QuizzesViewController {
                                      tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
                                      tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
                                      tableView.leftAnchor.constraint(equalTo: view.leftAnchor)])
-    }
-    
-    func setUpActions() {
-        getQuizzesButton.addTarget(self, action: #selector(fetchQuizzes), for: .touchUpInside)
-    }
-    
-    @objc
-    func fetchQuizzes() {
-        presenter.fetchQuizzes()
     }
 }

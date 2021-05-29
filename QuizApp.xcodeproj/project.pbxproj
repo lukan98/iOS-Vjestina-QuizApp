@@ -372,8 +372,8 @@
 				FCE0208926628C6800F97F5E /* ManagedModels */,
 				FCE0207C2661182400F97F5E /* QuizDatabaseDataSource.swift */,
 				FC2D76BE26629104001D7D4F /* QuizDatabaseDataSourceProtocol.swift */,
-				FCE0208426624D3B00F97F5E /* Model.xcdatamodeld */,
 				FC2D76D52662D621001D7D4F /* CoreDataStack.swift */,
+				FCE0208426624D3B00F97F5E /* Model.xcdatamodeld */,
 			);
 			path = DatabaseDataSource;
 			sourceTree = "<group>";

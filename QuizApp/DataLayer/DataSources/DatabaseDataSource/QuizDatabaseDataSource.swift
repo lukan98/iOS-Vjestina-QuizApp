@@ -15,5 +15,9 @@ struct QuizDatabaseDataSource: QuizDatabaseDataSourceProtocol {
     init(coreDataContext: NSManagedObjectContext) {
         self.coreDataContext = coreDataContext
     }
+    
+    func fetchQuizzesfromDatabase(search: String?) -> [Quiz] {
+        return []
+    }
 
 }
