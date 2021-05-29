@@ -19,8 +19,3 @@ struct Quiz: Codable {
     }
 }
 
-struct QuizCollection: Codable {
-    
-    let quizzes: [Quiz]
-    
-}

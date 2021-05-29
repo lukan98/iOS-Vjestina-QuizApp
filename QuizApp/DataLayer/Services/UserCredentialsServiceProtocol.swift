@@ -9,6 +9,5 @@ import Foundation
 
 protocol UserCredentialsServiceProtocol {
     static func setUserCredentials(_ user: User)
-    static func getCurrentUserCredentials()
     static func removeUserCredentials()
 }

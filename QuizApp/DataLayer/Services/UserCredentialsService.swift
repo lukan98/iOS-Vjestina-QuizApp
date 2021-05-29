@@ -13,10 +13,6 @@ class UserCredentialsService: UserCredentialsServiceProtocol {
         UserDefaults.standard.set(user.token, forKey: User.tokenKey)
     }
     
-    static func getCurrentUserCredentials() {
-        
-    }
-    
     static func removeUserCredentials() {
         UserDefaults.standard.removeObject(forKey: User.tokenKey)
         UserDefaults.standard.removeObject(forKey: User.userIDKey)

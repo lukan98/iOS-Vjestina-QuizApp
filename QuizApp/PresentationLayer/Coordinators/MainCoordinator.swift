@@ -28,9 +28,7 @@ extension MainCoordinator: LoginCoordinator {
         let tabBarController = UITabBarController()
         tabBarController.styleTabBar()
         
-        let quizzesVC = QuizzesViewController()
-        let quizzesPresenter = QuizzesPresenter(delegate: quizzesVC, coordinator: self)
-        quizzesVC.presenter = quizzesPresenter
+        let quizzesVC = createQuizzesViewController()
         
         let settingsVC = SettingsViewController()
         let settingsPresenter = SettingsPresenter(delegate: settingsVC, coordinator: self)
@@ -48,6 +46,17 @@ extension MainCoordinator: LoginCoordinator {
                                       selectedImage: UIImage(named: .SymbolStrings.quizIcon))
         svc.tabBarItem = UITabBarItem(title:"Settings", image: UIImage(named: .SymbolStrings.settings),
                                       selectedImage: UIImage(named: .SymbolStrings.settings))
+    }
+    
+    private func createQuizzesViewController() -> QuizzesViewController {
+        let quizzesVC = QuizzesViewController()
+        let coreDataContext = CoreDataStack(modelName: "Model").managedContext
+        let quizRepository = QuizRepository(coreDataSource: QuizDatabaseDataSource(coreDataContext: coreDataContext),
+                                               networkDataSource: QuizNetworkDataSource())
+        let quizUseCase = QuizUseCase(quizRepository: quizRepository)
+        let quizzesPresenter = QuizzesPresenter(delegate: quizzesVC, coordinator: self, quizUseCase: quizUseCase)
+        quizzesVC.presenter = quizzesPresenter
+        return quizzesVC
     }
 }
 

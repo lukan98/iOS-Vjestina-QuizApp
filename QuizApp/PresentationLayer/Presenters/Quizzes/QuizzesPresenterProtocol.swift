@@ -8,6 +8,7 @@
 import Foundation
 
 protocol QuizzesPresenterProtocol: Presenter {
+    
     func fetchQuizzes()
     func getQuizzesByCategory() -> [QuizCategory : [Quiz]]
     func getNoOfQuizCategories() -> Int
@@ -15,4 +16,5 @@ protocol QuizzesPresenterProtocol: Presenter {
     func getQuizCategoryForSection(section: Int) -> QuizCategory
     func getQuiz(at indexPath: IndexPath) -> Quiz
     func handleQuizSelection(at indexPath: IndexPath)
+    
 }

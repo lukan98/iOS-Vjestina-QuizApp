@@ -9,7 +9,8 @@ import Foundation
 
 class QuizzesPresenter: QuizzesPresenterProtocol {
     weak var coordinator: QuizzesCoordinator?
-    var dataService: NetworkServiceProtocol = NetworkService.shared
+//    var dataService: NetworkServiceProtocol = NetworkService.shared
+    private var quizUseCase: QuizUseCaseProtocol!
     weak var delegate: QuizzesDelegate?
     
     var quizzes: [Quiz] {
@@ -24,16 +25,17 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
     }
     var categorisedQuizzes: [QuizCategory : [Quiz]]
     
-    init(delegate qd: QuizzesDelegate, coordinator qc: QuizzesCoordinator) {
-        self.delegate = qd
-        self.coordinator = qc
+    init(delegate: QuizzesDelegate, coordinator: QuizzesCoordinator, quizUseCase: QuizUseCaseProtocol) {
+        self.delegate = delegate
+        self.coordinator = coordinator
+        self.quizUseCase = quizUseCase
         self.quizzes = []
         self.categorisedQuizzes = [:]
     }
     
     func fetchQuizzes() {
         DispatchQueue.global().async {
-            self.dataService.fetchQuizes(completionHandler: { [weak self]
+            self.quizUseCase.fetchQuizzes(completionHandler: { [weak self]
                 (result: Result<QuizCollection, RequestError>) -> Void in
                 guard let self = self else { return }
                 

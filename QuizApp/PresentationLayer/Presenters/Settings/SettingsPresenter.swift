@@ -9,7 +9,7 @@ import Foundation
 
 class SettingsPresenter: SettingsPresenterProtocol {
     weak var coordinator: QuizzesCoordinator?
-    let dataService: NetworkServiceProtocol = NetworkService.shared
+    let userUseCase: UserUseCaseProtocol = UserUseCase.shared
     weak var delegate: SettingsDelegate?
     
     init(delegate sd: SettingsDelegate, coordinator qc: QuizzesCoordinator) {
@@ -22,7 +22,7 @@ class SettingsPresenter: SettingsPresenterProtocol {
     }
     
     func handleLogout() {
-        UserCredentialsService.removeUserCredentials()
+        userUseCase.logout()
         coordinator?.handleLogOut()
     }
 }
