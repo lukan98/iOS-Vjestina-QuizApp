@@ -24,7 +24,7 @@ class LeaderboardViewController: UIViewController, LeaderboardDelegate {
         initializeUIComponents()
         addSubviews()
         setUpLayout()
-        presenter.fetchAndSortLeaderboard()
+        presenter.fetchLeaderboard()
     }
     
     func showError() {

@@ -9,7 +9,7 @@ import Foundation
 
 class LoginPresenter: LoginPresenterProtocol {
     weak var coordinator: LoginCoordinator?
-    let userUseCase: UserUseCaseProtocol = UserUseCase.shared
+    private let userUseCase: UserUseCaseProtocol = UserUseCase()
     weak var delegate: LoginDelegate?
     
     init(delegate ld: LoginDelegate, coordinator lc: LoginCoordinator) {

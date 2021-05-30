@@ -9,7 +9,7 @@ import Foundation
 
 class SettingsPresenter: SettingsPresenterProtocol {
     weak var coordinator: QuizzesCoordinator?
-    let userUseCase: UserUseCaseProtocol = UserUseCase.shared
+    private let userUseCase: UserUseCaseProtocol = UserUseCase()
     weak var delegate: SettingsDelegate?
     
     init(delegate sd: SettingsDelegate, coordinator qc: QuizzesCoordinator) {

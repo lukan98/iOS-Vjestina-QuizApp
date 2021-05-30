@@ -8,7 +8,7 @@
 import Foundation
 
 protocol LeaderboardPresenterProtocol: Presenter {
-    func fetchAndSortLeaderboard()
+    func fetchLeaderboard()
     func getLeaderboardSize() -> (Int)
     func getUsernameFor(index at: Int) -> (String)
     func getScoreFor(index at: Int) -> (Double)

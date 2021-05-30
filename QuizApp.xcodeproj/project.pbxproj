@@ -26,6 +26,8 @@
 		FC2D77022662F4E7001D7D4F /* CDQuiz+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2D76FE2662F4E7001D7D4F /* CDQuiz+CoreDataClass.swift */; };
 		FC2D77032662F4E7001D7D4F /* CDQuiz+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2D76FF2662F4E7001D7D4F /* CDQuiz+CoreDataProperties.swift */; };
 		FC2D77052662F583001D7D4F /* Question+CD.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2D77042662F583001D7D4F /* Question+CD.swift */; };
+		FC2D77072663BAEA001D7D4F /* LeaderboardUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2D77062663BAEA001D7D4F /* LeaderboardUseCase.swift */; };
+		FC2D77092663BAF5001D7D4F /* LeaderboardUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2D77082663BAF5001D7D4F /* LeaderboardUseCaseProtocol.swift */; };
 		FC2F10CD265C015F0032D260 /* UserCredentialsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2F10CC265C015F0032D260 /* UserCredentialsServiceProtocol.swift */; };
 		FC2F10CF265C01E30032D260 /* UserCredentialsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2F10CE265C01E30032D260 /* UserCredentialsService.swift */; };
 		FC405C6C264DB7DC003FD41A /* QuizResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC405C6B264DB7DC003FD41A /* QuizResult.swift */; };
@@ -110,6 +112,8 @@
 		FC2D76FE2662F4E7001D7D4F /* CDQuiz+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDQuiz+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		FC2D76FF2662F4E7001D7D4F /* CDQuiz+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDQuiz+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		FC2D77042662F583001D7D4F /* Question+CD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Question+CD.swift"; sourceTree = "<group>"; };
+		FC2D77062663BAEA001D7D4F /* LeaderboardUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardUseCase.swift; sourceTree = "<group>"; };
+		FC2D77082663BAF5001D7D4F /* LeaderboardUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardUseCaseProtocol.swift; sourceTree = "<group>"; };
 		FC2F10CC265C015F0032D260 /* UserCredentialsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCredentialsServiceProtocol.swift; sourceTree = "<group>"; };
 		FC2F10CE265C01E30032D260 /* UserCredentialsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCredentialsService.swift; sourceTree = "<group>"; };
 		FC405C6B264DB7DC003FD41A /* QuizResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResult.swift; sourceTree = "<group>"; };
@@ -212,6 +216,8 @@
 				FC2D76C62662933F001D7D4F /* QuizUseCase.swift */,
 				FC2D76CF26629C91001D7D4F /* UserUseCaseProtocol.swift */,
 				FC2D76D126629E4A001D7D4F /* UserUseCase.swift */,
+				FC2D77062663BAEA001D7D4F /* LeaderboardUseCase.swift */,
+				FC2D77082663BAF5001D7D4F /* LeaderboardUseCaseProtocol.swift */,
 			);
 			path = DomainLayer;
 			sourceTree = "<group>";
@@ -728,6 +734,7 @@
 				FCE2A0A0264C275E00B88387 /* SettingsPresenterProtocol.swift in Sources */,
 				FCE2A0B4264D592E00B88387 /* User.swift in Sources */,
 				FCE0207B266117FD00F97F5E /* QuizNetworkDataSource.swift in Sources */,
+				FC2D77072663BAEA001D7D4F /* LeaderboardUseCase.swift in Sources */,
 				FCE2A081264B3F6800B88387 /* QuizzesPresenter.swift in Sources */,
 				FC615F9B26220ED7004B1ACB /* Label.swift in Sources */,
 				FCE7B47B2642D3D100BF50A3 /* QuizResultViewController.swift in Sources */,
@@ -736,6 +743,7 @@
 				FCE7B48726443BFC00BF50A3 /* SettingsViewController.swift in Sources */,
 				FC2D76C72662933F001D7D4F /* QuizUseCase.swift in Sources */,
 				FCE2A097264C1C1A00B88387 /* LeaderboardDelegate.swift in Sources */,
+				FC2D77092663BAF5001D7D4F /* LeaderboardUseCaseProtocol.swift in Sources */,
 				FCE7B479264189CB00BF50A3 /* NavBar.swift in Sources */,
 				FCE2A084264B3FFC00B88387 /* QuizzesDelegate.swift in Sources */,
 				FC2D76D42662A9D8001D7D4F /* QuestionViewModel.swift in Sources */,

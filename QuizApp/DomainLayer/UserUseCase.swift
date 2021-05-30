@@ -9,10 +9,7 @@ import Foundation
 
 class UserUseCase: UserUseCaseProtocol {
     
-    static let shared = UserUseCase()
     let dataService: NetworkServiceProtocol = NetworkService.shared
-    
-    private init() {}
     
     func handleLogin(username: String, password: String, completionHandler: @escaping (Result<User, RequestError>) -> Void) {
         self.dataService.login(username: username, password: password, completionHandler: {

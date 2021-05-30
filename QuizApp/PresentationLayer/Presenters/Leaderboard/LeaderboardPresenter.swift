@@ -10,6 +10,7 @@ import Foundation
 class LeaderboardPresenter: LeaderboardPresenterProtocol {
     weak var coordinator: QuizzesCoordinator?
     let dataService: NetworkServiceProtocol = NetworkService.shared
+    private let leaderboardUseCase: LeaderboardUseCaseProtocol = LeaderboardUseCase()
     weak var delegate: LeaderboardDelegate?
     
     var quiz: Quiz
@@ -32,23 +33,22 @@ class LeaderboardPresenter: LeaderboardPresenterProtocol {
         self.quiz = q
     }
     
-    func fetchAndSortLeaderboard() {
-        DispatchQueue.global().async {
-            self.dataService.fetchLeaderboard(forQuizID: self.quiz.id, completionHander: {
-                (result: Result<[LeaderboardResult], RequestError>) -> Void in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .failure(let error):
-                        self.leaderboard = []
-                        self.delegate!.setErrorMessage(message: error.localizedDescription)
-                    case .success(let value):
-                        self.leaderboard = value
-                        self.leaderboard = self.leaderboard.sorted()
-                    }
-                    self.delegate!.reloadTable()
+    func fetchLeaderboard() {
+        self.leaderboardUseCase.fetchSortedLeaderboard(forQuizID: self.quiz.id, completionHander: { [weak self]
+            (result: Result<[LeaderboardResult], RequestError>) -> Void in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    self.leaderboard = []
+                    self.delegate?.setErrorMessage(message: error.localizedDescription)
+                case .success(let leaderboard):
+                    self.leaderboard = leaderboard
                 }
-            })
-        }
+                self.delegate?.reloadTable()
+            }
+        })
     }
     
     func getLeaderboardSize() -> (Int) {
