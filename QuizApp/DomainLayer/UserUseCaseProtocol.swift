@@ -10,6 +10,7 @@ import Foundation
 protocol UserUseCaseProtocol {
     
     func handleLogin(username: String, password: String, completionHandler: @escaping (Result<User, RequestError>) -> Void)
+    func getCurrentUserID() -> Int
     func logout()
     
 }

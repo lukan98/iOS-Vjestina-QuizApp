@@ -18,7 +18,3 @@ struct LeaderboardResult: Codable, Comparable {
         return leftScore > rightScore
     }
 }
-
-struct Leaderboard: Codable {
-    var results: [LeaderboardResult]
-}

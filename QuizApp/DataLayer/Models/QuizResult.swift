@@ -13,6 +13,13 @@ struct QuizResult: Codable {
     let time: Double
     let noOfCorrect: Int
     
+    init(_ quizID: Int, _ userId: Int, _ time: Double, _ noOfCorrect: Int) {
+        self.quizID = quizID
+        self.userID = userId
+        self.time = time
+        self.noOfCorrect = noOfCorrect
+    }
+    
     enum CodingKeys: String, CodingKey {
         case quizID = "quiz_id"
         case userID = "user_id"

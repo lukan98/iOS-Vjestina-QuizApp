@@ -29,4 +29,9 @@ class UserUseCase: UserUseCaseProtocol {
         UserCredentialsService.removeUserCredentials()
     }
     
+    func getCurrentUserID() -> Int {
+        return UserCredentialsService.getCurrentUserID()
+    }
+    
+    
 }

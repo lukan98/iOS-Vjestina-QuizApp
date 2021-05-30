@@ -9,13 +9,13 @@ import Foundation
 
 class LeaderboardPresenter: LeaderboardPresenterProtocol {
     weak var coordinator: QuizzesCoordinator?
-    let dataService: NetworkServiceProtocol = NetworkService.shared
+//    let dataService: NetworkServiceProtocol = NetworkService.shared
     private let leaderboardUseCase: LeaderboardUseCaseProtocol = LeaderboardUseCase()
     weak var delegate: LeaderboardDelegate?
     
-    var quiz: Quiz
+    var quiz: QuizViewModel
     
-    private var leaderboard: [LeaderboardResult] {
+    private var leaderboard: [LeaderboardResultViewModel] {
         didSet {
             if leaderboard.count > 0 {
                 delegate!.showTable()
@@ -26,7 +26,7 @@ class LeaderboardPresenter: LeaderboardPresenterProtocol {
         }
     }
     
-    init(delegate ld: LeaderboardDelegate, coordinator qc: QuizzesCoordinator, quiz q: Quiz) {
+    init(delegate ld: LeaderboardDelegate, coordinator qc: QuizzesCoordinator, quiz q: QuizViewModel) {
         self.delegate = ld
         self.coordinator = qc
         self.leaderboard = []
@@ -44,7 +44,7 @@ class LeaderboardPresenter: LeaderboardPresenterProtocol {
                     self.leaderboard = []
                     self.delegate?.setErrorMessage(message: error.localizedDescription)
                 case .success(let leaderboard):
-                    self.leaderboard = leaderboard
+                    self.leaderboard = leaderboard.map({LeaderboardResultViewModel($0)})
                 }
                 self.delegate?.reloadTable()
             }
@@ -60,9 +60,9 @@ class LeaderboardPresenter: LeaderboardPresenterProtocol {
     }
     
     func getScoreFor(index at: Int) -> (Double) {
-        guard let scoreString = leaderboard[at].score, let scoreString = Double(scoreString) else {
-            return 0
-        }
-        return scoreString
+//        guard let scoreString = leaderboard[at].score, let scoreString = Double(scoreString) else {
+//            return 0
+//        }
+        return leaderboard[at].score
     }
 }

@@ -10,6 +10,7 @@ import Foundation
 class QuizUseCase: QuizUseCaseProtocol {
 
     private let quizRepository: QuizRepositoryProtocol
+    private let dataService: NetworkServiceProtocol = NetworkService.shared
     
     init(quizRepository: QuizRepositoryProtocol) {
         self.quizRepository = quizRepository
@@ -26,4 +27,9 @@ class QuizUseCase: QuizUseCaseProtocol {
     func fetchLocalQuizzes() -> [Quiz] {
         return quizRepository.fetchLocalData(filter: FilterSettings())
     }
+    
+    func postQuizResult(result: QuizResult, completionHandler: @escaping (Result<EmptyResponse, RequestError>) -> Void) {
+        self.dataService.postQuizResult(quizResult: result, completionHandler: completionHandler)
+    }
+    
 }

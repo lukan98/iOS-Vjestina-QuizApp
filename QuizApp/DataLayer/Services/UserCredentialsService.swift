@@ -17,4 +17,8 @@ class UserCredentialsService: UserCredentialsServiceProtocol {
         UserDefaults.standard.removeObject(forKey: User.tokenKey)
         UserDefaults.standard.removeObject(forKey: User.userIDKey)
     }
+    
+    static func getCurrentUserID() -> Int {
+        return UserDefaults.standard.integer(forKey: User.userIDKey)
+    }
 }

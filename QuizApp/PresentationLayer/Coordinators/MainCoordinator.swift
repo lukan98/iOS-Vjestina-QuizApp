@@ -28,9 +28,13 @@ extension MainCoordinator: LoginCoordinator {
         let tabBarController = UITabBarController()
         tabBarController.styleTabBar()
         
-        let quizzesVC = createQuizzesViewController()
+        let quizzesVC = QuizzesViewController()
+        let quizzesPresenter = QuizzesPresenter(delegate: quizzesVC, coordinator: self, quizUseCase: createQuizUseCase())
+        quizzesVC.presenter = quizzesPresenter
         
-        let searchVC = createSearchViewController()
+        let searchVC = SearchViewController()
+        let searchPresenter = SearchPresenter(delegate: searchVC, coordinator: self, quizUseCase: createQuizUseCase())
+        searchVC.presenter = searchPresenter
         
         let settingsVC = SettingsViewController()
         let settingsPresenter = SettingsPresenter(delegate: settingsVC, coordinator: self)
@@ -57,7 +61,7 @@ extension MainCoordinator: LoginCoordinator {
 
 extension MainCoordinator: QuizzesCoordinator {
     
-    func handleGoToLeaderboard(quiz: Quiz) {
+    func handleGoToLeaderboard(quiz: QuizViewModel) {
         let leaderboardVC = LeaderboardViewController()
         let leaderboardPresenter = LeaderboardPresenter(delegate: leaderboardVC, coordinator: self, quiz: quiz)
         leaderboardVC.presenter = leaderboardPresenter
@@ -75,7 +79,7 @@ extension MainCoordinator: QuizzesCoordinator {
         let quizResultVC = QuizResultViewController()
         let quizResultPresenter = QuizResultPresenter(delegate: quizResultVC, coordinator: self,
                                                       quiz: quiz, correctAnswers: correctAnswers,
-                                                      elapsedTime: elapsedTime)
+                                                      elapsedTime: elapsedTime, quizUseCase: createQuizUseCase())
         quizResultVC.presenter = quizResultPresenter
         navigationController.pushViewController(quizResultVC, animated: true)
     }
@@ -97,26 +101,32 @@ extension MainCoordinator: QuizzesCoordinator {
 
 extension MainCoordinator {
     
-    private func createQuizzesViewController() -> QuizzesViewController {
-        let quizzesVC = QuizzesViewController()
+//    private func createQuizzesViewController() -> QuizzesViewController {
+//        let quizzesVC = QuizzesViewController()
+//        let coreDataContext = CoreDataStack(modelName: .DefaultStrings.modelName).managedContext
+//        let quizRepository = QuizRepository(databaseDataSource: QuizDatabaseDataSource(coreDataContext: coreDataContext),
+//                                            networkDataSource: QuizNetworkDataSource())
+//        let quizUseCase = QuizUseCase(quizRepository: quizRepository)
+//        let quizzesPresenter = QuizzesPresenter(delegate: quizzesVC, coordinator: self, quizUseCase: quizUseCase)
+//        quizzesVC.presenter = quizzesPresenter
+//        return quizzesVC
+//    }
+//    
+//    private func createSearchViewController() -> SearchViewController {
+//        let searchVC = SearchViewController()
+//        let coreDataContext = CoreDataStack(modelName: .DefaultStrings.modelName).managedContext
+//        let quizRepository = QuizRepository(databaseDataSource: QuizDatabaseDataSource(coreDataContext: coreDataContext),
+//                                            networkDataSource: QuizNetworkDataSource())
+//        let quizUseCase = QuizUseCase(quizRepository: quizRepository)
+//        let searchPresenter = SearchPresenter(delegate: searchVC, coordinator: self, quizUseCase: quizUseCase)
+//        searchVC.presenter = searchPresenter
+//        return searchVC
+//    }
+    
+    private func createQuizUseCase() -> QuizUseCase {
         let coreDataContext = CoreDataStack(modelName: .DefaultStrings.modelName).managedContext
         let quizRepository = QuizRepository(databaseDataSource: QuizDatabaseDataSource(coreDataContext: coreDataContext),
                                             networkDataSource: QuizNetworkDataSource())
-        let quizUseCase = QuizUseCase(quizRepository: quizRepository)
-        let quizzesPresenter = QuizzesPresenter(delegate: quizzesVC, coordinator: self, quizUseCase: quizUseCase)
-        quizzesVC.presenter = quizzesPresenter
-        return quizzesVC
+        return QuizUseCase(quizRepository: quizRepository)
     }
-    
-    private func createSearchViewController() -> SearchViewController {
-        let searchVC = SearchViewController()
-        let coreDataContext = CoreDataStack(modelName: .DefaultStrings.modelName).managedContext
-        let quizRepository = QuizRepository(databaseDataSource: QuizDatabaseDataSource(coreDataContext: coreDataContext),
-                                            networkDataSource: QuizNetworkDataSource())
-        let quizUseCase = QuizUseCase(quizRepository: quizRepository)
-        let searchPresenter = SearchPresenter(delegate: searchVC, coordinator: self, quizUseCase: quizUseCase)
-        searchVC.presenter = searchPresenter
-        return searchVC
-    }
-    
 }

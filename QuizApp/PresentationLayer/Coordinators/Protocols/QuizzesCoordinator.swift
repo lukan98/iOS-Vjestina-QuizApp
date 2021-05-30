@@ -13,6 +13,6 @@ protocol QuizzesCoordinator : Coordinator {
     func handleQuizFinished(correctAnswers: Int, elapsedTime: CFAbsoluteTime, quiz: QuizViewModel)
     func handleReviewFinished()
     func handleLogOut()
-    func handleGoToLeaderboard(quiz: Quiz)
+    func handleGoToLeaderboard(quiz: QuizViewModel)
     
 }
