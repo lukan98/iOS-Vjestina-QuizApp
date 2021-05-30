@@ -87,7 +87,7 @@ extension SearchViewController {
     
     @objc
     private func searchQuizzes() {
-        guard let searchText = searchTextField.text else { return }
+        guard let searchText = searchTextField.text, !searchText.isEmpty else { return }
         presenter.fetchQuizzes(filter: searchText)
     }
     
