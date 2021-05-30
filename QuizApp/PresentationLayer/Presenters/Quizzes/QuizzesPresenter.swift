@@ -8,11 +8,12 @@
 import Foundation
 
 class QuizzesPresenter: QuizzesPresenterProtocol {
+    
     weak var coordinator: QuizzesCoordinator?
     private var quizUseCase: QuizUseCaseProtocol!
     weak var delegate: QuizzesDelegate?
     
-    var quizzes: [Quiz] {
+    private var quizzes: [QuizViewModel] {
         didSet {
             if quizzes.count > 0 {
                 delegate!.showQuizzes()
@@ -22,17 +23,19 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
             }
         }
     }
-    var categorisedQuizzes: [QuizCategory : [Quiz]]
+//    var categorisedQuizzes: [QuizCategory : [Quiz]]
+    private var sectionCategories: [String]
     
     init(delegate: QuizzesDelegate, coordinator: QuizzesCoordinator, quizUseCase: QuizUseCaseProtocol) {
         self.delegate = delegate
         self.coordinator = coordinator
         self.quizUseCase = quizUseCase
         self.quizzes = []
-        self.categorisedQuizzes = [:]
+        self.sectionCategories = []
+//        self.categorisedQuizzes = [:]
     }
     
-    func fetchQuizzes() {
+    func fetchQuizzes(filter: String?) {
         DispatchQueue.global().async {
             self.quizUseCase.fetchRemoteQuizzes(completionHandler: { [weak self]
                 (result: Result<QuizCollection, RequestError>) -> Void in
@@ -46,7 +49,8 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
                     case .success:
                         self.setFetchedQuizzes()
                     }
-                    self.categorisedQuizzes = Dictionary(grouping: self.quizzes, by: {$0.category})
+                    self.sectionCategories = Set(self.quizzes.map({$0.category})).sorted()
+//                    self.categorisedQuizzes = Dictionary(grouping: self.quizzes, by: {$0.category})
                     self.delegate!.reloadTable()
                 }
             })
@@ -55,35 +59,41 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
     
     private func setFetchedQuizzes() {
         let fetchedQuizzes = self.quizUseCase.fetchLocalQuizzes()
-        self.quizzes = fetchedQuizzes
+        self.quizzes = fetchedQuizzes.map({QuizViewModel($0)})
+//        self.quizzes = fetchedQuizzes
         self.setFunFact()
     }
     
-    func getQuizzesByCategory() -> [QuizCategory : [Quiz]] {
-        return categorisedQuizzes
-    }
+//    func getQuizzesByCategory() -> [QuizCategory : [Quiz]] {
+//        return categorisedQuizzes
+//    }
     
     func getNoOfQuizCategories() -> Int {
-        return categorisedQuizzes.keys.count
+        return sectionCategories.count
+//        return categorisedQuizzes.keys.count
     }
     
     func getQuizCountForCategory(categoryIndex: Int) -> Int {
-        let quizCategory = getQuizCategoryForSection(section: categoryIndex)
-        guard let quizzes = categorisedQuizzes[quizCategory] else { return 0 }
-        return quizzes.count
+//        let quizCategory = getQuizCategoryForSection(section: categoryIndex)
+//        guard let quizzes = categorisedQuizzes[quizCategory] else { return 0 }
+//        return quizzes.count
+        return self.quizzes.filter({$0.category == self.sectionCategories[categoryIndex]}).count
     }
     
-    func getQuizCategoryForSection(section: Int) -> QuizCategory {
-        return QuizCategory.allCases[section]
+    func getQuizCategoryForSection(section: Int) -> String {
+        guard let section = sectionCategories.at(section) else { return "" }
+        return section
     }
     
-    func getQuiz(at indexPath: IndexPath) -> Quiz {
-        let quizCategory = QuizCategory.allCases[indexPath.section]
-        return categorisedQuizzes[quizCategory]![indexPath.row]
+    func getQuiz(at indexPath: IndexPath) -> QuizViewModel? {
+        return self.quizzes.filter({$0.category == sectionCategories[indexPath.section]}).at(indexPath.row)
+//        let quizCategory = QuizCategory.allCases[indexPath.section]
+//        return categorisedQuizzes[quizCategory]![indexPath.row]
     }
     
     func handleQuizSelection(at indexPath: IndexPath) {
-        coordinator?.handleQuizSelection(quiz: getQuiz(at: indexPath))
+        guard let selectedQuiz = getQuiz(at: indexPath) else { return }
+        coordinator?.handleQuizSelection(quiz: selectedQuiz)
     }
     
     private func calculateFunFactOccurence(funFactWord: String) -> (Int) {

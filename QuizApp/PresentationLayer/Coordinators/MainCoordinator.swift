@@ -71,7 +71,7 @@ extension MainCoordinator: QuizzesCoordinator {
         navigationController.setViewControllers([loginVC], animated: true)
     }
     
-    func handleQuizFinished(correctAnswers: Int, elapsedTime: CFAbsoluteTime, quiz: Quiz) {
+    func handleQuizFinished(correctAnswers: Int, elapsedTime: CFAbsoluteTime, quiz: QuizViewModel) {
         let quizResultVC = QuizResultViewController()
         let quizResultPresenter = QuizResultPresenter(delegate: quizResultVC, coordinator: self,
                                                       quiz: quiz, correctAnswers: correctAnswers,
@@ -84,7 +84,7 @@ extension MainCoordinator: QuizzesCoordinator {
         navigationController.popToRootViewController(animated: true)
     }
     
-    func handleQuizSelection(quiz selectedQuiz: Quiz) {
+    func handleQuizSelection(quiz selectedQuiz: QuizViewModel) {
         let quizVC = QuizViewController(transitionStyle: .scroll,
                                         navigationOrientation: .horizontal,
                                         options: .none)

@@ -29,7 +29,7 @@ class QuizzesViewController: UIViewController, QuizzesDelegate {
         addSubviews()
         setUpTableView()
         setUpLayout()
-        presenter.fetchQuizzes()
+        presenter.fetchQuizzes(filter: nil)
     }
     
     func showQuizzes() {
@@ -74,7 +74,7 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let container = UIView()
         let quizCategory = presenter.getQuizCategoryForSection(section: section)
-        let label = Label(text: quizCategory.rawValue,
+        let label = Label(text: quizCategory,
                           font: .PopQuizDefaultFonts.heading3,
                           textAlignment: .left)
         container.addSubview(label)
@@ -85,13 +85,25 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: QuizCell.cellID, for: indexPath) as! QuizCell
-        let quiz = presenter.getQuiz(at: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: QuizCell.cellID, for: indexPath) as? QuizCell,
+              let quiz = presenter.getQuiz(at: indexPath)
+        else {
+            return QuizCell()
+        }
+        
         cell.backgroundColor = UIColor.clear
         cell.setTitleLabel(title: quiz.title)
         cell.setDescriptionLabel(description: quiz.description)
         cell.setLevel(level: quiz.level)
         return cell
+//        let cell = tableView.dequeueReusableCell(withIdentifier: QuizCell.cellID, for: indexPath) as! QuizCell
+//        if let quiz = presenter.getQuiz(at: indexPath) {
+//            cell.backgroundColor = UIColor.clear
+//            cell.setTitleLabel(title: quiz.title)
+//            cell.setDescriptionLabel(description: quiz.description)
+//            cell.setLevel(level: quiz.level)
+//        }
+//        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

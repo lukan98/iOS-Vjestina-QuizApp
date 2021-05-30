@@ -46,7 +46,7 @@ class QuizViewController: UIPageViewController, QuizDelegate {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    func setQuiz(quiz: Quiz) {
+    func setQuiz(quiz: QuizViewModel) {
         for question in quiz.questions {
             let questionVC = QuestionViewController(question: question)
             questionVC.pageVC = self

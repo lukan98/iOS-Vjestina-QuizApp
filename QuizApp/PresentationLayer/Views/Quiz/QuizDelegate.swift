@@ -8,5 +8,5 @@
 import Foundation
 
 protocol QuizDelegate: Delegate {
-    func setQuiz(quiz: Quiz)
+    func setQuiz(quiz: QuizViewModel)
 }

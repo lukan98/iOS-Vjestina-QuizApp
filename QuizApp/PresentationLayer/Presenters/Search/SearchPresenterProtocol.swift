@@ -10,11 +10,11 @@ import Foundation
 protocol SearchPresenterProtocol: Presenter {
     
     func fetchQuizzes(filter: String)
-    func getQuizzesByCategory() -> [QuizCategory : [Quiz]]
+//    func getQuizzesByCategory() -> [QuizCategory : [Quiz]]
     func getNoOfQuizCategories() -> Int
     func getQuizCountForCategory(categoryIndex: Int) -> Int
-    func getQuizCategoryForSection(section: Int) -> QuizCategory
-    func getQuiz(at indexPath: IndexPath) -> Quiz
+    func getQuizCategoryForSection(section: Int) -> String
+    func getQuiz(at indexPath: IndexPath) -> QuizViewModel?
     func handleQuizSelection(at indexPath: IndexPath)
     
 }

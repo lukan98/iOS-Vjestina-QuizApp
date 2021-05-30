@@ -12,16 +12,16 @@ class QuizResultPresenter: QuizResultPresenterProtocol {
     let dataService: NetworkServiceProtocol = NetworkService.shared
     weak var delegate: QuizResultDelegate?
     
-    let quiz: Quiz
+    let quiz: QuizViewModel
     let correctAnswers: Int
     let elapsedTime: CFAbsoluteTime
     
     init(delegate qrd: QuizResultDelegate, coordinator qc: QuizzesCoordinator,
-         quiz q: Quiz, correctAnswers: Int, elapsedTime time: CFAbsoluteTime) {
+         quiz qvm: QuizViewModel, correctAnswers: Int, elapsedTime time: CFAbsoluteTime) {
+        qrd.setResultLabel(correctAnswers: correctAnswers, totalQuestions: qvm.questions.count)
         self.delegate = qrd
-        self.delegate!.setResultLabel(correctAnswers: correctAnswers, totalQuestions: q.questions.count)
         self.coordinator = qc
-        self.quiz = q
+        self.quiz = qvm
         self.correctAnswers = correctAnswers
         self.elapsedTime = time
         
@@ -44,7 +44,7 @@ class QuizResultPresenter: QuizResultPresenterProtocol {
     }
     
     func handleGoToLeaderboard() {
-        coordinator?.handleGoToLeaderboard(quiz: self.quiz)
+//        coordinator?.handleGoToLeaderboard(quiz: self.quiz)
     }
     
     func handleReviewFinished() {

@@ -12,9 +12,9 @@ class QuizPresenter: QuizPresenterProtocol {
     let dataService: NetworkServiceProtocol = NetworkService.shared
     weak var delegate: QuizDelegate?
     
-    let quiz: Quiz
+    let quiz: QuizViewModel
     
-    init(delegate qd: QuizDelegate, coordinator qc: QuizzesCoordinator, quiz: Quiz) {
+    init(delegate qd: QuizDelegate, coordinator qc: QuizzesCoordinator, quiz: QuizViewModel) {
         self.delegate = qd
         self.coordinator = qc
         self.quiz = quiz

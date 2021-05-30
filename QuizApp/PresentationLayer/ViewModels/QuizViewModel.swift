@@ -15,7 +15,7 @@ struct QuizViewModel {
     let description: String
     let category: String
     let level: Int
-//    let questions: [QuestionViewModel]
+    let questions: [QuestionViewModel]
     
     init(_ quiz: Quiz) {
         self.id = quiz.id
@@ -23,7 +23,7 @@ struct QuizViewModel {
         self.description = quiz.description
         self.category = quiz.category.rawValue
         self.level = quiz.level
-        
+        self.questions = quiz.questions.map({QuestionViewModel($0)})
     }
     
 }

@@ -9,12 +9,12 @@ import UIKit
 
 class QuestionViewController: UIViewController {
     weak var pageVC: QuizViewController?
-    private var question: Question!
+    private var question: QuestionViewModel!
     
     private var questionLabel: Label!
     private var answerButtonStack: UIStackView!
     
-    init(question: Question) {
+    init(question: QuestionViewModel) {
         super.init(nibName: nil, bundle: nil)
         self.question = question
     }

@@ -8,7 +8,7 @@
 import UIKit
 
 class SearchViewController: UIViewController {
-    var presenter: SearchPresenterProtocol!
+    var presenter: QuizzesPresenterProtocol!
     
     private var searchBarView: UIView!
     private var searchTextField: TextField!
@@ -44,7 +44,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let container = UIView()
         let quizCategory = presenter.getQuizCategoryForSection(section: section)
-        let label = Label(text: quizCategory.rawValue,
+        let label = Label(text: quizCategory,
                           font: .PopQuizDefaultFonts.heading3,
                           textAlignment: .left)
         container.addSubview(label)
@@ -55,8 +55,19 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: QuizCell.cellID, for: indexPath) as! QuizCell
-        let quiz = presenter.getQuiz(at: indexPath)
+//        let cell = tableView.dequeueReusableCell(withIdentifier: QuizCell.cellID, for: indexPath) as! QuizCell
+//        let quiz = presenter.getQuiz(at: indexPath)
+//        cell.backgroundColor = UIColor.clear
+//        cell.setTitleLabel(title: quiz.title)
+//        cell.setDescriptionLabel(description: quiz.description)
+//        cell.setLevel(level: quiz.level)
+//        return cell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: QuizCell.cellID, for: indexPath) as? QuizCell,
+              let quiz = presenter.getQuiz(at: indexPath)
+        else {
+            return QuizCell()
+        }
+        
         cell.backgroundColor = UIColor.clear
         cell.setTitleLabel(title: quiz.title)
         cell.setDescriptionLabel(description: quiz.description)
