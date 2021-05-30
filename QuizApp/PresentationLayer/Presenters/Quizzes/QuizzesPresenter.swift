@@ -9,7 +9,6 @@ import Foundation
 
 class QuizzesPresenter: QuizzesPresenterProtocol {
     weak var coordinator: QuizzesCoordinator?
-//    var dataService: NetworkServiceProtocol = NetworkService.shared
     private var quizUseCase: QuizUseCaseProtocol!
     weak var delegate: QuizzesDelegate?
     
@@ -55,7 +54,7 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
     }
     
     private func setFetchedQuizzes() {
-        let fetchedQuizzes = self.quizUseCase.fetchLocalQuizzes(filter: FilterSettings())
+        let fetchedQuizzes = self.quizUseCase.fetchLocalQuizzes()
         self.quizzes = fetchedQuizzes
         self.setFunFact()
     }
@@ -70,7 +69,8 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
     
     func getQuizCountForCategory(categoryIndex: Int) -> Int {
         let quizCategory = getQuizCategoryForSection(section: categoryIndex)
-        return categorisedQuizzes[quizCategory]!.count
+        guard let quizzes = categorisedQuizzes[quizCategory] else { return 0 }
+        return quizzes.count
     }
     
     func getQuizCategoryForSection(section: Int) -> QuizCategory {

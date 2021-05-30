@@ -19,7 +19,11 @@ class QuizUseCase: QuizUseCaseProtocol {
         quizRepository.fetchRemoteData(completionHandler: completionHandler)
     }
     
-    func fetchLocalQuizzes(filter: FilterSettings) -> [Quiz] {
-        quizRepository.fetchLocalData(filter: filter)
+    func fetchLocalQuizzes(filter: String) -> [Quiz] {
+        return quizRepository.fetchLocalData(filter: FilterSettings(searchText: filter))
+    }
+    
+    func fetchLocalQuizzes() -> [Quiz] {
+        return quizRepository.fetchLocalData(filter: FilterSettings())
     }
 }

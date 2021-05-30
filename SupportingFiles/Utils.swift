@@ -83,7 +83,7 @@ extension String {
         static let quizIcon = "QuizIcon"
         static let quizzesError = "QuizzesError"
         static let levelRhombus = "Rhombus"
-        static let search = "Search"
+        static let search = "SearchIcon"
         static let settings = "Settings"
     }
     struct DefaultStrings {

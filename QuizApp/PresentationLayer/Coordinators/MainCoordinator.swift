@@ -30,33 +30,28 @@ extension MainCoordinator: LoginCoordinator {
         
         let quizzesVC = createQuizzesViewController()
         
+        let searchVC = createSearchViewController()
+        
         let settingsVC = SettingsViewController()
         let settingsPresenter = SettingsPresenter(delegate: settingsVC, coordinator: self)
         settingsVC.presenter = settingsPresenter
         
-        styleTabIcons(quizzesVC: quizzesVC, settingsVC: settingsVC)
+        styleTabIcons(quizzesVC: quizzesVC, searchVC: searchVC, settingsVC: settingsVC)
         
-        tabBarController.viewControllers = [quizzesVC, settingsVC]
+        tabBarController.viewControllers = [quizzesVC, searchVC, settingsVC]
         navigationController.setViewControllers([tabBarController], animated: true)
         tabBarController.navigationController?.isNavigationBarHidden = true
     }
     
-    private func styleTabIcons(quizzesVC qvc: QuizzesViewController, settingsVC svc: SettingsViewController) {
-        qvc.tabBarItem = UITabBarItem(title:"Quiz", image: UIImage(named: .SymbolStrings.quizIcon),
-                                      selectedImage: UIImage(named: .SymbolStrings.quizIcon))
-        svc.tabBarItem = UITabBarItem(title:"Settings", image: UIImage(named: .SymbolStrings.settings),
-                                      selectedImage: UIImage(named: .SymbolStrings.settings))
-    }
-    
-    private func createQuizzesViewController() -> QuizzesViewController {
-        let quizzesVC = QuizzesViewController()
-        let coreDataContext = CoreDataStack(modelName: .DefaultStrings.modelName).managedContext
-        let quizRepository = QuizRepository(databaseDataSource: QuizDatabaseDataSource(coreDataContext: coreDataContext),
-                                            networkDataSource: QuizNetworkDataSource())
-        let quizUseCase = QuizUseCase(quizRepository: quizRepository)
-        let quizzesPresenter = QuizzesPresenter(delegate: quizzesVC, coordinator: self, quizUseCase: quizUseCase)
-        quizzesVC.presenter = quizzesPresenter
-        return quizzesVC
+    private func styleTabIcons(quizzesVC: QuizzesViewController, searchVC: SearchViewController, settingsVC: SettingsViewController) {
+        quizzesVC.tabBarItem = UITabBarItem(title:"Quiz", image: UIImage(named: .SymbolStrings.quizIcon),
+                                            selectedImage: UIImage(named: .SymbolStrings.quizIcon))
+        
+        searchVC.tabBarItem = UITabBarItem(title:"Search", image: UIImage(named: .SymbolStrings.search),
+                                           selectedImage: UIImage(named: .SymbolStrings.search))
+        
+        settingsVC.tabBarItem = UITabBarItem(title:"Settings", image: UIImage(named: .SymbolStrings.settings),
+                                             selectedImage: UIImage(named: .SymbolStrings.settings))
     }
 }
 
@@ -96,6 +91,32 @@ extension MainCoordinator: QuizzesCoordinator {
         let quizPresenter = QuizPresenter(delegate: quizVC, coordinator: self, quiz: selectedQuiz)
         quizVC.presenter = quizPresenter
         navigationController.pushViewController(quizVC, animated: true)
+    }
+    
+}
+
+extension MainCoordinator {
+    
+    private func createQuizzesViewController() -> QuizzesViewController {
+        let quizzesVC = QuizzesViewController()
+        let coreDataContext = CoreDataStack(modelName: .DefaultStrings.modelName).managedContext
+        let quizRepository = QuizRepository(databaseDataSource: QuizDatabaseDataSource(coreDataContext: coreDataContext),
+                                            networkDataSource: QuizNetworkDataSource())
+        let quizUseCase = QuizUseCase(quizRepository: quizRepository)
+        let quizzesPresenter = QuizzesPresenter(delegate: quizzesVC, coordinator: self, quizUseCase: quizUseCase)
+        quizzesVC.presenter = quizzesPresenter
+        return quizzesVC
+    }
+    
+    private func createSearchViewController() -> SearchViewController {
+        let searchVC = SearchViewController()
+        let coreDataContext = CoreDataStack(modelName: .DefaultStrings.modelName).managedContext
+        let quizRepository = QuizRepository(databaseDataSource: QuizDatabaseDataSource(coreDataContext: coreDataContext),
+                                            networkDataSource: QuizNetworkDataSource())
+        let quizUseCase = QuizUseCase(quizRepository: quizRepository)
+        let searchPresenter = SearchPresenter(delegate: searchVC, coordinator: self, quizUseCase: quizUseCase)
+        searchVC.presenter = searchPresenter
+        return searchVC
     }
     
 }
