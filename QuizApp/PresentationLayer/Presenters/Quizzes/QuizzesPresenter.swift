@@ -23,7 +23,6 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
             }
         }
     }
-//    var categorisedQuizzes: [QuizCategory : [Quiz]]
     private var sectionCategories: [String]
     
     init(delegate: QuizzesDelegate, coordinator: QuizzesCoordinator, quizUseCase: QuizUseCaseProtocol) {
@@ -32,7 +31,6 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
         self.quizUseCase = quizUseCase
         self.quizzes = []
         self.sectionCategories = []
-//        self.categorisedQuizzes = [:]
     }
     
     func fetchQuizzes(filter: String?) {
@@ -50,7 +48,6 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
                         self.setFetchedQuizzes()
                     }
                     self.sectionCategories = Set(self.quizzes.map({$0.category})).sorted()
-//                    self.categorisedQuizzes = Dictionary(grouping: self.quizzes, by: {$0.category})
                     self.delegate!.reloadTable()
                 }
             })
@@ -60,23 +57,14 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
     private func setFetchedQuizzes() {
         let fetchedQuizzes = self.quizUseCase.fetchLocalQuizzes()
         self.quizzes = fetchedQuizzes.map({QuizViewModel($0)})
-//        self.quizzes = fetchedQuizzes
         self.setFunFact()
     }
     
-//    func getQuizzesByCategory() -> [QuizCategory : [Quiz]] {
-//        return categorisedQuizzes
-//    }
-    
     func getNoOfQuizCategories() -> Int {
         return sectionCategories.count
-//        return categorisedQuizzes.keys.count
     }
     
     func getQuizCountForCategory(categoryIndex: Int) -> Int {
-//        let quizCategory = getQuizCategoryForSection(section: categoryIndex)
-//        guard let quizzes = categorisedQuizzes[quizCategory] else { return 0 }
-//        return quizzes.count
         return self.quizzes.filter({$0.category == self.sectionCategories[categoryIndex]}).count
     }
     
@@ -87,8 +75,6 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
     
     func getQuiz(at indexPath: IndexPath) -> QuizViewModel? {
         return self.quizzes.filter({$0.category == sectionCategories[indexPath.section]}).at(indexPath.row)
-//        let quizCategory = QuizCategory.allCases[indexPath.section]
-//        return categorisedQuizzes[quizCategory]![indexPath.row]
     }
     
     func handleQuizSelection(at indexPath: IndexPath) {

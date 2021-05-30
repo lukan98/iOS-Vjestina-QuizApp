@@ -9,7 +9,6 @@ import Foundation
 
 class LeaderboardPresenter: LeaderboardPresenterProtocol {
     weak var coordinator: QuizzesCoordinator?
-//    let dataService: NetworkServiceProtocol = NetworkService.shared
     private let leaderboardUseCase: LeaderboardUseCaseProtocol = LeaderboardUseCase()
     weak var delegate: LeaderboardDelegate?
     
@@ -60,9 +59,6 @@ class LeaderboardPresenter: LeaderboardPresenterProtocol {
     }
     
     func getScoreFor(index at: Int) -> (Double) {
-//        guard let scoreString = leaderboard[at].score, let scoreString = Double(scoreString) else {
-//            return 0
-//        }
         return leaderboard[at].score
     }
 }

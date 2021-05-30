@@ -10,7 +10,6 @@ import Foundation
 protocol SearchPresenterProtocol: Presenter {
     
     func fetchQuizzes(filter: String)
-//    func getQuizzesByCategory() -> [QuizCategory : [Quiz]]
     func getNoOfQuizCategories() -> Int
     func getQuizCountForCategory(categoryIndex: Int) -> Int
     func getQuizCategoryForSection(section: Int) -> String

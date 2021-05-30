@@ -10,20 +10,17 @@ import UIKit
 class LeaderboardViewController: UIViewController, LeaderboardDelegate {
     var presenter: LeaderboardPresenterProtocol!
     
-    private var titleLabel: Label!
-    private var exitButton: UIImageView!
+    var titleLabel: Label!
+    var exitButton: UIImageView!
     
-    private var errorMessage: Label!
+    var errorMessage: Label!
     
-    private var leaderboardView: UITableView!
+    var leaderboardView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Leaderboard"
-        colorBackground()
-        initializeUIComponents()
-        addSubviews()
-        setUpLayout()
+        buildViews()
         presenter.fetchLeaderboard()
     }
     
@@ -44,68 +41,10 @@ class LeaderboardViewController: UIViewController, LeaderboardDelegate {
     func reloadTable() {
         leaderboardView.reloadData()
     }
-}
-
-private extension LeaderboardViewController {
     
-    func initializeUIComponents() {
-        titleLabel = Label(text: "Leaderboard", font: .PopQuizDefaultFonts.heading2, textAlignment: .center)
-        
-        errorMessage = Label(text: "The leaderboard couldn't be reached",
-                             font: .PopQuizDefaultFonts.bodyBold,
-                             textAlignment: .center)
-        errorMessage.numberOfLines = 0
-        errorMessage.isHidden = true
-        
-        exitButton = UIImageView(image: UIImage(named: .SymbolStrings.exit))
-        exitButton.tintColor = .white
-        exitButton.translatesAutoresizingMaskIntoConstraints = false
-        exitButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goBack)))
-        exitButton.isUserInteractionEnabled = true
-
-        initializeLeaderboardView()
-    }
-    
-    func initializeLeaderboardView() {
-        leaderboardView = {
-            let tableView = UITableView(frame: CGRect(), style: .grouped)
-            tableView.translatesAutoresizingMaskIntoConstraints = false
-            tableView.backgroundColor = .init(white: 1, alpha: 0)
-            tableView.separatorColor = .white
-            return tableView
-        }()
-        leaderboardView.delegate = self
-        leaderboardView.dataSource = self
-        leaderboardView.register(LeaderboardCell.self, forCellReuseIdentifier: LeaderboardCell.cellID)
-    }
-    
-    func addSubviews() {
-        view.addSubview(titleLabel)
-        view.addSubview(exitButton)
-        view.addSubview(leaderboardView)
-        view.addSubview(errorMessage)
-    }
-    
-    func setUpLayout() {
-        NSLayoutConstraint.activate([titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-                                     titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                                     titleLabel.heightAnchor.constraint(equalToConstant: 20),
-                                     titleLabel.widthAnchor.constraint(equalToConstant: 150)])
-        
-        NSLayoutConstraint.activate([exitButton.topAnchor.constraint(equalTo: titleLabel.topAnchor),
-                                     exitButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-                                     exitButton.widthAnchor.constraint(equalToConstant: 20),
-                                     exitButton.heightAnchor.constraint(equalToConstant: 20)])
-        
-        NSLayoutConstraint.activate([leaderboardView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                                     leaderboardView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
-                                     leaderboardView.widthAnchor.constraint(equalTo: view.widthAnchor),
-                                     leaderboardView.centerXAnchor.constraint(equalTo: view.centerXAnchor)])
-        
-        NSLayoutConstraint.activate([errorMessage.widthAnchor.constraint(equalToConstant: 300),
-                                     errorMessage.heightAnchor.constraint(equalToConstant: 60),
-                                     errorMessage.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                                     errorMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor)])
+    @objc
+    func goBack() {
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -150,13 +89,4 @@ extension LeaderboardViewController: UITableViewDelegate, UITableViewDataSource 
         
         return container
     }
-}
-
-private extension LeaderboardViewController {
-    
-    @objc
-    func goBack() {
-        dismiss(animated: true, completion: nil)
-    }
-    
 }

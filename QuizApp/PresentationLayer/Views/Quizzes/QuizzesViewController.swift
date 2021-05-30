@@ -10,25 +10,21 @@ import UIKit
 class QuizzesViewController: UIViewController, QuizzesDelegate {
     var presenter: QuizzesPresenterProtocol!
 
-    private var appTitle: Label!
+    var appTitle: Label!
 
-    private var errorSymbol: UIImageView!
-    private var errorLabel: Label!
-    private var errorDescription: Label!
-    private var errorContainer: UIView!
+    var errorSymbol: UIImageView!
+    var errorLabel: Label!
+    var errorDescription: Label!
+    var errorContainer: UIView!
 
-    private var funFactContainer: UIView!
-    private var funFactTitle: Label!
-    private var funFactDescription: Label!
+    var funFactContainer: UIView!
+    var funFactTitle: Label!
+    var funFactDescription: Label!
 
-    private var tableView: UITableView!
+    var tableView: UITableView!
     
     override func viewDidLoad() {
-        colorBackground()
-        initalizeUIComponents()
-        addSubviews()
-        setUpTableView()
-        setUpLayout()
+        buildViews()
         presenter.fetchQuizzes(filter: nil)
     }
     
@@ -96,14 +92,6 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
         cell.setDescriptionLabel(description: quiz.description)
         cell.setLevel(level: quiz.level)
         return cell
-//        let cell = tableView.dequeueReusableCell(withIdentifier: QuizCell.cellID, for: indexPath) as! QuizCell
-//        if let quiz = presenter.getQuiz(at: indexPath) {
-//            cell.backgroundColor = UIColor.clear
-//            cell.setTitleLabel(title: quiz.title)
-//            cell.setDescriptionLabel(description: quiz.description)
-//            cell.setLevel(level: quiz.level)
-//        }
-//        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -114,123 +102,5 @@ extension QuizzesViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(QuizCell.self, forCellReuseIdentifier: QuizCell.cellID)
-    }
-}
-
-private extension QuizzesViewController {
-    
-    func initalizeUIComponents() {
-        appTitle = Label(text: .DefaultStrings.appTitle,
-                         font: UIFont.PopQuizDefaultFonts.heading2,
-                         textAlignment: .center)
-        
-        errorSymbol = {
-            let imageView = UIImageView(image: UIImage(named: .SymbolStrings.quizzesError))
-            imageView.sizeToFit()
-            imageView.tintColor = UIColor.white
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.contentMode = .scaleAspectFit
-            return imageView
-        }()
-        errorLabel = Label(text: "Error", font: UIFont.PopQuizDefaultFonts.heading2)
-        errorDescription = Label(text: .DefaultStrings.noQuizzesDescription,
-                                 font: UIFont.PopQuizDefaultFonts.bodyLight)
-        errorDescription.numberOfLines = 0
-        errorContainer = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-
-        funFactContainer = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.isHidden = true
-            return view
-        }()
-        funFactTitle = Label(text: .DefaultStrings.funFact,
-                             font: UIFont.PopQuizDefaultFonts.bodyBold,
-                             textAlignment: .left)
-        funFactDescription = Label(text: "",
-                                   font: UIFont.PopQuizDefaultFonts.bodyLight,
-                                   textAlignment: .left)
-
-        tableView = {
-            let tableView = UITableView(frame: CGRect(), style: .grouped)
-            tableView.translatesAutoresizingMaskIntoConstraints = false
-            tableView.backgroundColor = .init(white: 1, alpha: 0)
-            return tableView
-        }()
-    }
-}
-
-private extension QuizzesViewController {
-    
-    func addSubviews() {
-        funFactContainer.addSubview(funFactTitle)
-        funFactContainer.addSubview(funFactDescription)
-        
-        errorContainer.addSubview(errorLabel)
-        errorContainer.addSubview(errorDescription)
-        errorContainer.addSubview(errorSymbol)
-        
-        view.addSubview(appTitle)
-        view.addSubview(errorContainer)
-        view.addSubview(funFactContainer)
-        view.addSubview(tableView)
-        
-        tableView.isHidden = true
-        errorContainer.isHidden = true
-        funFactContainer.isHidden = true
-    }
-    
-    func setUpLayout() {
-        setUpHeaderLayout()
-        setUpErrorContainerLayout()
-        setUpFunFactLayout()
-        setUpTableViewLayout()
-    }
-    
-    func setUpHeaderLayout() {
-        NSLayoutConstraint.activate([appTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                                     appTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                                     appTitle.heightAnchor.constraint(equalToConstant: 45),
-                                     appTitle.widthAnchor.constraint(equalToConstant: 300)])
-    }
-    
-    func setUpFunFactLayout() {
-        NSLayoutConstraint.activate([funFactTitle.topAnchor.constraint(equalTo: appTitle.bottomAnchor, constant: 5),
-                                     funFactTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                                     funFactTitle.widthAnchor.constraint(equalToConstant: 300),
-                                     funFactTitle.heightAnchor.constraint(equalToConstant: 25)])
-        
-        NSLayoutConstraint.activate([funFactDescription.topAnchor.constraint(equalTo: funFactTitle.bottomAnchor),
-                                     funFactDescription.rightAnchor.constraint(equalTo: funFactTitle.rightAnchor),
-                                     funFactDescription.widthAnchor.constraint(equalTo: funFactTitle.widthAnchor),
-                                     funFactDescription.heightAnchor.constraint(equalToConstant: 40)])
-    }
-    
-    func setUpErrorContainerLayout() {
-        NSLayoutConstraint.activate([errorContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                                     errorContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                                     errorContainer.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.8)])
-        
-        NSLayoutConstraint.activate([errorLabel.centerXAnchor.constraint(equalTo: errorContainer.centerXAnchor),
-                                     errorLabel.centerYAnchor.constraint(equalTo: errorContainer.centerYAnchor)])
-        
-        NSLayoutConstraint.activate([errorSymbol.centerXAnchor.constraint(equalTo: errorContainer.centerXAnchor),
-                                     errorSymbol.bottomAnchor.constraint(equalTo: errorLabel.topAnchor),
-                                     errorSymbol.heightAnchor.constraint(greaterThanOrEqualToConstant: 80),
-                                     errorSymbol.widthAnchor.constraint(equalTo: errorSymbol.heightAnchor)])
-        
-        NSLayoutConstraint.activate([errorDescription.centerXAnchor.constraint(equalTo: errorContainer.centerXAnchor),
-                                     errorDescription.topAnchor.constraint(equalTo: errorLabel.bottomAnchor)])
-    }
-    
-    func setUpTableViewLayout() {
-        NSLayoutConstraint.activate([tableView.topAnchor.constraint(equalTo: funFactDescription.bottomAnchor, constant: 5),
-                                     tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                                     tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-                                     tableView.leftAnchor.constraint(equalTo: view.leftAnchor)])
     }
 }

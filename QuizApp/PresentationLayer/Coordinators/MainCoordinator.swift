@@ -101,28 +101,6 @@ extension MainCoordinator: QuizzesCoordinator {
 
 extension MainCoordinator {
     
-//    private func createQuizzesViewController() -> QuizzesViewController {
-//        let quizzesVC = QuizzesViewController()
-//        let coreDataContext = CoreDataStack(modelName: .DefaultStrings.modelName).managedContext
-//        let quizRepository = QuizRepository(databaseDataSource: QuizDatabaseDataSource(coreDataContext: coreDataContext),
-//                                            networkDataSource: QuizNetworkDataSource())
-//        let quizUseCase = QuizUseCase(quizRepository: quizRepository)
-//        let quizzesPresenter = QuizzesPresenter(delegate: quizzesVC, coordinator: self, quizUseCase: quizUseCase)
-//        quizzesVC.presenter = quizzesPresenter
-//        return quizzesVC
-//    }
-//    
-//    private func createSearchViewController() -> SearchViewController {
-//        let searchVC = SearchViewController()
-//        let coreDataContext = CoreDataStack(modelName: .DefaultStrings.modelName).managedContext
-//        let quizRepository = QuizRepository(databaseDataSource: QuizDatabaseDataSource(coreDataContext: coreDataContext),
-//                                            networkDataSource: QuizNetworkDataSource())
-//        let quizUseCase = QuizUseCase(quizRepository: quizRepository)
-//        let searchPresenter = SearchPresenter(delegate: searchVC, coordinator: self, quizUseCase: quizUseCase)
-//        searchVC.presenter = searchPresenter
-//        return searchVC
-//    }
-    
     private func createQuizUseCase() -> QuizUseCase {
         let coreDataContext = CoreDataStack(modelName: .DefaultStrings.modelName).managedContext
         let quizRepository = QuizRepository(databaseDataSource: QuizDatabaseDataSource(coreDataContext: coreDataContext),
