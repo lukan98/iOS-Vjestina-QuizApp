@@ -95,5 +95,6 @@ extension String {
         static let signInFail = "Sign in error"
         static let getQuizString = "Get Quiz"
         static let noQuizzesDescription = "Data can't be reached.\nPlease try again."
+        static let modelName = "QuizDBModel"
     }
 }

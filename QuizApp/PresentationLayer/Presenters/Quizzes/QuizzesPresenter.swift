@@ -35,7 +35,7 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
     
     func fetchQuizzes() {
         DispatchQueue.global().async {
-            self.quizUseCase.fetchQuizzes(completionHandler: { [weak self]
+            self.quizUseCase.fetchRemoteQuizzes(completionHandler: { [weak self]
                 (result: Result<QuizCollection, RequestError>) -> Void in
                 guard let self = self else { return }
                 
@@ -44,15 +44,20 @@ class QuizzesPresenter: QuizzesPresenterProtocol {
                     case .failure(let error):
                         self.delegate!.setErrorMessage(message: error.localizedDescription)
                         self.quizzes = []
-                    case .success(let fetchedCollection):
-                        self.quizzes = fetchedCollection.quizzes
-                        self.setFunFact()
+                    case .success:
+                        self.setFetchedQuizzes()
                     }
                     self.categorisedQuizzes = Dictionary(grouping: self.quizzes, by: {$0.category})
                     self.delegate!.reloadTable()
                 }
             })
         }
+    }
+    
+    private func setFetchedQuizzes() {
+        let fetchedQuizzes = self.quizUseCase.fetchLocalQuizzes(filter: FilterSettings())
+        self.quizzes = fetchedQuizzes
+        self.setFunFact()
     }
     
     func getQuizzesByCategory() -> [QuizCategory : [Quiz]] {

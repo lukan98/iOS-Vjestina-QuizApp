@@ -10,6 +10,6 @@ import Foundation
 protocol QuizRepositoryProtocol {
     
     func fetchRemoteData(completionHandler: @escaping (Result<QuizCollection, RequestError>) -> Void)
-    func fetchLocalData(search: String?) -> [Quiz]
+    func fetchLocalData(filter: FilterSettings) -> [Quiz]
 
 }

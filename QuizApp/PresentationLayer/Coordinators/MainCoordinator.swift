@@ -50,9 +50,9 @@ extension MainCoordinator: LoginCoordinator {
     
     private func createQuizzesViewController() -> QuizzesViewController {
         let quizzesVC = QuizzesViewController()
-        let coreDataContext = CoreDataStack(modelName: "Model").managedContext
-        let quizRepository = QuizRepository(coreDataSource: QuizDatabaseDataSource(coreDataContext: coreDataContext),
-                                               networkDataSource: QuizNetworkDataSource())
+        let coreDataContext = CoreDataStack(modelName: .DefaultStrings.modelName).managedContext
+        let quizRepository = QuizRepository(databaseDataSource: QuizDatabaseDataSource(coreDataContext: coreDataContext),
+                                            networkDataSource: QuizNetworkDataSource())
         let quizUseCase = QuizUseCase(quizRepository: quizRepository)
         let quizzesPresenter = QuizzesPresenter(delegate: quizzesVC, coordinator: self, quizUseCase: quizUseCase)
         quizzesVC.presenter = quizzesPresenter

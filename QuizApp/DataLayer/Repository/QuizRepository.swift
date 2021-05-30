@@ -9,20 +9,39 @@ import Foundation
 
 class QuizRepository: QuizRepositoryProtocol {    
     
-    private let coreDataSource: QuizDatabaseDataSourceProtocol
+    private let databaseDataSource: QuizDatabaseDataSourceProtocol
     private let networkDataSource: QuizNetworkDataSourceProtocol
     
-    init(coreDataSource: QuizDatabaseDataSourceProtocol, networkDataSource: QuizNetworkDataSourceProtocol) {
-        self.coreDataSource = coreDataSource
+    init(databaseDataSource: QuizDatabaseDataSourceProtocol, networkDataSource: QuizNetworkDataSourceProtocol) {
+        self.databaseDataSource = databaseDataSource
         self.networkDataSource = networkDataSource
     }
     
     func fetchRemoteData(completionHandler: @escaping (Result<QuizCollection, RequestError>) -> Void) {
-        networkDataSource.fetchQuizzesFromNetwork(completionHandler: completionHandler)
+        let quizzes = fetchLocalData(filter: FilterSettings())
+        if quizzes.count > 0 {
+            print("Found local data")
+            completionHandler(.success(QuizCollection(quizzes: quizzes)))
+        } else {
+            print("Didn't find local data")
+            self.networkDataSource.fetchQuizzesFromNetwork(completionHandler: { [weak self]
+                (result: Result<QuizCollection, RequestError>) -> Void in
+                guard let self = self else { return }
+                
+                switch result {
+                case .success(let fetchedCollection):
+                    print(fetchedCollection.quizzes.count)
+                    self.databaseDataSource.saveNewQuizzes(fetchedCollection.quizzes)
+                    completionHandler(result)
+                case .failure:
+                    completionHandler(result)
+                }
+            })
+        }
     }
     
-    func fetchLocalData(search: String?) -> [Quiz] {
-        return []
+    func fetchLocalData(filter: FilterSettings) -> [Quiz] {
+        return databaseDataSource.fetchQuizzesfromDatabase(filter: filter)
     }
     
 }

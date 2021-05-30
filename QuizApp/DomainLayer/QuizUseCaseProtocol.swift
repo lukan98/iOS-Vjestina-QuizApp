@@ -9,7 +9,7 @@ import Foundation
 
 protocol QuizUseCaseProtocol {
     
-    func fetchQuizzes(completionHandler: @escaping (Result<QuizCollection, RequestError>) -> Void)
-    func getQuizzes(search: String?) -> [Quiz]
+    func fetchRemoteQuizzes(completionHandler: @escaping (Result<QuizCollection, RequestError>) -> Void)
+    func fetchLocalQuizzes(filter: FilterSettings) -> [Quiz]
     
 }

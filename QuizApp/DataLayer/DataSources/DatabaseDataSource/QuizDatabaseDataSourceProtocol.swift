@@ -9,6 +9,8 @@ import Foundation
 
 protocol QuizDatabaseDataSourceProtocol {
     
-    func fetchQuizzesfromDatabase(search: String?) -> [Quiz]
+    func fetchQuizzesfromDatabase(filter: FilterSettings) -> [Quiz]
+    func saveNewQuizzes(_ quizzes: [Quiz])
+    func deleteQuiz(withId id: Int)
     
 }

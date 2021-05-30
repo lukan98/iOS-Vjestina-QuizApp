@@ -15,11 +15,11 @@ class QuizUseCase: QuizUseCaseProtocol {
         self.quizRepository = quizRepository
     }
     
-    func fetchQuizzes(completionHandler: @escaping (Result<QuizCollection, RequestError>) -> Void) {
+    func fetchRemoteQuizzes(completionHandler: @escaping (Result<QuizCollection, RequestError>) -> Void) {
         quizRepository.fetchRemoteData(completionHandler: completionHandler)
     }
     
-    func getQuizzes(search: String?) -> [Quiz] {
-        quizRepository.fetchLocalData(search: search)
+    func fetchLocalQuizzes(filter: FilterSettings) -> [Quiz] {
+        quizRepository.fetchLocalData(filter: filter)
     }
 }

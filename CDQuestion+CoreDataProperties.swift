@@ -2,7 +2,7 @@
 //  CDQuestion+CoreDataProperties.swift
 //  QuizApp
 //
-//  Created by Luka Namačinski on 29.05.2021..
+//  Created by Luka Namačinski on 30.05.2021..
 //
 //
 
@@ -16,11 +16,11 @@ extension CDQuestion {
         return NSFetchRequest<CDQuestion>(entityName: "CDQuestion")
     }
 
-    @NSManaged public var answers: NSObject?
-    @NSManaged public var correctAnswer: Int16
-    @NSManaged public var id: UUID?
-    @NSManaged public var question: String?
-    @NSManaged public var quiz: CDQuiz?
+    @NSManaged public var answers: [String]
+    @NSManaged public var correctAnswer: Int32
+    @NSManaged public var identifier: Int32
+    @NSManaged public var question: String
+    @NSManaged public var quiz: CDQuiz
 
 }
 
