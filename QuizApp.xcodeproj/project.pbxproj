@@ -122,10 +122,10 @@
 		FC2D76D52662D621001D7D4F /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		FC2D76E82662E354001D7D4F /* FilterSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSettings.swift; sourceTree = "<group>"; };
 		FC2D76EA2662EBE8001D7D4F /* Quiz+CD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Quiz+CD.swift"; sourceTree = "<group>"; };
-		FC2D76FC2662F4E7001D7D4F /* CDQuestion+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDQuestion+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		FC2D76FD2662F4E7001D7D4F /* CDQuestion+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDQuestion+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		FC2D76FE2662F4E7001D7D4F /* CDQuiz+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDQuiz+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		FC2D76FF2662F4E7001D7D4F /* CDQuiz+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDQuiz+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		FC2D76FC2662F4E7001D7D4F /* CDQuestion+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDQuestion+CoreDataClass.swift"; path = "QuizApp/DataLayer/ManagedModels/CDQuestion+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		FC2D76FD2662F4E7001D7D4F /* CDQuestion+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDQuestion+CoreDataProperties.swift"; path = "QuizApp/DataLayer/ManagedModels/CDQuestion+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		FC2D76FE2662F4E7001D7D4F /* CDQuiz+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDQuiz+CoreDataClass.swift"; path = "QuizApp/DataLayer/ManagedModels/CDQuiz+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		FC2D76FF2662F4E7001D7D4F /* CDQuiz+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDQuiz+CoreDataProperties.swift"; path = "QuizApp/DataLayer/ManagedModels/CDQuiz+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		FC2D77042662F583001D7D4F /* Question+CD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Question+CD.swift"; sourceTree = "<group>"; };
 		FC2D77062663BAEA001D7D4F /* LeaderboardUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardUseCase.swift; sourceTree = "<group>"; };
 		FC2D77082663BAF5001D7D4F /* LeaderboardUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardUseCaseProtocol.swift; sourceTree = "<group>"; };
