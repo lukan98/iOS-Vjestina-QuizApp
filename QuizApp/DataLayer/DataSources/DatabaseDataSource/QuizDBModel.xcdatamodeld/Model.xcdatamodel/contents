@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20E241" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CDQuestion" representedClassName="CDQuestion" syncable="YES">
-        <attribute name="answers" attributeType="Transformable"/>
+        <attribute name="answers" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="[String]"/>
         <attribute name="correctAnswer" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="identifier" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="question" attributeType="String"/>
@@ -17,7 +17,7 @@
         <relationship name="questions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDQuestion" inverseName="quiz" inverseEntity="CDQuestion"/>
     </entity>
     <elements>
-        <element name="CDQuestion" positionX="-45" positionY="0" width="128" height="118"/>
+        <element name="CDQuestion" positionX="-45" positionY="0" width="128" height="104"/>
         <element name="CDQuiz" positionX="-399.9153442382812" positionY="-30.06646728515625" width="128" height="148"/>
     </elements>
 </model>

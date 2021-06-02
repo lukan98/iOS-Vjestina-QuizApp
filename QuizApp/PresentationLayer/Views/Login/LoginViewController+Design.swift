@@ -48,8 +48,8 @@ extension LoginViewController {
     private func setUpLayout() {
         NSLayoutConstraint.activate([appTitle.topAnchor.constraint(equalTo: view.topAnchor),
                                      appTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                                     appTitle.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15),
-                                     appTitle.widthAnchor.constraint(greaterThanOrEqualToConstant: 140)])
+                                     appTitle.widthAnchor.constraint(greaterThanOrEqualToConstant: 140),
+                                     appTitle.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15)])
         
         NSLayoutConstraint.activate([emailField.bottomAnchor.constraint(equalTo: passwordField.topAnchor, constant: -20),
                                      emailField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -70,6 +70,74 @@ extension LoginViewController {
                                      errorMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                                      errorMessage.heightAnchor.constraint(equalTo: passwordField.heightAnchor, multiplier: 1.2),
                                      errorMessage.widthAnchor.constraint(equalTo: passwordField.widthAnchor)])
+    }
+}
+
+extension LoginViewController {
+    
+    func entranceAnimations(_ animationDuration: Double, options: UIView.AnimationOptions) {
+        UIView.animate(withDuration: animationDuration,
+                       delay: 0,
+                       options: options,
+                       animations: {
+                        self.appTitle.transform = .identity
+                        self.appTitle.alpha = 1
+                       })
+        UIView.animate(withDuration: animationDuration,
+                       delay: 0,
+                       options: options,
+                       animations: {
+                        self.emailField.transform = .identity
+                       })
+        UIView.animate(withDuration: animationDuration,
+                       delay: 0.25,
+                       options: options,
+                       animations: {
+                        self.passwordField.transform = .identity
+                       })
+        UIView.animate(withDuration: animationDuration,
+                       delay: 0.5,
+                       options: options,
+                       animations: {
+                        self.signInButton.transform = .identity
+                       })
+    }
+    
+    func exitAnimations(_ animationDuration: Double = 0.25, options: UIView.AnimationOptions,
+                        completionHandler: @escaping (Bool) -> Void) {
+        UIView.animate(withDuration: animationDuration,
+                       delay: 0,
+                       options: options,
+                       animations: {
+                        self.appTitle.transform = self.appTitle.transform.translatedBy(x: 0, y: -self.view.frame.height)
+                       })
+        UIView.animate(withDuration: animationDuration,
+                       delay: 0.25,
+                       options: options,
+                       animations: {
+                        self.emailField.transform = self.emailField.transform.translatedBy(x: 0, y: -self.view.frame.height)
+                       })
+        UIView.animate(withDuration: animationDuration,
+                       delay: 0.5,
+                       options: options,
+                       animations: {
+                        self.passwordField.transform = self.passwordField.transform.translatedBy(x: 0, y: -self.view.frame.height)
+                       })
+        UIView.animate(withDuration: animationDuration,
+                       delay: 0.75,
+                       options: options,
+                       animations: {
+                        self.signInButton.transform = self.signInButton.transform.translatedBy(x: 0, y: -self.view.frame.height)
+                       },
+                       completion: completionHandler)
+    }
+    
+    func animationStartLayout() {
+        appTitle.transform = appTitle.transform.scaledBy(x: 0, y: 0)
+        appTitle.alpha = 0
+        emailField.transform = emailField.transform.translatedBy(x: -view.frame.width, y: 0)
+        passwordField.transform = passwordField.transform.translatedBy(x: -view.frame.width, y: 0)
+        signInButton.transform = passwordField.transform.translatedBy(x: -view.frame.width, y: 0)
     }
     
 }

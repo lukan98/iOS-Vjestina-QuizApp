@@ -34,7 +34,12 @@ class LoginPresenter: LoginPresenterProtocol {
                 }
             case .success:
                 DispatchQueue.main.async {
-                    self.coordinator?.handleLogin()
+                    self.delegate?.handleSignInSuccess(completionHandler: { [weak self]
+                        _ in
+                        guard let self = self else { return }
+                        
+                        self.coordinator?.handleLogin()
+                    })
                 }
             }
         })

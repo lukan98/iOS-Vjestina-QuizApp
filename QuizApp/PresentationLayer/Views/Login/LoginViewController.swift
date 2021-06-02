@@ -23,8 +23,15 @@ class LoginViewController: UIViewController, LoginDelegate {
         setUpActions()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.entranceAnimations(1.5, options: .curveEaseInOut)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
+        self.animationStartLayout()
     }
 }
 
@@ -61,5 +68,9 @@ extension LoginViewController {
     func handleSignInError(errorMessage error: String) {
         errorMessage.text = error
         showError()
+    }
+    
+    func handleSignInSuccess(completionHandler: @escaping (Bool) -> Void) {
+        self.exitAnimations(options: .curveLinear, completionHandler: completionHandler)
     }
 }
