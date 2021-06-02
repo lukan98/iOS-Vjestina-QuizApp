@@ -56,6 +56,8 @@
 		FC615FAB262236B6004B1ACB /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC615FAA262236B6004B1ACB /* Button.swift */; };
 		FC615FB426238BB4004B1ACB /* ErrorLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC615FB326238BB4004B1ACB /* ErrorLabel.swift */; };
 		FC615FB92623B224004B1ACB /* QuizzesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC615FB82623B224004B1ACB /* QuizzesViewController.swift */; };
+		FC75427C2667F6350050C8AE /* MainCoordinator+Transitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC75427B2667F6350050C8AE /* MainCoordinator+Transitions.swift */; };
+		FC75427F26682B040050C8AE /* TransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC75427E26682B040050C8AE /* TransitionAnimator.swift */; };
 		FCB23E43261B385E00405F5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB23E42261B385E00405F5D /* AppDelegate.swift */; };
 		FCB23E45261B385E00405F5D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB23E44261B385E00405F5D /* SceneDelegate.swift */; };
 		FCB23E4C261B386000405F5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCB23E4B261B386000405F5D /* Assets.xcassets */; };
@@ -157,6 +159,8 @@
 		FC615FAA262236B6004B1ACB /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		FC615FB326238BB4004B1ACB /* ErrorLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabel.swift; sourceTree = "<group>"; };
 		FC615FB82623B224004B1ACB /* QuizzesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizzesViewController.swift; sourceTree = "<group>"; };
+		FC75427B2667F6350050C8AE /* MainCoordinator+Transitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainCoordinator+Transitions.swift"; sourceTree = "<group>"; };
+		FC75427E26682B040050C8AE /* TransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimator.swift; sourceTree = "<group>"; };
 		FCB23E3F261B385E00405F5D /* QuizApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCB23E42261B385E00405F5D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCB23E44261B385E00405F5D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -612,6 +616,8 @@
 			isa = PBXGroup;
 			children = (
 				FCE7B472263F804C00BF50A3 /* MainCoordinator.swift */,
+				FC75427E26682B040050C8AE /* TransitionAnimator.swift */,
+				FC75427B2667F6350050C8AE /* MainCoordinator+Transitions.swift */,
 				FCE2A06B264B23AA00B88387 /* Protocols */,
 			);
 			path = Coordinators;
@@ -812,12 +818,14 @@
 				FCE0207B266117FD00F97F5E /* QuizNetworkDataSource.swift in Sources */,
 				FC2D77072663BAEA001D7D4F /* LeaderboardUseCase.swift in Sources */,
 				FCE2A081264B3F6800B88387 /* QuizzesPresenter.swift in Sources */,
+				FC75427C2667F6350050C8AE /* MainCoordinator+Transitions.swift in Sources */,
 				FC615F9B26220ED7004B1ACB /* Label.swift in Sources */,
 				FCE7B47B2642D3D100BF50A3 /* QuizResultViewController.swift in Sources */,
 				FCE2A09C264C1CB200B88387 /* LeaderboardPresenter.swift in Sources */,
 				FCE7B47D2642EEB600BF50A3 /* QuizViewController.swift in Sources */,
 				FCE7B48726443BFC00BF50A3 /* SettingsViewController.swift in Sources */,
 				FC2D76C72662933F001D7D4F /* QuizUseCase.swift in Sources */,
+				FC75427F26682B040050C8AE /* TransitionAnimator.swift in Sources */,
 				FCE2A097264C1C1A00B88387 /* LeaderboardDelegate.swift in Sources */,
 				FC2D77092663BAF5001D7D4F /* LeaderboardUseCaseProtocol.swift in Sources */,
 				FCE7B479264189CB00BF50A3 /* NavBar.swift in Sources */,

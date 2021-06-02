@@ -19,6 +19,19 @@ class TextField: UITextField {
         self.layer.borderColor = UIColor.white.cgColor
     }
     
+    init(_ from: TextField) {
+        super.init(frame: CGRect())
+        self.backgroundColor = from.backgroundColor
+        self.textColor = from.textColor
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.textAlignment = from.textAlignment
+        self.layer.cornerRadius = from.layer.cornerRadius
+        self.layer.borderColor = from.layer.borderColor
+        self.layer.borderWidth = from.layer.borderWidth
+        self.text = from.text
+        self.isSecureTextEntry = from.isSecureTextEntry
+    }
+    
     convenience init(font: UIFont, placeholderText: String, isSecure: Bool) {
         self.init(frame: CGRect())
         self.font = font

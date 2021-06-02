@@ -16,6 +16,14 @@ class Button: UIButton {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    init(_ from: Button) {
+        super.init(frame: CGRect())
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.layer.cornerRadius = from.layer.cornerRadius
+        self.setAttributedTitle(from.currentAttributedTitle, for: .normal)
+        self.backgroundColor = from.backgroundColor
+    }
+    
     convenience init(font: UIFont, title: String) {
         self.init(frame: CGRect())
         let attributedTitle = NSAttributedString(string: title,

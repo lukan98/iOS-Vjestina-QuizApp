@@ -9,5 +9,4 @@ import Foundation
 
 protocol LoginDelegate: AnyObject { 
     func handleSignInError(errorMessage error: String)
-    func handleSignInSuccess(completionHandler: @escaping (Bool) -> Void)
 }

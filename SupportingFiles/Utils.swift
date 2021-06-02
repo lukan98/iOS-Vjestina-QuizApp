@@ -44,12 +44,16 @@ extension UIView {
         gradient.endPoint = CGPoint(x: 0.5, y: 1)
         layer.insertSublayer(gradient, at: 0)
     }
+    
+    func applyBackgroundGradient(colors: [UIColor] = [UIColor.PopQuizPalette.purple, UIColor.PopQuizPalette.navy]) -> Void {
+        let viewSize = max(UIScreen.main.bounds.height, UIScreen.main.bounds.width)
+        self.applyGradient(colors: colors, size: CGSize(width: viewSize, height: viewSize))
+    }
 }
 
 extension UIViewController {
     func colorBackground(colors: [UIColor] = [UIColor.PopQuizPalette.purple, UIColor.PopQuizPalette.navy]) -> Void {
-        let viewSize = max(UIScreen.main.bounds.height, UIScreen.main.bounds.width)
-        self.view.applyGradient(colors: colors, size: CGSize(width: viewSize, height: viewSize))
+        self.view.applyBackgroundGradient(colors: colors)
     }
 }
 

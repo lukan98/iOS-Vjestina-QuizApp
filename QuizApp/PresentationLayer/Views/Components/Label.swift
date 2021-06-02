@@ -18,6 +18,16 @@ class Label: UILabel {
         self.numberOfLines = 0
     }
     
+    init(_ from: Label) {
+        super.init(frame: CGRect())
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.backgroundColor = from.backgroundColor
+        self.textColor = from.textColor
+        self.textAlignment = from.textAlignment
+        self.font = from.font
+        self.text = from.text
+    }
+    
     convenience init(text: String, font: UIFont) {
         self.init(frame: CGRect())
         self.text = text

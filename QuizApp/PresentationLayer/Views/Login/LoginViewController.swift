@@ -69,8 +69,4 @@ extension LoginViewController {
         errorMessage.text = error
         showError()
     }
-    
-    func handleSignInSuccess(completionHandler: @escaping (Bool) -> Void) {
-        self.exitAnimations(options: .curveLinear, completionHandler: completionHandler)
-    }
 }

@@ -103,8 +103,7 @@ extension LoginViewController {
                        })
     }
     
-    func exitAnimations(_ animationDuration: Double = 0.25, options: UIView.AnimationOptions,
-                        completionHandler: @escaping (Bool) -> Void) {
+    func exitAnimations(_ animationDuration: Double = 0.25, options: UIView.AnimationOptions) {
         UIView.animate(withDuration: animationDuration,
                        delay: 0,
                        options: options,
@@ -128,8 +127,7 @@ extension LoginViewController {
                        options: options,
                        animations: {
                         self.signInButton.transform = self.signInButton.transform.translatedBy(x: 0, y: -self.view.frame.height)
-                       },
-                       completion: completionHandler)
+                       })
     }
     
     func animationStartLayout() {

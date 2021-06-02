@@ -8,14 +8,18 @@
 import Foundation
 import UIKit
 
-class MainCoordinator: Coordinator {
+class MainCoordinator: NSObject, Coordinator {
     var navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
-    func start() {
+    func start(in window: UIWindow) {
+        self.navigationController.delegate = self
+        window.rootViewController = navigationController
+        window.makeKeyAndVisible()
+        
         let loginVC = LoginViewController()
         let loginPresenter = LoginPresenter(delegate: loginVC, coordinator: self)
         loginVC.presenter = loginPresenter
