@@ -103,33 +103,6 @@ extension LoginViewController {
                        })
     }
     
-    func exitAnimations(_ animationDuration: Double = 0.25, options: UIView.AnimationOptions) {
-        UIView.animate(withDuration: animationDuration,
-                       delay: 0,
-                       options: options,
-                       animations: {
-                        self.appTitle.transform = self.appTitle.transform.translatedBy(x: 0, y: -self.view.frame.height)
-                       })
-        UIView.animate(withDuration: animationDuration,
-                       delay: 0.25,
-                       options: options,
-                       animations: {
-                        self.emailField.transform = self.emailField.transform.translatedBy(x: 0, y: -self.view.frame.height)
-                       })
-        UIView.animate(withDuration: animationDuration,
-                       delay: 0.5,
-                       options: options,
-                       animations: {
-                        self.passwordField.transform = self.passwordField.transform.translatedBy(x: 0, y: -self.view.frame.height)
-                       })
-        UIView.animate(withDuration: animationDuration,
-                       delay: 0.75,
-                       options: options,
-                       animations: {
-                        self.signInButton.transform = self.signInButton.transform.translatedBy(x: 0, y: -self.view.frame.height)
-                       })
-    }
-    
     func animationStartLayout() {
         appTitle.transform = appTitle.transform.scaledBy(x: 0, y: 0)
         appTitle.alpha = 0
