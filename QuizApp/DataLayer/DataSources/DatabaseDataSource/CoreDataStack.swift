@@ -8,6 +8,8 @@
 import CoreData
 
 class CoreDataStack {
+    
+    static var sharedStacks: [String:CoreDataStack] = [:]
 
     private let modelName: String
 
@@ -15,7 +17,7 @@ class CoreDataStack {
         return self.storeContainer.viewContext
     }()
 
-    init(modelName: String) {
+    private init(modelName: String) {
         self.modelName = modelName
     }
 
@@ -28,6 +30,16 @@ class CoreDataStack {
         }
         return container
     }()
+    
+    static func getStackFor(modelName: String) -> CoreDataStack {
+        if let sharedStack = sharedStacks[modelName] {
+            return sharedStack
+        } else {
+            let newStack = CoreDataStack(modelName: modelName)
+            sharedStacks[modelName] = newStack
+            return newStack
+        }
+    }
 
     func saveContext () {
         guard managedContext.hasChanges else { return }

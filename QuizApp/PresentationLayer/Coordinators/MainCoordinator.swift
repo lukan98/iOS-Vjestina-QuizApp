@@ -106,7 +106,7 @@ extension MainCoordinator: QuizzesCoordinator {
 extension MainCoordinator {
     
     private func createQuizUseCase() -> QuizUseCase {
-        let coreDataContext = CoreDataStack(modelName: .DefaultStrings.modelName).managedContext
+        let coreDataContext = CoreDataStack.getStackFor(modelName: .DefaultStrings.modelName).managedContext
         let quizRepository = QuizRepository(databaseDataSource: QuizDatabaseDataSource(coreDataContext: coreDataContext),
                                             networkDataSource: QuizNetworkDataSource())
         return QuizUseCase(quizRepository: quizRepository)
