@@ -1,3 +1,16 @@
-PODFILE CHECKSUM: 5094765c6c649c0cb02825a3e15ee4a9839edcfa
+PODS:
+  - Reachability (3.2)
+
+DEPENDENCIES:
+  - Reachability (~> 3.2)
+
+SPEC REPOS:
+  trunk:
+    - Reachability
+
+SPEC CHECKSUMS:
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+
+PODFILE CHECKSUM: 79e7470042f1c055d7d4bb2ec4a6a8a0a7e18db4
 
 COCOAPODS: 1.10.1
