@@ -246,12 +246,12 @@
 		FC2D76C52662931D001D7D4F /* DomainLayer */ = {
 			isa = PBXGroup;
 			children = (
-				FC2D76C82662936B001D7D4F /* QuizUseCaseProtocol.swift */,
-				FC2D76C62662933F001D7D4F /* QuizUseCase.swift */,
-				FC2D76CF26629C91001D7D4F /* UserUseCaseProtocol.swift */,
-				FC2D76D126629E4A001D7D4F /* UserUseCase.swift */,
 				FC2D77062663BAEA001D7D4F /* LeaderboardUseCase.swift */,
 				FC2D77082663BAF5001D7D4F /* LeaderboardUseCaseProtocol.swift */,
+				FC2D76C62662933F001D7D4F /* QuizUseCase.swift */,
+				FC2D76C82662936B001D7D4F /* QuizUseCaseProtocol.swift */,
+				FC2D76D126629E4A001D7D4F /* UserUseCase.swift */,
+				FC2D76CF26629C91001D7D4F /* UserUseCaseProtocol.swift */,
 			);
 			path = DomainLayer;
 			sourceTree = "<group>";
@@ -324,10 +324,10 @@
 		FC615F8F26220A16004B1ACB /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				FC2D76CD26629961001D7D4F /* QuizViewModel.swift */,
+				FC2D77162663FA60001D7D4F /* LeaderboardResultViewModel.swift */,
 				FC2D76D32662A9D8001D7D4F /* QuestionViewModel.swift */,
 				FC2D77142663FA41001D7D4F /* QuizResultViewModel.swift */,
-				FC2D77162663FA60001D7D4F /* LeaderboardResultViewModel.swift */,
+				FC2D76CD26629961001D7D4F /* QuizViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -401,10 +401,10 @@
 		FCE0207F26624A8B00F97F5E /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				FCE7B471263F48D800BF50A3 /* Coordinators */,
+				FCE2A06C264B240B00B88387 /* Presenters */,
 				FC615F8F26220A16004B1ACB /* ViewModels */,
 				FC615F8D262209E9004B1ACB /* Views */,
-				FCE2A06C264B240B00B88387 /* Presenters */,
-				FCE7B471263F48D800BF50A3 /* Coordinators */,
 			);
 			path = PresentationLayer;
 			sourceTree = "<group>";
@@ -412,10 +412,10 @@
 		FCE0208026624B5E00F97F5E /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
-				FC2D76CA26629837001D7D4F /* Models */,
-				FC405C6A264DB4BB003FD41A /* Services */,
-				FCE020732661171500F97F5E /* Repository */,
 				FCE0208126624B7000F97F5E /* DataSources */,
+				FC2D76CA26629837001D7D4F /* Models */,
+				FCE020732661171500F97F5E /* Repository */,
+				FC405C6A264DB4BB003FD41A /* Services */,
 			);
 			path = DataLayer;
 			sourceTree = "<group>";
@@ -474,7 +474,6 @@
 		FCE2A06C264B240B00B88387 /* Presenters */ = {
 			isa = PBXGroup;
 			children = (
-				FCE2A079264B367000B88387 /* Presenter.swift */,
 				FCE2A098264C1C8F00B88387 /* Leaderboard */,
 				FCE2A06D264B245E00B88387 /* Login */,
 				FCE2A086264C010700B88387 /* Quiz */,
@@ -482,6 +481,7 @@
 				FCE2A07D264B3F4800B88387 /* Quizzes */,
 				FC2D770F2663C8E5001D7D4F /* Search */,
 				FCE2A09E264C274E00B88387 /* Settings */,
+				FCE2A079264B367000B88387 /* Presenter.swift */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -615,10 +615,10 @@
 		FCE7B471263F48D800BF50A3 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
-				FCE7B472263F804C00BF50A3 /* MainCoordinator.swift */,
-				FC75427E26682B040050C8AE /* TransitionAnimator.swift */,
-				FC75427B2667F6350050C8AE /* MainCoordinator+Transitions.swift */,
 				FCE2A06B264B23AA00B88387 /* Protocols */,
+				FCE7B472263F804C00BF50A3 /* MainCoordinator.swift */,
+				FC75427B2667F6350050C8AE /* MainCoordinator+Transitions.swift */,
+				FC75427E26682B040050C8AE /* TransitionAnimator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";

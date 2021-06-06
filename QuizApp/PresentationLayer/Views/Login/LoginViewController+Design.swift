@@ -103,6 +103,7 @@ extension LoginViewController {
                        })
     }
     
+    
     func animationStartLayout() {
         appTitle.transform = appTitle.transform.scaledBy(x: 0, y: 0)
         appTitle.alpha = 0
