@@ -1,0 +1,64 @@
+//
+//  LeaderboardPresenter.swift
+//  QuizApp
+//
+//  Created by Luka Namačinski on 12.05.2021..
+//
+
+import Foundation
+
+class LeaderboardPresenter: LeaderboardPresenterProtocol {
+    weak var coordinator: QuizzesCoordinator?
+    private let leaderboardUseCase: LeaderboardUseCaseProtocol = LeaderboardUseCase()
+    weak var delegate: LeaderboardDelegate?
+    
+    var quiz: QuizViewModel
+    
+    private var leaderboard: [LeaderboardResultViewModel] {
+        didSet {
+            if leaderboard.count > 0 {
+                delegate!.showTable()
+            }
+            else {
+                delegate!.showError()
+            }
+        }
+    }
+    
+    init(delegate ld: LeaderboardDelegate, coordinator qc: QuizzesCoordinator, quiz q: QuizViewModel) {
+        self.delegate = ld
+        self.coordinator = qc
+        self.leaderboard = []
+        self.quiz = q
+    }
+    
+    func fetchLeaderboard() {
+        self.leaderboardUseCase.fetchSortedLeaderboard(forQuizID: self.quiz.id, completionHander: { [weak self]
+            (result: Result<[LeaderboardResult], RequestError>) -> Void in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    self.leaderboard = []
+                    self.delegate?.setErrorMessage(message: error.localizedDescription)
+                case .success(let leaderboard):
+                    self.leaderboard = leaderboard.map({LeaderboardResultViewModel($0)})
+                }
+                self.delegate?.reloadTable()
+            }
+        })
+    }
+    
+    func getLeaderboardSize() -> (Int) {
+        return leaderboard.count
+    }
+    
+    func getUsernameFor(index at: Int) -> (String) {
+        return leaderboard[at].username
+    }
+    
+    func getScoreFor(index at: Int) -> (Double) {
+        return leaderboard[at].score
+    }
+}
